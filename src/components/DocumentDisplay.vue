@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .safe-area {
     --padding: 12px;
     padding: 12px;
@@ -20,6 +20,14 @@
       100% - max(var(--padding), env(safe-area-inset-top)) -
         max(var(--padding), env(safe-area-inset-bottom))
     );
+
+    @media screen and (min-width: 400px) and (min-height: 400px) {
+      --padding: 24px;
+    }
+
+    @media screen and (min-width: 600px) and (min-height: 600px) {
+      --padding: 36px;
+    }
   }
 
   main {
