@@ -13,6 +13,8 @@
         </RouterLink>
 
         <span class="expander" />
+
+        <slot />
       </div>
     </SafeAreaLR>
   </nav>
