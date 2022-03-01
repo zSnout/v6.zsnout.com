@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <Navigation />
+  <Navigation class="navbar" />
 
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB>
@@ -19,6 +19,7 @@
 <style scoped lang="scss">
   .document {
     position: relative;
+    z-index: 1;
 
     // This should match the size of the navigation bar. We use several values as fallbacks for old browsers.
     top: 57px;
@@ -29,5 +30,9 @@
     height: calc(100% - 57px);
     height: calc(100% - 2em - 25px);
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
+  }
+
+  .navbar {
+    z-index: 2;
   }
 </style>
