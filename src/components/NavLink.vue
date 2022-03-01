@@ -23,7 +23,7 @@
     font-size: 1em;
     border-radius: 0.25em;
     transition: background-color 0.3s;
-    padding: 0 4px;
+    padding: 0 8px;
 
     @include focus {
       background-color: #0004;
