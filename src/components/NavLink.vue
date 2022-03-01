@@ -5,15 +5,13 @@
 </script>
 
 <template>
-  <Teleport to="#navlinks">
-    <RouterLink v-if="to" class="navlink" :to="to">
-      <slot />
-    </RouterLink>
+  <RouterLink v-if="to" class="navlink" :to="to">
+    <slot />
+  </RouterLink>
 
-    <a v-else class="navlink">
-      <slot />
-    </a>
-  </Teleport>
+  <a v-else class="navlink">
+    <slot />
+  </a>
 </template>
 
 <style scoped lang="scss">
