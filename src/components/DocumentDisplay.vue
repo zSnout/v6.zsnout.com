@@ -5,7 +5,9 @@
 </script>
 
 <template>
-  <Navigation class="navbar" />
+  <Navigation class="navbar">
+    <slot name="nav" />
+  </Navigation>
 
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB>
