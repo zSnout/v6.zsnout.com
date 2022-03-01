@@ -1,6 +1,10 @@
+<script setup lang="ts">
+  defineProps<{ keepHeight?: boolean }>();
+</script>
+
 <template>
   <div class="safe-area">
-    <div class="constrained">
+    <div :class="{ 'constrained': true, 'keep-height': keepHeight }">
       <slot />
     </div>
   </div>
@@ -25,5 +29,9 @@
   .constrained {
     max-width: 980px;
     margin: 0 auto;
+  }
+
+  .keep-height {
+    height: 100%;
   }
 </style>
