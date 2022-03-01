@@ -1,39 +1,33 @@
+<script setup>
+  import Navigation from "./Navigation.vue";
+  import SafeAreaLR from "./SafeAreaLR.vue";
+  import SafeAreaTB from "./SafeAreaTB.vue";
+</script>
+
 <template>
-  <div class="safe-area">
-    <main>
-      <slot />
-    </main>
-  </div>
+  <Navigation />
+
+  <SafeAreaLR class="document" keep-height>
+    <SafeAreaTB>
+      <main>
+        <slot />
+      </main>
+    </SafeAreaTB>
+  </SafeAreaLR>
 </template>
 
 <style scoped lang="scss">
-  .safe-area {
-    --padding: 12px;
-    padding: 12px;
-    padding-left: max(var(--padding), env(safe-area-inset-left));
-    padding-right: max(var(--padding), env(safe-area-inset-right));
-    padding-top: max(var(--padding), env(safe-area-inset-top));
-    padding-bottom: max(var(--padding), env(safe-area-inset-bottom));
-    display: flex;
-    min-height: calc(100% - 2 * var(--padding));
-    min-height: calc(
-      100% - max(var(--padding), env(safe-area-inset-top)) -
-        max(var(--padding), env(safe-area-inset-bottom))
-    );
+  .document {
+    position: relative;
 
-    @media screen and (min-width: 400px) and (min-height: 400px) {
-      --padding: 24px;
-    }
+    // This should match the size of the navigation bar. We use several values as fallbacks for old browsers.
+    top: 57px;
+    top: calc(2em + 25px);
+    top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
 
-    @media screen and (min-width: 600px) and (min-height: 600px) {
-      --padding: 36px;
-    }
-  }
-
-  main {
-    max-width: 980px;
-    padding: 0;
-    margin: 0 auto;
-    flex: 1;
+    // Again, we need to match the heights. There's not choice but to use `calc` here.
+    height: calc(100% - 57px);
+    height: calc(100% - 2em - 25px);
+    height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
   }
 </style>
