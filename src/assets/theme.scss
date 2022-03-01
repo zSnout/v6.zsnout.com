@@ -1,0 +1,18 @@
+@use "./util.scss" as *;
+
+body {
+  --background: white;
+  --text-color: black;
+  --accent-color: #13474b;
+
+  @include dark {
+    --background: #202124;
+    --text-color: white;
+    --accent-color: #a3d5d6;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-color);
+}
