@@ -6,7 +6,9 @@
   <RouterView />
 </template>
 
-<style>
+<style lang="scss">
+  @import "@/assets/theme.scss";
+
   html,
   body,
   #app {
