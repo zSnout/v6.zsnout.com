@@ -1,20 +1,12 @@
-<script lang="ts">
-  import { ref } from "vue";
-
-  export function mediaRef(query: string) {
-    let media = matchMedia(query);
-    let mediaRef = ref(media.matches);
-    media.onchange = () => (mediaRef.value = media.matches);
-    return mediaRef;
-  }
-</script>
-
 <script setup lang="ts">
-  defineProps<{ query: string }>();
+  import mediaRef from "./media-ref";
+  let { query } = defineProps<{ query: string }>();
+
+  let ref = mediaRef(query);
 </script>
 
 <template>
-  <slot :class="{ hide: !mediaRef(query).value }" />
+  <slot :class="{ hide: !ref }" />
 </template>
 
 <style>
