@@ -1,6 +1,19 @@
 <script setup lang="ts">
+  import { ref, watch } from "vue";
   import { RouterLink } from "vue-router";
+  import NavLink from "./NavLink.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
+  import SafeAreaTB from "./SafeAreaTB.vue";
+
+  let isNavDrawerOpen = ref(false);
+  let isNavDrawerActive = ref(false);
+  let query = matchMedia("(max-width: 400px)");
+  query.onchange = (ev) => (isNavDrawerOpen.value &&= ev.matches);
+
+  watch(isNavDrawerOpen, (val) => {
+    isNavDrawerActive.value = false;
+    if (val) setTimeout(() => (isNavDrawerActive.value = true));
+  });
 </script>
 
 <template>
@@ -14,7 +27,27 @@
 
         <span class="expander" />
 
-        <slot />
+        <NavLink class="mobile-nav" @click="isNavDrawerOpen = !isNavDrawerOpen">
+          <span class="mobile-nav-prefix">
+            {{ isNavDrawerOpen ? "Close" : "Open" }}&nbsp;
+          </span>
+          Navigation
+        </NavLink>
+
+        <div :class="{ 'nav-links': true, 'drawer-open': isNavDrawerOpen }">
+          <Teleport v-if="isNavDrawerOpen" to="body">
+            <SafeAreaLR class="drawer-outer" keep-width keep-height>
+              <SafeAreaTB>
+                <div :class="{ drawer: true, visible: isNavDrawerActive }">
+                  <NavLink to="/">Home</NavLink>
+                  <slot />
+                </div>
+              </SafeAreaTB>
+            </SafeAreaLR>
+          </Teleport>
+
+          <slot v-else />
+        </div>
       </div>
     </SafeAreaLR>
   </nav>
@@ -33,9 +66,50 @@
     padding: 12px 0;
     padding-top: max(12px, env(safe-area-inset-top));
     border-bottom: 1px solid #b2b2b2;
+    user-select: none;
 
     @include dark {
       background-color: #345558;
+    }
+  }
+
+  .drawer {
+    z-index: 3;
+    position: relative;
+    top: -100vh;
+    transition: top 1s;
+    border-radius: 0.5em;
+    background-color: #dcecee;
+    height: 100%;
+    overflow-x: hidden;
+
+    &.visible {
+      top: 0;
+    }
+
+    @include dark {
+      background-color: #2f3035;
+    }
+  }
+
+  .drawer-outer {
+    position: absolute;
+    z-index: 1;
+
+    // This should match the size of the navigation bar. We use several values as fallbacks for old browsers.
+    top: 57px;
+    top: calc(2em + 25px);
+    top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
+
+    // Again, we need to match the heights. There's not choice but to use `calc` here.
+    height: calc(100% - 57px);
+    height: calc(100% - 2em - 25px);
+    height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
+  }
+
+  .drawer-open {
+    @media (max-width: 400px) {
+      display: block;
     }
   }
 
@@ -47,6 +121,26 @@
 
   .expander {
     flex-grow: 1;
+  }
+
+  .mobile-nav {
+    display: none;
+
+    @media (max-width: 400px) {
+      display: inline-flex;
+    }
+
+    @media (max-width: 300px) {
+      .mobile-nav-prefix {
+        display: none;
+      }
+    }
+  }
+
+  .nav-links {
+    @media (max-width: 400px) {
+      display: none;
+    }
   }
 
   .logo-link {
