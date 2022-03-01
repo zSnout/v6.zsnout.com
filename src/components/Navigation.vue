@@ -6,14 +6,27 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
 
   let isNavDrawerOpen = ref(false);
-  let isNavDrawerActive = ref(false);
+  let isNavDrawerVisible = ref(false);
   let query = matchMedia("(max-width: 400px)");
-  query.onchange = (ev) => (isNavDrawerOpen.value &&= ev.matches);
+  query.onchange = (ev) => {
+    if (!ev.matches) isNavDrawerOpen.value = false;
+    isNavDrawerVisible.value = isNavDrawerOpen.value;
+  };
 
   watch(isNavDrawerOpen, (val) => {
-    isNavDrawerActive.value = false;
-    if (val) setTimeout(() => (isNavDrawerActive.value = true));
+    isNavDrawerVisible.value = false;
+    if (val) setTimeout(() => (isNavDrawerVisible.value = true));
   });
+
+  function toggleDrawer() {
+    if (isNavDrawerOpen.value) {
+      isNavDrawerVisible.value = false;
+      setTimeout(() => (isNavDrawerOpen.value = false), 1000);
+    } else {
+      isNavDrawerOpen.value = true;
+      isNavDrawerVisible.value = true;
+    }
+  }
 </script>
 
 <template>
@@ -27,7 +40,7 @@
 
         <span class="expander" />
 
-        <NavLink class="mobile-nav" @click="isNavDrawerOpen = !isNavDrawerOpen">
+        <NavLink class="mobile-nav" @click="toggleDrawer">
           <span class="mobile-nav-prefix">
             {{ isNavDrawerOpen ? "Close" : "Open" }}&nbsp;
           </span>
@@ -38,7 +51,7 @@
           <Teleport v-if="isNavDrawerOpen" to="body">
             <SafeAreaLR class="drawer-outer" keep-width keep-height>
               <SafeAreaTB>
-                <div :class="{ drawer: true, visible: isNavDrawerActive }">
+                <div :class="{ drawer: true, visible: isNavDrawerVisible }">
                   <NavLink to="/">Home</NavLink>
                   <slot />
                 </div>
