@@ -1,13 +1,19 @@
 <script setup lang="ts">
   import { RouterLink } from "vue-router";
 
-  defineProps<{ to: string }>();
+  defineProps<{ to?: string }>();
 </script>
 
 <template>
-  <RouterLink class="navlink" :to="to">
-    <slot />
-  </RouterLink>
+  <Teleport to="#navlinks">
+    <RouterLink v-if="to" class="navlink" :to="to">
+      <slot />
+    </RouterLink>
+
+    <a v-else class="navlink">
+      <slot />
+    </a>
+  </Teleport>
 </template>
 
 <style scoped lang="scss">
@@ -24,6 +30,7 @@
     border-radius: 0.25em;
     transition: background-color 0.3s;
     padding: 0 8px;
+    cursor: pointer;
 
     @include focus {
       background-color: #0004;
