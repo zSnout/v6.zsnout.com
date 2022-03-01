@@ -1,11 +1,11 @@
 <script setup>
-  import { RouterLink } from "vue-router";
   import DocumentDisplay from "../components/DocumentDisplay.vue";
+  import NavLink from "../components/NavLink.vue";
 </script>
 
 <template>
   <DocumentDisplay>
     <h1>Well, you've found a broken link...</h1>
-    <RouterLink to="/">Home</RouterLink>
+    <NavLink to="/">Go Home</NavLink>
   </DocumentDisplay>
 </template>
