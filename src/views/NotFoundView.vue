@@ -5,7 +5,10 @@
 
 <template>
   <DocumentDisplay>
+    <template #nav>
+      <NavLink to="/">Home</NavLink>
+    </template>
+
     <h1>Well, you've found a broken link...</h1>
-    <NavLink to="/">Go Home</NavLink>
   </DocumentDisplay>
 </template>
