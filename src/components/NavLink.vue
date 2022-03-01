@@ -24,7 +24,7 @@
     align-items: center;
     color: inherit;
     text-decoration: none;
-    font-size: 1em;
+    font-size: inherit;
     border-radius: 0.25em;
     transition: background-color 0.3s;
     padding: 0 8px;
@@ -33,5 +33,21 @@
     @include focus {
       background-color: #0004;
     }
+  }
+
+  .drawer .navlink {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 4px 0;
+    border-radius: 0;
+
+    @include focus {
+      background-color: #fff2;
+    }
+  }
+
+  [href="/"] + [href="/"] {
+    display: none;
   }
 </style>
