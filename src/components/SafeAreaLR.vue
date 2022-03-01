@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  defineProps<{ keepHeight?: boolean }>();
+  defineProps<{ keepWidth?: boolean; keepHeight?: boolean }>();
 </script>
 
 <template>
-  <div class="safe-area">
+  <div :class="{ 'safe-area': true, 'keep-width': keepWidth }">
     <div :class="{ 'constrained': true, 'keep-height': keepHeight }">
       <slot />
     </div>
@@ -33,5 +33,14 @@
 
   .keep-height {
     height: 100%;
+  }
+
+  .keep-width {
+    width: calc(100% - 24px);
+    width: calc(100% - 2 * var(--padding));
+    width: calc(
+      100% - max(var(--padding), env(safe-area-inset-left)) -
+        max(var(--padding), env(safe-area-inset-right))
+    );
   }
 </style>
