@@ -18,10 +18,17 @@
     if (val) setTimeout(() => (isNavDrawerVisible.value = true));
   });
 
+  let timeoutID = 0;
   function toggleDrawer() {
-    if (isNavDrawerOpen.value) {
+    if (isNavDrawerOpen.value !== isNavDrawerVisible.value) {
+      isNavDrawerOpen.value = true;
+      isNavDrawerVisible.value = true;
+    } else if (isNavDrawerOpen.value && isNavDrawerVisible.value) {
       isNavDrawerVisible.value = false;
-      setTimeout(() => (isNavDrawerOpen.value = false), 1000);
+      let myID = (timeoutID = setTimeout(
+        () => myID == timeoutID && (isNavDrawerOpen.value = false),
+        1000
+      ));
     } else {
       isNavDrawerOpen.value = true;
       isNavDrawerVisible.value = true;
@@ -41,9 +48,7 @@
         <span class="expander" />
 
         <NavLink class="mobile-nav" @click="toggleDrawer">
-          <span class="mobile-nav-prefix">
-            {{ isNavDrawerOpen ? "Close" : "Open" }}&nbsp;
-          </span>
+          <span class="mobile-nav-prefix"> Toggle&nbsp; </span>
           Navigation
         </NavLink>
 
