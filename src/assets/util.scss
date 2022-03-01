@@ -1,0 +1,11 @@
+@mixin dark {
+  @media screen and (prefers-color-scheme: dark) {
+    :root:not(.theme-light) & {
+      @content;
+    }
+  }
+
+  :root.theme-dark & {
+    @content;
+  }
+}
