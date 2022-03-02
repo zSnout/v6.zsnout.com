@@ -172,10 +172,22 @@
     display: inline-flex;
     align-items: center;
     height: 2em;
+
+    @include focus {
+      outline: none;
+
+      .logo {
+        background-color: #0002;
+      }
+    }
   }
 
   .logo {
     height: 2em;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    transition: background-color 0.3s;
+    display: inline-block;
 
     @media (max-width: 400px) {
       height: 1.5em;
