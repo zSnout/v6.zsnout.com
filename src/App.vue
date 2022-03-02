@@ -26,7 +26,7 @@
   }
 
   a {
-    color: var(--accent-color);
+    color: var(--link-color);
     text-decoration: none;
 
     @include focus {
