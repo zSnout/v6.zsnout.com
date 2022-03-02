@@ -1,11 +1,13 @@
-<script setup>
+<script setup lang="ts">
   import Navigation from "./Navigation.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
+
+  defineProps<{ navBrakpoint?: number }>();
 </script>
 
 <template>
-  <Navigation class="navbar">
+  <Navigation class="navbar" :breakpoint="navBrakpoint">
     <slot name="nav" />
   </Navigation>
 
