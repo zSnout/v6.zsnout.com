@@ -61,14 +61,23 @@
           }"
         >
           <Teleport v-if="isNavDrawerOpen" to="body">
-            <SafeAreaLR class="drawer-outer" keep-width keep-height>
-              <SafeAreaTB>
-                <div :class="{ drawer: true, visible: isNavDrawerVisible }">
-                  <NavLink to="/">Home</NavLink>
-                  <slot />
-                </div>
-              </SafeAreaTB>
-            </SafeAreaLR>
+            <div class="mobile-nav-outer">
+              <div
+                :class="{
+                  'mobile-nav-bg': true,
+                  'visible': isNavDrawerVisible,
+                }"
+              ></div>
+
+              <SafeAreaLR class="drawer-outer" keep-width keep-height>
+                <SafeAreaTB explicit-height>
+                  <div :class="{ drawer: true, visible: isNavDrawerVisible }">
+                    <NavLink to="/">Home</NavLink>
+                    <slot />
+                  </div>
+                </SafeAreaTB>
+              </SafeAreaLR>
+            </div>
           </Teleport>
 
           <slot v-else />
@@ -99,21 +108,15 @@
   }
 
   .drawer {
-    z-index: 3;
     position: relative;
     top: -100vh;
     transition: top 1s;
     border-radius: 0.5em;
-    background-color: #dcecee;
     height: 100%;
     overflow-x: hidden;
 
     &.visible {
       top: 0;
-    }
-
-    @include dark {
-      background-color: #2f3035;
     }
   }
 
@@ -150,6 +153,35 @@
 
   .mobile-nav {
     display: none;
+  }
+
+  .mobile-nav-outer {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .mobile-nav-bg {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #dcecee;
+    opacity: 0;
+    transition: opacity 1s;
+
+    @include dark {
+      background-color: #2f3035;
+    }
+
+    &.visible {
+      opacity: 0.25;
+    }
   }
 
   .passed-breakpoint {

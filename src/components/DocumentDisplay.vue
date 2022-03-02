@@ -41,6 +41,6 @@
   }
 
   .navbar {
-    z-index: 2;
+    z-index: 3;
   }
 </style>
