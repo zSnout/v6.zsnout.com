@@ -32,16 +32,6 @@
       setTimeout(() => (isNavDrawerVisible.value = true));
     }
   }
-
-  // setInterval(() => {
-  //   console.log({
-  //     open: isNavDrawerOpen.value,
-  //     visible: isNavDrawerVisible.value,
-  //     breakpoint: bp.value,
-  //     matched: bp.media.matches,
-  //     media: bp.media.media,
-  //   });
-  // });
 </script>
 
 <template>
