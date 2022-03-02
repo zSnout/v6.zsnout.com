@@ -1,39 +1,47 @@
 <script setup lang="ts">
   import { ref, watch } from "vue";
   import { RouterLink } from "vue-router";
+  import { mediaRef } from "./MatchMedia.vue";
   import NavLink from "./NavLink.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
 
+  let { breakpoint } = defineProps<{ breakpoint?: number }>();
+  let bp = mediaRef(`(max-width: ${Math.max(breakpoint || 0, 400)}px)`);
+
+  watch(bp, (val) => {
+    if (!val) {
+      isNavDrawerOpen.value = false;
+      isNavDrawerVisible.value = false;
+    }
+  });
+
   let isNavDrawerOpen = ref(false);
   let isNavDrawerVisible = ref(false);
-  let query = matchMedia("(max-width: 400px)");
-  query.onchange = (ev) => {
-    if (!ev.matches) isNavDrawerOpen.value = false;
-    isNavDrawerVisible.value = isNavDrawerOpen.value;
-  };
-
-  watch(isNavDrawerOpen, (val) => {
-    isNavDrawerVisible.value = false;
-    if (val) setTimeout(() => (isNavDrawerVisible.value = true));
-  });
 
   let timeoutID = 0;
   function toggleDrawer() {
-    if (isNavDrawerOpen.value !== isNavDrawerVisible.value) {
-      isNavDrawerOpen.value = true;
-      isNavDrawerVisible.value = true;
-    } else if (isNavDrawerOpen.value && isNavDrawerVisible.value) {
+    if (isNavDrawerOpen.value && isNavDrawerVisible.value) {
       isNavDrawerVisible.value = false;
-      let myID = (timeoutID = setTimeout(
-        () => myID == timeoutID && (isNavDrawerOpen.value = false),
-        1000
-      ));
+      let myID = (timeoutID = setTimeout(() => {
+        if (myID == timeoutID) isNavDrawerOpen.value = false;
+      }, 1000));
     } else {
       isNavDrawerOpen.value = true;
-      isNavDrawerVisible.value = true;
+      isNavDrawerVisible.value = false;
+      setTimeout(() => (isNavDrawerVisible.value = true));
     }
   }
+
+  // setInterval(() => {
+  //   console.log({
+  //     open: isNavDrawerOpen.value,
+  //     visible: isNavDrawerVisible.value,
+  //     breakpoint: bp.value,
+  //     matched: bp.media.matches,
+  //     media: bp.media.media,
+  //   });
+  // });
 </script>
 
 <template>
@@ -47,12 +55,21 @@
 
         <span class="expander" />
 
-        <NavLink class="mobile-nav" @click="toggleDrawer">
-          <span class="mobile-nav-prefix"> Toggle&nbsp; </span>
+        <NavLink
+          :class="{ 'mobile-nav': true, 'passed-breakpoint': bp }"
+          @click="toggleDrawer"
+        >
+          <span class="mobile-nav-prefix">Toggle&nbsp;</span>
           Navigation
         </NavLink>
 
-        <div :class="{ 'nav-links': true, 'drawer-open': isNavDrawerOpen }">
+        <div
+          :class="{
+            'nav-links': true,
+            'passed-breakpoint': bp,
+            'drawer-open': isNavDrawerOpen,
+          }"
+        >
           <Teleport v-if="isNavDrawerOpen" to="body">
             <SafeAreaLR class="drawer-outer" keep-width keep-height>
               <SafeAreaTB>
@@ -143,20 +160,20 @@
 
   .mobile-nav {
     display: none;
+  }
 
-    @media (max-width: 400px) {
+  .passed-breakpoint {
+    &.mobile-nav {
       display: inline-flex;
     }
 
-    @media (max-width: 300px) {
-      .mobile-nav-prefix {
-        display: none;
-      }
+    &.nav-links {
+      display: none;
     }
   }
 
-  .nav-links {
-    @media (max-width: 400px) {
+  .mobile-nav-prefix {
+    @media (max-width: 300px) {
       display: none;
     }
   }
