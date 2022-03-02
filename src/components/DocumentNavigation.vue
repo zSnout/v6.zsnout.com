@@ -7,7 +7,7 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
 
   let { breakpoint } = defineProps<{ breakpoint?: number }>();
-  let bp = mediaRef(`(max-width: ${Math.max(breakpoint || 0, 400)}px)`);
+  let bp = mediaRef(`(max-width: ${breakpoint || 415}px)`);
 
   watch(bp, (val) => {
     if (!val) {
