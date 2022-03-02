@@ -40,10 +40,13 @@
     justify-content: center;
     text-align: center;
     padding: 4px 0;
-    border-radius: 0;
+    margin-bottom: 0.5em;
+    background-color: #2f3035;
+    color: white;
 
-    @include focus {
-      background-color: #fff2;
+    @include dark {
+      background-color: #dcecee;
+      color: black;
     }
   }
 

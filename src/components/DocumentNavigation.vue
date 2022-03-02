@@ -70,11 +70,12 @@
               ></div>
 
               <SafeAreaLR class="drawer-outer" keep-width keep-height>
-                <SafeAreaTB explicit-height>
-                  <div :class="{ drawer: true, visible: isNavDrawerVisible }">
-                    <NavLink to="/">Home</NavLink>
-                    <slot />
-                  </div>
+                <SafeAreaTB
+                  explicit-height
+                  :class="{ drawer: true, visible: isNavDrawerVisible }"
+                >
+                  <NavLink to="/">Home</NavLink>
+                  <slot />
                 </SafeAreaTB>
               </SafeAreaLR>
             </div>
@@ -111,9 +112,8 @@
     position: relative;
     top: -100vh;
     transition: top 1s;
-    border-radius: 0.5em;
     height: 100%;
-    overflow-x: hidden;
+    overflow-y: auto;
 
     &.visible {
       top: 0;
@@ -180,7 +180,7 @@
     }
 
     &.visible {
-      opacity: 0.25;
+      opacity: 0.75;
     }
   }
 
