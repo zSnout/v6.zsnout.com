@@ -1,5 +1,9 @@
+<script setup lang="ts">
+  defineProps<{ explicitHeight?: boolean }>();
+</script>
+
 <template>
-  <div class="safe-area">
+  <div :class="{ 'safe-area': true, 'explicit-height': explicitHeight }">
     <slot />
   </div>
 </template>
@@ -10,8 +14,8 @@
     padding: 12px 0;
     padding-top: var(--padding);
     padding-bottom: max(var(--padding), env(safe-area-inset-right));
-    height: calc(100% - 24px);
-    height: calc(
+    min-height: calc(100% - 24px);
+    min-height: calc(
       100% - var(--padding) - max(var(--padding), env(safe-area-inset-right))
     );
 
@@ -21,6 +25,14 @@
 
     @media screen and (min-width: 600px) and (min-height: 600px) {
       --padding: 36px;
+    }
+
+    &.explicit-height {
+      min-height: unset;
+      height: calc(100% - 24px);
+      height: calc(
+        100% - var(--padding) - max(var(--padding), env(safe-area-inset-right))
+      );
     }
   }
 </style>
