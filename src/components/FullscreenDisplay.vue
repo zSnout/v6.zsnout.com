@@ -1,5 +1,9 @@
+<script setup lang="ts">
+  defineProps<{ resizeChild?: boolean }>();
+</script>
+
 <template>
-  <main>
+  <main :class="{ 'resize-child': resizeChild }">
     <slot />
   </main>
 </template>
@@ -13,5 +17,11 @@
     bottom: 0;
     right: 0;
     padding: 0;
+  }
+
+  .resize-child:deep() > * {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 </style>
