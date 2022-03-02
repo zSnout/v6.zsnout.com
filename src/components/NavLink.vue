@@ -5,11 +5,11 @@
 </script>
 
 <template>
-  <RouterLink v-if="to" class="navlink" :to="to">
+  <RouterLink v-if="to" class="navlink" :to="to" tabindex="0">
     <slot />
   </RouterLink>
 
-  <a v-else class="navlink">
+  <a v-else class="navlink" tabindex="0">
     <slot />
   </a>
 </template>
