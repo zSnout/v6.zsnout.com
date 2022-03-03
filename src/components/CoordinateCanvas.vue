@@ -70,6 +70,14 @@
         render();
       },
     });
+
+    // I know that the resize event isn't dispatched on canvases, but FSCanvas does it for us.
+    canvas.addEventListener("resize", () => {
+      let { scale, offset } = computeScaleAndOffset();
+      gl.uniform2f(scaleLoc, ...scale);
+      gl.uniform2f(offsetLoc, ...offset);
+      render();
+    });
   }
 </script>
 
