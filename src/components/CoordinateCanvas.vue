@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { Ref } from "vue";
+  import { unref, type Ref } from "vue";
   import WebGL2Canvas, { type WebGl2ProgramInfo } from "./WebGL2Canvas.vue";
 
   export interface CoordinateList {
@@ -18,6 +18,9 @@
   let { shader } = defineProps<{ shader: string | Ref<string> }>();
 
   let coordConvertShader = `
+  #version 300 es
+  precision highp float;
+
   uniform vec2 scale;
   uniform vec2 offset;
   vec2 convert(vec2 pos) {
@@ -71,7 +74,7 @@
 </script>
 
 <template>
-  <WebGL2Canvas :shader="shader + coordConvertShader" @ready="onReady">
+  <WebGL2Canvas :shader="coordConvertShader + unref(shader)" @ready="onReady">
     <template #nav>
       <slot name="nav" />
     </template>
