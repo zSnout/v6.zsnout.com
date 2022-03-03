@@ -1,6 +1,7 @@
 {
   "name": "zSnout",
   "short_name": "zSnout",
+  "start_url": "/",
   "icons": [
     {
       "src": "/pwa-192x192.png",
