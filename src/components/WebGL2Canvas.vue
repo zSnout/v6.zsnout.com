@@ -36,11 +36,11 @@
   #version 300 es
 
   precision highp float;
-  in vec2 pos;
-  out vec2 _pos;
+  in vec2 _pos;
+  out vec2 pos;
 
   void main() {
-    gl_Position = vec4(_pos = pos, 0, 1);
+    gl_Position = vec4(pos = _pos * vec2(1, -1), 0, 1);
   }
   `.trim();
 </script>
@@ -53,57 +53,34 @@
     (
       event: "ready",
       info: {
-        getLocation: typeof getLocation;
-        setUniform: typeof setUniform;
-        render(): void;
         gl: WebGL2RenderingContext;
+        program: WebGLProgram;
+        render(): void;
       }
     ): void;
   }>();
 
   let { shader } = defineProps<{ shader: string | Ref<string> }>();
   let shaderRef = ref(shader);
-  let webgl: WebGL2RenderingContext | null = null;
-
-  type Slice<T extends string, U extends string> = T extends `${U}${infer K}`
-    ? K
-    : never;
-  type UniformTypes = Exclude<
-    Slice<keyof WebGL2RenderingContext, "uniform">,
-    "BlockBinding"
-  >;
-
-  function getLocation(name: string) {
-    return webgl?.getUniformLocation(webgl, name) || null;
-  }
-
-  function setUniform<T extends UniformTypes>(
-    type: T,
-    ...args: Parameters<WebGL2RenderingContext[`uniform${T}`]>
-  ) {
-    if (!webgl) return;
-    (webgl[`uniform${type}`] as any)(...args);
-  }
 
   function onReady(canvas: HTMLCanvasElement) {
     let gl = canvas.getContext("webgl2")!;
     if (!gl) return;
-    webgl = gl;
     let lastProgram: WebGLProgram | null = null;
 
     function onShaderRefChange(value = shaderRef.value) {
       let vert = createShader(gl, "VERTEX", vertShader);
-      if (!vert) return;
+      if (!vert) return null;
       let frag = createShader(gl, "FRAGMENT", value);
-      if (!frag) return;
+      if (!frag) return null;
       let program = createProgram(gl, vert, frag);
-      if (!program) return;
+      if (!program) return null;
 
       gl.deleteProgram(lastProgram);
       lastProgram = program;
       gl.useProgram(program);
 
-      let posAttrLocation = gl.getAttribLocation(program, "pos");
+      let posAttrLocation = gl.getAttribLocation(program, "_pos");
       gl.enableVertexAttribArray(posAttrLocation);
 
       let buf = gl.createBuffer();
@@ -115,16 +92,16 @@
       );
       gl.vertexAttribPointer(posAttrLocation, 2, gl.FLOAT, false, 0, 0);
 
-      return true;
+      return program;
     }
 
     watch(shaderRef, onShaderRefChange);
 
-    if (onShaderRefChange())
+    let prog = onShaderRefChange();
+    if (prog)
       emit("ready", {
         gl,
-        setUniform,
-        getLocation,
+        program: prog,
         render() {
           gl.clearColor(0, 0, 0, 0);
           gl.clear(gl.COLOR_BUFFER_BIT);
