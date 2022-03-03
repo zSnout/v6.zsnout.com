@@ -46,7 +46,7 @@
 </script>
 
 <script setup lang="ts">
-  import { ref, watchEffect, type Ref } from "vue";
+  import { ref, watch, type Ref } from "vue";
   import FSCanvas from "./FSCanvas.vue";
 
   let emit = defineEmits<{
@@ -61,7 +61,8 @@
     ): void;
   }>();
 
-  let shader = ref(defineProps<{ shader: string | Ref<string> }>().shader);
+  let { shader } = defineProps<{ shader: string | Ref<string> }>();
+  let shaderRef = ref(shader);
   let webgl: WebGL2RenderingContext | null = null;
 
   type Slice<T extends string, U extends string> = T extends `${U}${infer K}`
@@ -90,10 +91,10 @@
     webgl = gl;
     let lastProgram: WebGLProgram | null = null;
 
-    watchEffect(() => {
+    function onShaderRefChange(value = shaderRef.value) {
       let vert = createShader(gl, "VERTEX", vertShader);
       if (!vert) return;
-      let frag = createShader(gl, "FRAGMENT", shader.value);
+      let frag = createShader(gl, "FRAGMENT", value);
       if (!frag) return;
       let program = createProgram(gl, vert, frag);
       if (!program) return;
@@ -101,18 +102,36 @@
       gl.deleteProgram(lastProgram);
       lastProgram = program;
       gl.useProgram(program);
-    });
 
-    emit("ready", {
-      gl,
-      setUniform,
-      getLocation,
-      render() {
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.viewport(0, 0, canvas.width, canvas.height);
-        gl.drawArrays(gl.TRIANGLES, 0, 2);
-      },
-    });
+      let posAttrLocation = gl.getAttribLocation(program, "pos");
+      gl.enableVertexAttribArray(posAttrLocation);
+
+      let buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([1, 1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1]),
+        gl.STATIC_DRAW
+      );
+      gl.vertexAttribPointer(posAttrLocation, 2, gl.FLOAT, false, 0, 0);
+
+      return true;
+    }
+
+    watch(shaderRef, onShaderRefChange);
+
+    if (onShaderRefChange())
+      emit("ready", {
+        gl,
+        setUniform,
+        getLocation,
+        render() {
+          gl.clearColor(0, 0, 0, 0);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          gl.viewport(0, 0, canvas.width, canvas.height);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+        },
+      });
   }
 </script>
 
