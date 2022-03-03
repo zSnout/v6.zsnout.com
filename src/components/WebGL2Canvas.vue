@@ -49,16 +49,14 @@
   import { ref, watch, type Ref } from "vue";
   import FSCanvas from "./FSCanvas.vue";
 
-  let emit = defineEmits<{
-    (
-      event: "ready",
-      info: {
-        gl: WebGL2RenderingContext;
-        program: WebGLProgram;
-        render(): void;
-      }
-    ): void;
-  }>();
+  export interface WebGl2ProgramInfo {
+    canvas: HTMLCanvasElement;
+    gl: WebGL2RenderingContext;
+    program: WebGLProgram;
+    render(): void;
+  }
+
+  let emit = defineEmits<{ (event: "ready", info: WebGl2ProgramInfo): void }>();
 
   let { shader } = defineProps<{ shader: string | Ref<string> }>();
   let shaderRef = ref(shader);
@@ -101,6 +99,7 @@
     if (prog)
       emit("ready", {
         gl,
+        canvas,
         program: prog,
         render() {
           gl.clearColor(0, 0, 0, 0);
