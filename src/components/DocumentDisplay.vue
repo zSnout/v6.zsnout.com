@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import DocumentNavigation from "./DocumentNavigation.vue";
+  import Navigation from "./Navigation.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
 
@@ -7,9 +7,9 @@
 </script>
 
 <template>
-  <DocumentNavigation class="navbar" :breakpoint="navBrakpoint">
+  <Navigation class="navbar" :breakpoint="navBrakpoint">
     <slot name="nav" />
-  </DocumentNavigation>
+  </Navigation>
 
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB :explicit-height="explicitHeight">
