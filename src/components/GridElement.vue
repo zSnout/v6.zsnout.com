@@ -19,7 +19,15 @@
 </script>
 
 <template>
-  <div class="image" :style="styles"></div>
+  <div class="image-outer" :style="styles">
+    <img class="image" :src="src" :alt="alt" />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
