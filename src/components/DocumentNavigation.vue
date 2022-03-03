@@ -5,6 +5,7 @@
   import NavLink from "./NavLink.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
+  import InstallButton from "./InstallButton.vue";
 
   let { breakpoint } = defineProps<{ breakpoint?: number }>();
   let bp = mediaRef(`(max-width: ${breakpoint || 415}px)`);
@@ -84,13 +85,17 @@
                   :class="{ drawer: true, visible: isNavDrawerVisible }"
                 >
                   <NavLink to="/">Home</NavLink>
+                  <InstallButton />
                   <slot />
                 </SafeAreaTB>
               </SafeAreaLR>
             </div>
           </Teleport>
 
-          <slot v-else />
+          <template v-else>
+            <InstallButton />
+            <slot />
+          </template>
         </div>
       </div>
     </SafeAreaLR>
