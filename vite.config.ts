@@ -5,6 +5,7 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  publicDir: fileURLToPath(new URL("./public", import.meta.url)),
   plugins: [
     vue(),
     vueJsx(),
