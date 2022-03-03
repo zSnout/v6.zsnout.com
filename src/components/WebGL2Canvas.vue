@@ -6,7 +6,7 @@
   ) {
     let shader = gl.createShader(gl[`${type}_SHADER`]);
     if (!shader) return null;
-    gl.shaderSource(shader, source);
+    gl.shaderSource(shader, source.trim());
     gl.compileShader(shader);
 
     if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) return shader;
