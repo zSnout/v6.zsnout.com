@@ -39,8 +39,17 @@
     <SafeAreaLR>
       <div class="aligner">
         <RouterLink to="/" class="logo-link">
-          <img class="logo logo-light" src="@/assets/logo-with-name.svg" />
-          <img class="logo logo-dark" src="@/assets/logo-with-name-dark.svg" />
+          <img
+            alt="zSnout logo"
+            class="logo logo-light"
+            src="@/assets/logo-with-name.svg"
+          />
+
+          <img
+            alt="zSnout logo"
+            class="logo logo-dark"
+            src="@/assets/logo-with-name-dark.svg"
+          />
         </RouterLink>
 
         <span class="expander" />
