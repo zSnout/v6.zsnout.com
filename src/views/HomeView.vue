@@ -1,7 +1,5 @@
 <script setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
-  import ImageGrid from "../components/ImageGrid.vue";
-  import GridElement from "../components/GridElement.vue";
 </script>
 
 <template>
@@ -22,17 +20,6 @@
       >. You can also
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
     </p>
-
-    <ImageGrid :cols="5" :rows="2">
-      <GridElement
-        src="https://placekitten.com/640/360"
-        alt=""
-        :row-start="1"
-        :row-end="3"
-        :col-start="1"
-        :col-end="3"
-      />
-    </ImageGrid>
   </DocumentDisplay>
 </template>
 
