@@ -1,40 +1,63 @@
-# zsnout-vue
+# Welcome to zSnout 6!
 
-This template should help get you started developing with Vue 3 in Vite.
+Hey everybody! We're excited that you've decided to contribute to zSnout or look
+at our source. Every new contribution helps and you can help in lots of ways!
 
-## Recommended IDE Setup
+The easiest way to help is to browse [zSnout](https://zsnout.web.app/) and
+noting any bugs/issues that you find as well as anything that could be improved.
+Afterward you can submit
+[a bug report or feature request](https://github.com/zSnout/zsnout-vue/issues/new/choose)
+to GitHub and we'll start working on it!
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+You can also prototype code in
+[StackBlitz](https://stackblitz.com/github/zsnout/zsnout-vue)
+without needing to install anything onto your computer! More information is available under the "Remote Development" section.
 
-## Type Support for `.vue` Imports in TS
+If you're feeling up to the task, you can directly contribute code to zSnout by
+submitting a [pull request](https://github.com/zSnout/zsnout-vue/pulls). When
+you do, a bot will spin up a preview of the website and comment on your pull
+request. Once we approve it your code will be merged into the official zSnout!
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Remote Development
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+You can work on zSnout directly in your web browser using
+[StackBlitz](https://stackblitz.com/github/zsnout/zsnout-vue). To save your
+project, sign in to StackBlitz and fork the zSnout project after editing.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
+To run the development server, execute
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+in the StackBlitz terminal.
+
+The preview command `npm run preview` doesn't work on StackBlitz, so you can't
+view the complete version of the site. However, `npm run dev` should work well
+enough.
+
+## Local Development
+
+To work on zSnout locally, run these shell commands:
 
 ```sh
-npm run build
+git clone https://github.com/zsnout/zsnout-vue zsnout
+cd zsnout
+npm install
+```
+
+You can then open zSnout in your code editor and start coding! To start a
+preview, run
+
+```sh
+npm run dev
+```
+
+Note that the preview will _not include the service worker_, so the "Install"
+button won't appear.
+
+You can preview the complete version by running
+
+```sh
+npm run preview
 ```
