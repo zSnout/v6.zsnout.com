@@ -11,6 +11,7 @@
       let { width, height } = canvas.value.getBoundingClientRect();
       canvas.value.width = width * devicePixelRatio;
       canvas.value.height = height * devicePixelRatio;
+      canvas.value.dispatchEvent(new UIEvent("resize"));
     }
   }
 
