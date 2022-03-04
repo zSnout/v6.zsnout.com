@@ -192,15 +192,30 @@
       { passive: true }
     );
 
+    let lastZoomDist = NaN;
     canvas.addEventListener(
       "touchmove",
       ({ touches }) => {
         if (touches.length == 1) {
           let [{ clientX, clientY }] = touches;
           executeMove(clientX, clientY);
+        } else if (touches.length == 2) {
+          let [{ clientX: x1, clientY: y1 }, { clientX: x2, clientY: y2 }] =
+            touches;
+          let xDiff = x2 - x1;
+          let yDiff = y2 - y1;
+          let dist = Math.hypot(xDiff, yDiff);
+
+          if (isNaN(lastZoomDist)) {
+            lastZoomDist = dist;
+            return;
+          }
+
+          executeZoom((x1 + x2) / 2, (y1 + y2) / 2, dist / lastZoomDist);
+          lastZoomDist = dist;
         }
       },
-      { passive: true }
+      { passive: false }
     );
 
     canvas.addEventListener(
