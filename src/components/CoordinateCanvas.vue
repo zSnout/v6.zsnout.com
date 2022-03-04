@@ -128,6 +128,8 @@
         isMouseDown = true;
         lastMouseX = NaN;
         lastMouseY = NaN;
+        lastTouchPointA = [NaN, NaN];
+        lastTouchPointB = [NaN, NaN];
       }
     });
 
@@ -136,6 +138,8 @@
         isMouseDown = false;
         lastMouseX = NaN;
         lastMouseY = NaN;
+        lastTouchPointA = [NaN, NaN];
+        lastTouchPointB = [NaN, NaN];
       }
     });
 
@@ -201,6 +205,8 @@
         let { touches } = event;
         if (touches.length == 1) {
           let [{ clientX, clientY }] = touches;
+          lastTouchPointA = [NaN, NaN];
+          lastTouchPointB = [NaN, NaN];
           executeMove(clientX, clientY);
         } else if (touches.length == 2) {
           let [{ clientX: x1, clientY: y1 }, { clientX: x2, clientY: y2 }] =
