@@ -1,5 +1,6 @@
 <script setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import { RouterLink } from "vue-router";
 </script>
 
 <template>
@@ -19,6 +20,8 @@
         >issue or bug</a
       >. You can also
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
+
+      <p><RouterLink to="/fractal">Fractal Generator</RouterLink></p>
     </p>
   </DocumentDisplay>
 </template>
