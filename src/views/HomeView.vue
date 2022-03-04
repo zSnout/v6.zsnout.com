@@ -20,9 +20,9 @@
         >issue or bug</a
       >. You can also
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
-
-      <p><RouterLink to="/fractal">Fractal Generator</RouterLink></p>
     </p>
+
+    <p><RouterLink to="/fractal">Fractal Generator</RouterLink></p>
   </DocumentDisplay>
 </template>
 
