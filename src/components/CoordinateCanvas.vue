@@ -119,35 +119,88 @@
     });
 
     let isMouseDown = false;
+    let lastMouseX = NaN;
+    let lastMouseY = NaN;
 
     canvas.addEventListener("pointerdown", (e) => {
-      if (e.button == 0) isMouseDown = true;
+      canvas.setPointerCapture(e.pointerId);
+      if (e.button == 0) {
+        isMouseDown = true;
+        lastMouseX = NaN;
+        lastMouseY = NaN;
+      }
     });
 
     window.addEventListener("pointerup", (e) => {
-      if (e.button == 0) isMouseDown = false;
+      if (e.button == 0) {
+        isMouseDown = false;
+        lastMouseX = NaN;
+        lastMouseY = NaN;
+      }
     });
 
-    canvas.addEventListener(
-      "pointermove",
-      ({ movementX, movementY, pointerId }) => {
-        canvas.setPointerCapture(pointerId);
-        if (!isMouseDown) return;
-
-        // Have to rename locals as `computeEndpoints` returns something different than globals
-        let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
-        let xChange =
-          ((-(xe - xs) * movementX) / canvas.width) * devicePixelRatio;
-        let yChange =
-          (((ye - ys) * movementY) / canvas.height) * devicePixelRatio;
-        updateCoords({
-          xStart: xStart + xChange,
-          xEnd: xEnd + xChange,
-          yStart: yStart + yChange,
-          yEnd: yEnd + yChange,
-        });
+    function executeMove(clientX: number, clientY: number) {
+      if (!isMouseDown) return;
+      if (isNaN(lastMouseX) || isNaN(lastMouseY)) {
+        lastMouseX = clientX;
+        lastMouseY = clientY;
+        return;
       }
+
+      let diffX = clientX - lastMouseX;
+      let diffY = clientY - lastMouseY;
+      lastMouseX = clientX;
+      lastMouseY = clientY;
+
+      // Have to rename locals as `computeEndpoints` returns something different than globals
+      let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
+      let xChange = ((-(xe - xs) * diffX) / canvas.width) * devicePixelRatio;
+      let yChange = (((ye - ys) * diffY) / canvas.height) * devicePixelRatio;
+      updateCoords({
+        xStart: xStart + xChange,
+        xEnd: xEnd + xChange,
+        yStart: yStart + yChange,
+        yEnd: yEnd + yChange,
+      });
+    }
+
+    canvas.addEventListener(
+      "mousemove",
+      ({ clientX, clientY }) => executeMove(clientX, clientY),
+      { passive: true }
     );
+
+    canvas.addEventListener(
+      "touchmove",
+      ({ touches }) => {
+        if (touches.length == 1) {
+          let [{ clientX, clientY }] = touches;
+          executeMove(clientX, clientY);
+        }
+      },
+      { passive: true }
+    );
+
+    // canvas.addEventListener(
+    //   "pointermove",
+    //   ({ movementX, movementY, pointerId }) => {
+    //     canvas.setPointerCapture(pointerId);
+    //     if (!isMouseDown) return;
+
+    //     // Have to rename locals as `computeEndpoints` returns something different than globals
+    //     let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
+    //     let xChange =
+    //       ((-(xe - xs) * movementX) / canvas.width) * devicePixelRatio;
+    //     let yChange =
+    //       (((ye - ys) * movementY) / canvas.height) * devicePixelRatio;
+    //     updateCoords({
+    //       xStart: xStart + xChange,
+    //       xEnd: xEnd + xChange,
+    //       yStart: yStart + yChange,
+    //       yEnd: yEnd + yChange,
+    //     });
+    //   }
+    // );
 
     // The FSCanvas component dispatches `resize` after update the canvas's size.
     canvas.addEventListener("resize", renderCanvas);
