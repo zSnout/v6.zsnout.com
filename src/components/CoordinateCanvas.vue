@@ -120,34 +120,34 @@
 
     let isMouseDown = false;
 
-    canvas.addEventListener("mousedown", (e) => {
-      if (e.button == 0) {
-        isMouseDown = true;
-        return;
+    canvas.addEventListener("pointerdown", (e) => {
+      if (e.button == 0) isMouseDown = true;
+    });
+
+    window.addEventListener("pointerup", (e) => {
+      if (e.button == 0) isMouseDown = false;
+    });
+
+    canvas.addEventListener(
+      "pointermove",
+      ({ movementX, movementY, pointerId }) => {
+        canvas.setPointerCapture(pointerId);
+        if (!isMouseDown) return;
+
+        // Have to rename locals as `computeEndpoints` returns something different than globals
+        let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
+        let xChange =
+          ((-(xe - xs) * movementX) / canvas.width) * devicePixelRatio;
+        let yChange =
+          (((ye - ys) * movementY) / canvas.height) * devicePixelRatio;
+        updateCoords({
+          xStart: xStart + xChange,
+          xEnd: xEnd + xChange,
+          yStart: yStart + yChange,
+          yEnd: yEnd + yChange,
+        });
       }
-    });
-
-    canvas.addEventListener("mousemove", ({ movementX, movementY }) => {
-      if (!isMouseDown) return;
-
-      // Have to rename locals as `computeEndpoints` returns something different than globals
-      let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
-      let xChange =
-        (-((xe - xs) * movementX) / canvas.width) * devicePixelRatio;
-      let yChange =
-        (((ye - ys) * movementY) / canvas.height) * devicePixelRatio;
-
-      updateCoords({
-        xStart: xStart + xChange,
-        xEnd: xEnd + xChange,
-        yStart: yStart + yChange,
-        yEnd: yEnd + yChange,
-      });
-    });
-
-    window.addEventListener("mouseup", (e) => {
-      if (e.button == 0) return (isMouseDown = false);
-    });
+    );
 
     // The FSCanvas component dispatches `resize` after update the canvas's size.
     canvas.addEventListener("resize", renderCanvas);
