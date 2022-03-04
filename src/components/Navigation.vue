@@ -7,7 +7,8 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
   import InstallButton from "./InstallButton.vue";
 
-  let { breakpoint } = defineProps<{ breakpoint?: number }>();
+  let { breakpoint } =
+    defineProps<{ breakpoint?: number; floating?: boolean }>();
   let bp = mediaRef(`(max-width: ${breakpoint || 415}px)`);
 
   watch(bp, (val) => {
@@ -36,7 +37,7 @@
 </script>
 
 <template>
-  <nav class="navigation">
+  <nav :class="{ navigation: true, floating }">
     <SafeAreaLR>
       <div class="aligner">
         <RouterLink to="/" class="logo-link">
@@ -70,7 +71,7 @@
             'drawer-open': isNavDrawerOpen,
           }"
         >
-          <Teleport v-if="isNavDrawerOpen" to="body">
+          <Teleport v-if="isNavDrawerOpen" to="#app">
             <div class="mobile-nav-outer">
               <div
                 :class="{
@@ -116,9 +117,19 @@
     padding-top: max(12px, env(safe-area-inset-top));
     border-bottom: 1px solid #b2b2b2;
     user-select: none;
+    z-index: 3;
 
     @include dark {
       background-color: #345558;
+
+      &.floating {
+        background-color: transparent;
+      }
+    }
+
+    &.floating {
+      background-color: transparent;
+      border-bottom: 0;
     }
   }
 
@@ -159,6 +170,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    .floating & {
+      padding: 0.5em;
+      background-color: #fff4;
+      backdrop-filter: blur(0.5em);
+      border-radius: 0.5em;
+
+      @include dark {
+        background-color: #0004;
+      }
+    }
   }
 
   .expander {

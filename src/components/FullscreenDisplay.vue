@@ -1,8 +1,13 @@
 <script setup lang="ts">
+  import Navigation from "./Navigation.vue";
   defineProps<{ resizeChild?: boolean }>();
 </script>
 
 <template>
+  <Navigation floating>
+    <slot name="nav" />
+  </Navigation>
+
   <main :class="{ 'resize-child': resizeChild }">
     <slot v-bind="$attrs" />
   </main>
