@@ -16,6 +16,7 @@
 
 <template>
   <CoordinateCanvas
+    show-reset-button
     shader="
     #define ieq sqr(z) + c
 
