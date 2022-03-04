@@ -11,8 +11,8 @@
 
     getCoords(): CoordinateList;
     updateCoords(coords: CoordinateList): void;
-    getSaveCode(): string;
-    loadSaveCode(code: string): void;
+    getCode(): string;
+    loadCode(code: string): void;
   }
 
   export interface CoordinateList {
@@ -101,11 +101,11 @@
       renderCanvas();
     }
 
-    function getSaveCode() {
+    function getCode() {
       return `${xStart},${xEnd},${yStart},${yEnd}`;
     }
 
-    function loadSaveCode(code: string) {
+    function loadCode(code: string) {
       let [xs, xe, ys, ye] = code.split(",").map(Number);
 
       if (!isNaN(xs) && !isNaN(xe) && !isNaN(ys) && !isNaN(ye))
@@ -118,8 +118,8 @@
       program,
       updateCoords,
       mouseToCoords,
-      getSaveCode,
-      loadSaveCode,
+      getCode,
+      loadCode,
       getCoords: computeEndpoints,
       render: renderCanvas,
     });
