@@ -72,7 +72,7 @@
           }"
         >
           <Teleport v-if="isNavDrawerOpen" to="#app">
-            <div class="mobile-nav-outer">
+            <div :class="{ 'mobile-nav-outer': true, floating }">
               <div
                 :class="{
                   'mobile-nav-bg': true,
@@ -209,7 +209,7 @@
     left: 0;
     background-color: #dcecee;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 1s, backdrop-filter 1s;
 
     @include dark {
       background-color: #2f3035;
@@ -217,6 +217,19 @@
 
     &.visible {
       opacity: 0.75;
+    }
+
+    .floating & {
+      background-color: #dcecee40;
+
+      @include dark {
+        background-color: #2f303540;
+      }
+
+      &.visible {
+        backdrop-filter: blur(0.5em);
+        opacity: 1;
+      }
     }
   }
 
