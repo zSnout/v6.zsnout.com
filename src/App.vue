@@ -17,7 +17,7 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    overscroll-behavior-y: none;
+    overscroll-behavior: none;
     line-height: 1.5;
   }
 
