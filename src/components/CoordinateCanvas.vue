@@ -191,24 +191,21 @@
         let xRange = xEnd - xStart;
         let yRange = yEnd - yStart;
 
-        let xChange = (xRange * strength) / 100;
-        let yChange = (yRange * strength) / 100;
+        let width = canvas.width / devicePixelRatio;
+        let height = canvas.height / devicePixelRatio;
 
-        // let width = canvas.width / devicePixelRatio;
-        // let height = canvas.height / devicePixelRatio;
+        let smallSide = Math.min(height, width);
+        let xPercent = (event.offsetX - (width - smallSide) / 2) / smallSide;
+        let yPercent = (height - event.offsetY - (height - smallSide) / 2) / smallSide; // prettier-ignore
 
-        // let smallSide = Math.min(height, width);
-        // let xPercent = (event.offsetX - (width - smallSide) / 2) / smallSide;
-        // let yPercent = (event.offsetY - (height - smallSide) / 2) / smallSide;
-
-        // let xAdjust = (xRange * (xPercent - 0.5)) / 100;
-        // let yAdjust = (yRange * (yPercent - 0.5)) / 100;
+        xPercent *= strength / 100;
+        yPercent *= strength / 100;
 
         updateCoords({
-          xStart: xStart + xChange,
-          xEnd: xEnd - xChange,
-          yStart: yStart + yChange,
-          yEnd: yEnd - yChange,
+          xStart: xStart + xPercent * xRange,
+          xEnd: xEnd - (0.01 * strength - xPercent) * xRange,
+          yStart: yStart + yPercent * yRange,
+          yEnd: yEnd - (0.01 * strength - yPercent) * yRange,
         });
       },
       { passive: false }
