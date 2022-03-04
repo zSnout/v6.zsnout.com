@@ -4,7 +4,7 @@
 
 <template>
   <main :class="{ 'resize-child': resizeChild }">
-    <slot />
+    <slot v-bind="$attrs" />
   </main>
 </template>
 

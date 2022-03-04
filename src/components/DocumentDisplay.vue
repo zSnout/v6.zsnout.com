@@ -14,7 +14,7 @@
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB :explicit-height="explicitHeight">
       <main :class="{ 'explicit-height': explicitHeight }">
-        <slot />
+        <slot v-bind="$attrs" />
       </main>
     </SafeAreaTB>
   </SafeAreaLR>
