@@ -224,7 +224,7 @@
           let oldDist = Math.hypot(px2 - px1, py2 - py1);
           let dist = Math.hypot(x2 - x1, y2 - y1);
 
-          let strength = (dist - oldDist) * 100;
+          let strength = dist - oldDist;
           executeZoom((x1 + x2) / 2, (y1 + y2) / 2, strength);
         }
       },
