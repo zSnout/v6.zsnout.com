@@ -29,8 +29,11 @@
 
   let emit =
     defineEmits<{ (event: "ready", info: CoordinateCanvasInfo): void }>();
-  let { shader } =
-    defineProps<{ shader: string | Ref<string>; showResetButton?: boolean }>();
+  let { shader } = defineProps<{
+    shader: string | Ref<string>;
+    showResetButton?: boolean;
+    breakpoint?: number;
+  }>();
 
   let coordConvertShader = `
     #version 300 es
@@ -244,13 +247,17 @@
       { passive: false }
     );
 
-    // The FSCanvas component dispatches `resize` after update the canvas's size.
+    // The FullscreenCanvas component dispatches `resize` after update the canvas's size.
     canvas.addEventListener("resize", renderCanvas);
   }
 </script>
 
 <template>
-  <WebGL2Canvas :shader="coordConvertShader + unref(shader)" @ready="onReady">
+  <WebGL2Canvas
+    :shader="coordConvertShader + unref(shader)"
+    :breakpoint="breakpoint"
+    @ready="onReady"
+  >
     <template #nav>
       <NavLink v-if="showResetButton">Reset</NavLink>
 

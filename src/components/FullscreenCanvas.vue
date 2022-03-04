@@ -4,6 +4,7 @@
 
   let emit =
     defineEmits<{ (event: "ready", canvas: HTMLCanvasElement): void }>();
+  defineProps<{ breakpoint?: number }>();
   let canvas = ref<HTMLCanvasElement | null>(null);
 
   function onResize() {
@@ -26,7 +27,7 @@
 </script>
 
 <template>
-  <FullscreenDisplay resize-child>
+  <FullscreenDisplay resize-child :breakpoint="breakpoint">
     <template #nav>
       <slot name="nav" />
     </template>

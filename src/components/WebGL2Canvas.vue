@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
   import { ref, watch, type Ref } from "vue";
-  import FSCanvas from "./FSCanvas.vue";
+  import FullscreenCanvas from "./FullscreenCanvas.vue";
 
   export interface WebGl2ProgramInfo {
     canvas: HTMLCanvasElement;
@@ -58,7 +58,8 @@
 
   let emit = defineEmits<{ (event: "ready", info: WebGl2ProgramInfo): void }>();
 
-  let { shader } = defineProps<{ shader: string | Ref<string> }>();
+  let { shader } =
+    defineProps<{ shader: string | Ref<string>; breakpoint?: number }>();
   let shaderRef = ref(shader);
 
   function onReady(canvas: HTMLCanvasElement) {
@@ -112,9 +113,9 @@
 </script>
 
 <template>
-  <FSCanvas @ready="onReady">
+  <FullscreenCanvas @ready="onReady" :breakpoint="breakpoint">
     <template #nav>
       <slot name="nav" />
     </template>
-  </FSCanvas>
+  </FullscreenCanvas>
 </template>
