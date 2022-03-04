@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { router } from "@/main";
   import { unref, type Ref } from "vue";
   import WebGL2Canvas, { type WebGl2ProgramInfo } from "./WebGL2Canvas.vue";
+  import NavLink from "./NavLink.vue";
 
   export interface CoordinateCanvasInfo extends WebGl2ProgramInfo {
     mouseToCoords(
@@ -29,7 +29,8 @@
 
   let emit =
     defineEmits<{ (event: "ready", info: CoordinateCanvasInfo): void }>();
-  let { shader } = defineProps<{ shader: string | Ref<string> }>();
+  let { shader } =
+    defineProps<{ shader: string | Ref<string>; showResetButton?: boolean }>();
 
   let coordConvertShader = `
     #version 300 es
@@ -251,6 +252,8 @@
 <template>
   <WebGL2Canvas :shader="coordConvertShader + unref(shader)" @ready="onReady">
     <template #nav>
+      <NavLink v-if="showResetButton">Reset</NavLink>
+
       <slot name="nav" />
     </template>
   </WebGL2Canvas>
