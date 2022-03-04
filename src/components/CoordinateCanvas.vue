@@ -195,11 +195,13 @@
     let lastZoomDist = NaN;
     canvas.addEventListener(
       "touchmove",
-      ({ touches }) => {
+      (event) => {
+        let { touches } = event;
         if (touches.length == 1) {
           let [{ clientX, clientY }] = touches;
           executeMove(clientX, clientY);
         } else if (touches.length == 2) {
+          event.preventDefault();
           let [{ clientX: x1, clientY: y1 }, { clientX: x2, clientY: y2 }] =
             touches;
           let xDiff = x2 - x1;
