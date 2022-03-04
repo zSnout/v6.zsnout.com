@@ -192,7 +192,8 @@
       { passive: true }
     );
 
-    let lastZoomDist = NaN;
+    let lastTouchPointA: [number, number] = [NaN, NaN];
+    let lastTouchPointB: [number, number] = [NaN, NaN];
     canvas.addEventListener(
       "touchmove",
       (event) => {
@@ -204,17 +205,21 @@
         } else if (touches.length == 2) {
           let [{ clientX: x1, clientY: y1 }, { clientX: x2, clientY: y2 }] =
             touches;
-          let xDiff = x2 - x1;
-          let yDiff = y2 - y1;
-          let dist = Math.hypot(xDiff, yDiff);
 
-          if (isNaN(lastZoomDist)) {
-            lastZoomDist = dist;
+          let [px1, py1] = lastTouchPointA;
+          let [px2, py2] = lastTouchPointB;
+
+          if (isNaN(px1) || isNaN(py1) || isNaN(px2) || isNaN(py2)) {
+            lastTouchPointA = [x1, y1];
+            lastTouchPointB = [x2, y2];
             return;
           }
 
-          executeZoom((x1 + x2) / 2, (y1 + y2) / 2, dist - lastZoomDist);
-          lastZoomDist = dist;
+          let oldDist = Math.hypot(px2 - px1, py2 - py1);
+          let dist = Math.hypot(x2 - x1, y2 - y1);
+
+          let strength = (dist - oldDist) * 100;
+          executeZoom((x1 + x2) / 2, (y1 + y2) / 2, strength);
         }
       },
       { passive: false }
