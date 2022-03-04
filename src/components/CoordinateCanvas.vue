@@ -164,6 +164,28 @@
       });
     }
 
+    function executeZoom(offsetX: number, offsetY: number, strength: number) {
+      let xRange = xEnd - xStart;
+      let yRange = yEnd - yStart;
+
+      let width = canvas.width / devicePixelRatio;
+      let height = canvas.height / devicePixelRatio;
+
+      let smallSide = Math.min(height, width);
+      let xPercent = (offsetX - (width - smallSide) / 2) / smallSide;
+      let yPercent = (height - offsetY - (height - smallSide) / 2) / smallSide;
+
+      xPercent *= strength / 100;
+      yPercent *= strength / 100;
+
+      updateCoords({
+        xStart: xStart + xPercent * xRange,
+        xEnd: xEnd - (0.01 * strength - xPercent) * xRange,
+        yStart: yStart + yPercent * yRange,
+        yEnd: yEnd - (0.01 * strength - yPercent) * yRange,
+      });
+    }
+
     canvas.addEventListener(
       "mousemove",
       ({ clientX, clientY }) => executeMove(clientX, clientY),
@@ -188,25 +210,7 @@
         let strength =
           -Math.sqrt(Math.abs(event.deltaY)) * Math.sign(event.deltaY);
 
-        let xRange = xEnd - xStart;
-        let yRange = yEnd - yStart;
-
-        let width = canvas.width / devicePixelRatio;
-        let height = canvas.height / devicePixelRatio;
-
-        let smallSide = Math.min(height, width);
-        let xPercent = (event.offsetX - (width - smallSide) / 2) / smallSide;
-        let yPercent = (height - event.offsetY - (height - smallSide) / 2) / smallSide; // prettier-ignore
-
-        xPercent *= strength / 100;
-        yPercent *= strength / 100;
-
-        updateCoords({
-          xStart: xStart + xPercent * xRange,
-          xEnd: xEnd - (0.01 * strength - xPercent) * xRange,
-          yStart: yStart + yPercent * yRange,
-          yEnd: yEnd - (0.01 * strength - yPercent) * yRange,
-        });
+        executeZoom(event.offsetX, event.offsetY, strength);
       },
       { passive: false }
     );
