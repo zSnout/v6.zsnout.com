@@ -46,6 +46,8 @@
     }
     `;
 
+  let _reset: (() => void) | undefined;
+
   function onReady({ gl, canvas, program, render }: WebGl2ProgramInfo) {
     let [xStart, xEnd, yStart, yEnd] = [-2, 2, -2, 2];
     let scaleLoc = gl.getUniformLocation(program, "scale")!;
@@ -249,6 +251,12 @@
 
     // The FullscreenCanvas component dispatches `resize` after update the canvas's size.
     canvas.addEventListener("resize", renderCanvas);
+
+    _reset = () => updateCoords({ xStart: -2, xEnd: 2, yStart: -2, yEnd: 2 });
+  }
+
+  function reset() {
+    _reset && _reset();
   }
 </script>
 
@@ -259,7 +267,7 @@
     @ready="onReady"
   >
     <template #nav>
-      <NavLink v-if="showResetButton">Reset</NavLink>
+      <NavLink v-if="showResetButton" @click="reset && reset()">Reset</NavLink>
 
       <slot name="nav" />
     </template>
