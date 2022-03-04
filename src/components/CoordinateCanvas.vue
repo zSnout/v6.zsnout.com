@@ -181,26 +181,38 @@
       { passive: true }
     );
 
-    // canvas.addEventListener(
-    //   "pointermove",
-    //   ({ movementX, movementY, pointerId }) => {
-    //     canvas.setPointerCapture(pointerId);
-    //     if (!isMouseDown) return;
+    canvas.addEventListener(
+      "wheel",
+      (event) => {
+        event.preventDefault();
+        let strength =
+          -Math.sqrt(Math.abs(event.deltaY)) * Math.sign(event.deltaY);
 
-    //     // Have to rename locals as `computeEndpoints` returns something different than globals
-    //     let { xStart: xs, xEnd: xe, yStart: ys, yEnd: ye } = computeEndpoints();
-    //     let xChange =
-    //       ((-(xe - xs) * movementX) / canvas.width) * devicePixelRatio;
-    //     let yChange =
-    //       (((ye - ys) * movementY) / canvas.height) * devicePixelRatio;
-    //     updateCoords({
-    //       xStart: xStart + xChange,
-    //       xEnd: xEnd + xChange,
-    //       yStart: yStart + yChange,
-    //       yEnd: yEnd + yChange,
-    //     });
-    //   }
-    // );
+        let xRange = xEnd - xStart;
+        let yRange = yEnd - yStart;
+
+        let xChange = (xRange * strength) / 100;
+        let yChange = (yRange * strength) / 100;
+
+        // let width = canvas.width / devicePixelRatio;
+        // let height = canvas.height / devicePixelRatio;
+
+        // let smallSide = Math.min(height, width);
+        // let xPercent = (event.offsetX - (width - smallSide) / 2) / smallSide;
+        // let yPercent = (event.offsetY - (height - smallSide) / 2) / smallSide;
+
+        // let xAdjust = (xRange * (xPercent - 0.5)) / 100;
+        // let yAdjust = (yRange * (yPercent - 0.5)) / 100;
+
+        updateCoords({
+          xStart: xStart + xChange,
+          xEnd: xEnd - xChange,
+          yStart: yStart + yChange,
+          yEnd: yEnd - yChange,
+        });
+      },
+      { passive: false }
+    );
 
     // The FSCanvas component dispatches `resize` after update the canvas's size.
     canvas.addEventListener("resize", renderCanvas);
