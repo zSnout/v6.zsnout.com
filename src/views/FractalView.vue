@@ -160,6 +160,10 @@
       return vec2(a.x * a.x - a.y * a.y, 2.0 * a.x * a.y);
     }
 
+    vec2 rawsqr(vec2 a) {
+      return a * a;
+    }
+
     vec2 mult(vec2 a, vec2 b) {
       float x = a.x * b.x - a.y * b.y;
       float y = a.x * b.y + a.y * b.x;

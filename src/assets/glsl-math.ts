@@ -35,7 +35,9 @@ export function toReversePolish(equation: string): (string | number)[] {
 
       tokens.push(+match[0]);
       equation = equation.slice(match[0].length);
-    } else if ((match = equation.match(/^(sin|cos|tan|exp|log|abs|min|max)/))) {
+    } else if (
+      (match = equation.match(/^(sin|cos|tan|exp|log|abs|min|max|rawsqr)/))
+    ) {
       if (wasLastTokenAValue) tokens.push("**");
       wasLastTokenAValue = false;
 
@@ -155,7 +157,8 @@ export function rpnToGLSL(rpn: (string | number)[]) {
         token == "tan" ||
         token == "exp" ||
         token == "log" ||
-        token == "abs"
+        token == "abs" ||
+        token == "rawsqr"
       ) {
         stack.push(`${token}(${stack.pop()})`);
       }
