@@ -13,8 +13,14 @@ export let router = createRouter({
       redirect: "/fractal/z^2+c/0/50/-2,2,-2,2",
       children: [
         { path: "mandelbrot-set", redirect: "/fractal/z^2+c" },
+        { path: "multibrot-set", redirect: "/fractal/z^3+c" },
         { path: "burning-ship", redirect: "/fractal/abs(z)^2+c" },
         { path: "feather", redirect: "/fractal/z^3%2F(rawsqr(z)+c)+c" },
+        { path: "flower", redirect: "/fractal/z^2+z+c" },
+        { path: "raindrop", redirect: "/fractal/z^2+1%2Fc" },
+        { path: "telescope", redirect: "/fractal/z^2+z+1%2Fc" },
+        { path: "sunlight", redirect: "/fractal/z^2-z+1%2Fc" },
+        { path: "snowflake", redirect: "/fractal/z^3-z^2-z-c" },
       ],
     },
     {
