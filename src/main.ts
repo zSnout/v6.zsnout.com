@@ -21,6 +21,7 @@ export let router = createRouter({
         { path: "telescope", redirect: "/fractal/z^2+z+1%2Fc" },
         { path: "sunlight", redirect: "/fractal/z^2-z+1%2Fc" },
         { path: "snowflake", redirect: "/fractal/z^3-z^2-z-c" },
+        { path: "puddles", redirect: "/fractal/(z^3+1)%2F(cz^2+1)" },
       ],
     },
     {
