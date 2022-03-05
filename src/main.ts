@@ -8,9 +8,9 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
-    { path: "/fractal", redirect: "/fractal/-2,2,-2,2" },
+    { path: "/fractal", redirect: "/fractal/50/z^2+c/0/-2,2,-2,2" },
     {
-      path: "/fractal/:coords",
+      path: "/fractal/:iterations/:equation/:theme/:coords",
       component: () => import("@/views/FractalView.vue"),
     },
     { path: "/:path(.*)", component: () => import("@/views/NotFoundView.vue") },

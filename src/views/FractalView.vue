@@ -1,24 +1,136 @@
 <script setup lang="ts">
+  import { rpnToGLSL, toReversePolish } from "@/assets/glsl-math";
   import CoordinateCanvas, {
     type CoordinateCanvasInfo,
   } from "@/components/CoordinateCanvas.vue";
+  import { router } from "@/main";
+  import { ref } from "vue";
   import { useRoute } from "vue-router";
+  import NavLink from "../components/NavLink.vue";
 
-  function onReady({ program, gl, loadSaveCode }: CoordinateCanvasInfo) {
+  let { params } = useRoute();
+  let { equation, coords } = params;
+  let iterEQ = ref("sqr(z) + c");
+  try {
+    iterEQ.value = rpnToGLSL(toReversePolish("" + equation));
+  } catch {
+    equation = "z^2+c";
+  }
+
+  let iterations = +params.iterations || 100;
+  if (!isFinite(iterations) || iterations < 5) iterations = 50;
+  iterations = Math.floor(iterations);
+
+  let theme = +params.theme;
+  if (!isFinite(theme) || theme < 0 || theme > 8) theme = 0;
+  theme = Math.floor(theme) % 9;
+
+  let _changeTheme: (() => void) | undefined;
+  let _changeEquation: (() => void) | undefined;
+  let _increaseDetail: (() => void) | undefined;
+  let _decreaseDetail: (() => void) | undefined;
+
+  function onReady({
+    program,
+    gl,
+    getCode,
+    loadCode,
+    render,
+  }: CoordinateCanvasInfo) {
     let maxIterLoc = gl.getUniformLocation(program, "maxIterations");
     let colorModeLoc = gl.getUniformLocation(program, "colorMode");
-    gl.uniform1i(colorModeLoc, 1);
-    gl.uniform1i(maxIterLoc, 50);
+    gl.uniform1i(colorModeLoc, theme);
+    gl.uniform1i(maxIterLoc, iterations);
 
-    loadSaveCode("" + useRoute().params.coords);
+    function makeRouterURL() {
+      return `/fractal/${iterations}/${encodeURIComponent(
+        "" + equation
+      )}/${theme}/${getCode()}`;
+    }
+
+    let lastSaveTime = Date.now();
+    let lastCoordCode = getCode();
+
+    loadCode("" + coords);
+
+    _changeTheme = () => {
+      theme = (theme + 1) % 9;
+
+      gl.uniform1i(colorModeLoc, theme);
+      render();
+
+      router.replace(makeRouterURL());
+    };
+
+    _changeEquation = () => {
+      try {
+        let baseEQ = prompt("Enter an equation to be drawn.", "" + equation);
+        if (!baseEQ) return;
+
+        iterEQ.value = rpnToGLSL(toReversePolish(baseEQ));
+        equation = baseEQ;
+      } catch {
+        console.log("fail");
+        iterEQ.value = "sqr(z) + c";
+        equation = "z^2+c";
+      }
+
+      router.replace(makeRouterURL());
+      setTimeout(() => router.go(0));
+    };
+
+    _increaseDetail = () => {
+      if (iterations == 25) iterations = 50;
+      else if (iterations < 50) iterations += 5;
+      else iterations += 50;
+
+      gl.uniform1i(maxIterLoc, iterations);
+      render();
+
+      router.replace(makeRouterURL());
+    };
+
+    _decreaseDetail = () => {
+      if (iterations == 50) iterations = 25;
+      else if (iterations < 10) iterations = 5;
+      else if (iterations < 50) iterations -= 5;
+      else iterations -= 50;
+
+      gl.uniform1i(maxIterLoc, iterations);
+      render();
+
+      router.replace(makeRouterURL());
+    };
+
+    setInterval(() => {
+      let now = Date.now();
+      if (now - lastSaveTime > 1000 && getCode() != lastCoordCode) {
+        lastSaveTime = now;
+        lastCoordCode = getCode();
+        router.replace(makeRouterURL());
+      }
+    }, 1000);
   }
-</script>
 
-<template>
-  <CoordinateCanvas
-    show-reset-button
-    shader="
-    #define ieq sqr(z) + c
+  function changeTheme() {
+    if (_changeTheme) _changeTheme();
+  }
+
+  function changeEquation() {
+    if (_changeEquation) _changeEquation();
+  }
+
+  function increaseDetail() {
+    if (_increaseDetail) _increaseDetail();
+  }
+
+  function decreaseDetail() {
+    if (_decreaseDetail) _decreaseDetail();
+  }
+
+  function makeShader() {
+    return `
+    #define ieq ${iterEQ.value}
 
     precision highp float;
     in vec2 pos;
@@ -137,7 +249,43 @@
         color = vec4(n1, 1);
       }
     }
-    "
+    `;
+  }
+
+  let glShader = ref(makeShader());
+</script>
+
+<template>
+  <CoordinateCanvas
+    show-reset-button
+    :breakpoint="600"
+    :shader="glShader"
     @ready="onReady"
-  />
+  >
+    <template #nav>
+      <NavLink
+        title="Lowers the amount of detail in the fractal but improves performance."
+        @click="decreaseDetail"
+        >Less Detail</NavLink
+      >
+
+      <NavLink
+        title="Increases the amount of detail in the fractal but degrades performance."
+        @click="increaseDetail"
+        >More Detail</NavLink
+      >
+
+      <NavLink
+        title="Changes the equation used to draw the fractal."
+        @click="changeEquation"
+        >Equation</NavLink
+      >
+
+      <NavLink
+        title="Changes the theme between standard mode, four rainbow mode, two exterior hue modes, and two interior hue modes."
+        @click="changeTheme"
+        >Theme</NavLink
+      >
+    </template>
+  </CoordinateCanvas>
 </template>
