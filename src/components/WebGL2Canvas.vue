@@ -101,7 +101,6 @@
     }
 
     watch(props, ({ shader }) => {
-      console.log("shader changed");
       updateWebGL(unref(shader));
       render();
     });
