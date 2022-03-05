@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import { unref, type Ref } from "vue";
-  import WebGL2Canvas, { type WebGl2ProgramInfo } from "./WebGL2Canvas.vue";
   import NavLink from "./NavLink.vue";
+  import WebGL2Canvas, { type WebGL2ProgramInfo } from "./WebGL2Canvas.vue";
 
-  export interface CoordinateCanvasInfo extends WebGl2ProgramInfo {
+  export interface CoordinateCanvasInfo extends WebGL2ProgramInfo {
     mouseToCoords(
       mouseXPercent: number,
       mouseYPercent: number
@@ -29,11 +28,12 @@
 
   let emit =
     defineEmits<{ (event: "ready", info: CoordinateCanvasInfo): void }>();
-  let { shader } = defineProps<{
-    shader: string | Ref<string>;
+  let props = defineProps<{
+    shader: string;
     showResetButton?: boolean;
     breakpoint?: number;
   }>();
+  let { showResetButton, breakpoint } = props;
 
   let coordConvertShader = `
     #version 300 es
@@ -48,7 +48,7 @@
 
   let _reset: (() => void) | undefined;
 
-  function onReady({ gl, canvas, program, render }: WebGl2ProgramInfo) {
+  function onReady({ gl, canvas, program, render }: WebGL2ProgramInfo) {
     let [xStart, xEnd, yStart, yEnd] = [-2, 2, -2, 2];
     let scaleLoc = gl.getUniformLocation(program, "scale")!;
     let offsetLoc = gl.getUniformLocation(program, "offset")!;
@@ -102,11 +102,11 @@
     }
 
     function getCode() {
-      return `${xStart},${xEnd},${yStart},${yEnd}`;
+      return `${xStart},${xEnd},${yStart},${yEnd}`.replace(/\./g, "d");
     }
 
     function loadCode(code: string) {
-      let [xs, xe, ys, ye] = code.split(",").map(Number);
+      let [xs, xe, ys, ye] = code.replace(/d/g, ".").split(",").map(Number);
 
       if (!isNaN(xs) && !isNaN(xe) && !isNaN(ys) && !isNaN(ye))
         updateCoords({ xStart: xs, xEnd: xe, yStart: ys, yEnd: ye });
@@ -262,7 +262,7 @@
 
 <template>
   <WebGL2Canvas
-    :shader="coordConvertShader + unref(shader)"
+    :shader="coordConvertShader + shader"
     :breakpoint="breakpoint"
     @ready="onReady"
   >

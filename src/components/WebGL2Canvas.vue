@@ -46,7 +46,7 @@
 </script>
 
 <script setup lang="ts">
-  import { isRef, toRef, unref, watch, type Ref } from "vue";
+  import { unref, watch } from "vue";
   import FullscreenCanvas from "./FullscreenCanvas.vue";
 
   export interface WebGL2ProgramInfo {
@@ -57,9 +57,7 @@
   }
 
   let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
-
-  let props =
-    defineProps<{ shader: string | Ref<string>; breakpoint?: number }>();
+  let { shader } = defineProps<{ shader: string; breakpoint?: number }>();
 
   function onReady(canvas: HTMLCanvasElement) {
     let gl = canvas.getContext("webgl2")!;
@@ -100,12 +98,7 @@
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
 
-    watch(props, ({ shader }) => {
-      updateWebGL(unref(shader));
-      render();
-    });
-
-    let prog = updateWebGL(unref(props.shader));
+    let prog = updateWebGL(shader);
     if (prog)
       emit("ready", {
         gl,
