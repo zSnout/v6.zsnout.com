@@ -262,7 +262,7 @@
 <template>
   <CoordinateCanvas
     show-reset-button
-    :breakpoint="600"
+    :breakpoint="650"
     :shader="glShader"
     @ready="onReady"
   >
