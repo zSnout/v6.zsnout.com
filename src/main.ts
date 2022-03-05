@@ -8,9 +8,22 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
-    { path: "/fractal", redirect: "/fractal/50/z^2+c/0/-2,2,-2,2" },
     {
-      path: "/fractal/:iterations/:equation/:theme/:coords",
+      path: "/fractal",
+      redirect: "/fractal/z^2+c/0/50/-2,2,-2,2",
+      children: [
+        { path: "mandelbrot-set", redirect: "/fractal/z^2+c" },
+        { path: "burning-ship", redirect: "/fractal/abs(z)^2+c" },
+        { path: "feather", redirect: "/fractal/z^3%2F(rawsqr(z)+c)+c" },
+      ],
+    },
+    {
+      path: "/fractal/:equation",
+      redirect: ({ params: { equation } }) =>
+        `/fractal/${encodeURIComponent("" + equation)}/0/50/-2,2,-2,2`,
+    },
+    {
+      path: "/fractal/:equation/:theme/:iterations/:coords",
       component: () => import("@/views/FractalView.vue"),
     },
     { path: "/:path(.*)", component: () => import("@/views/NotFoundView.vue") },
