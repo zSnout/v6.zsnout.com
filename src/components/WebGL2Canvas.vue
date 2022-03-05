@@ -46,31 +46,30 @@
 </script>
 
 <script setup lang="ts">
-  import { ref, watch, type Ref } from "vue";
+  import { isRef, toRef, unref, watch, type Ref } from "vue";
   import FullscreenCanvas from "./FullscreenCanvas.vue";
 
-  export interface WebGl2ProgramInfo {
+  export interface WebGL2ProgramInfo {
     canvas: HTMLCanvasElement;
     gl: WebGL2RenderingContext;
     program: WebGLProgram;
     render(): void;
   }
 
-  let emit = defineEmits<{ (event: "ready", info: WebGl2ProgramInfo): void }>();
+  let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
 
-  let { shader } =
+  let props =
     defineProps<{ shader: string | Ref<string>; breakpoint?: number }>();
-  let shaderRef = ref(shader);
 
   function onReady(canvas: HTMLCanvasElement) {
     let gl = canvas.getContext("webgl2")!;
     if (!gl) return;
     let lastProgram: WebGLProgram | null = null;
 
-    function onShaderRefChange(value = shaderRef.value) {
+    function updateWebGL(shader: string) {
       let vert = createShader(gl, "VERTEX", vertShader);
       if (!vert) return null;
-      let frag = createShader(gl, "FRAGMENT", value);
+      let frag = createShader(gl, "FRAGMENT", shader);
       if (!frag) return null;
       let program = createProgram(gl, vert, frag);
       if (!program) return null;
@@ -94,20 +93,26 @@
       return program;
     }
 
-    watch(shaderRef, onShaderRefChange);
+    function render() {
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
 
-    let prog = onShaderRefChange();
+    watch(props, ({ shader }) => {
+      console.log("shader changed");
+      updateWebGL(unref(shader));
+      render();
+    });
+
+    let prog = updateWebGL(unref(props.shader));
     if (prog)
       emit("ready", {
         gl,
         canvas,
+        render,
         program: prog,
-        render() {
-          gl.clearColor(0, 0, 0, 0);
-          gl.clear(gl.COLOR_BUFFER_BIT);
-          gl.viewport(0, 0, canvas.width, canvas.height);
-          gl.drawArrays(gl.TRIANGLES, 0, 6);
-        },
       });
   }
 </script>
