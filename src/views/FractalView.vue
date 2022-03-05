@@ -43,9 +43,9 @@
     gl.uniform1i(maxIterLoc, iterations);
 
     function makeRouterURL() {
-      return `/fractal/${iterations}/${encodeURIComponent(
+      return `/fractal/${encodeURIComponent(
         "" + equation
-      )}/${theme}/${getCode()}`;
+      )}/${theme}/${iterations}/${getCode()}`;
     }
 
     let lastSaveTime = Date.now();
