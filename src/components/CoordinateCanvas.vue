@@ -42,7 +42,7 @@
     uniform vec2 scale;
     uniform vec2 offset;
     vec2 convert(vec2 pos) {
-      return pos * scale + offset;
+      return (pos * scale + offset) * vec2(1, -1);
     }
     `;
 
