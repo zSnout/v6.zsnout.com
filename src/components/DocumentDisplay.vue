@@ -36,6 +36,10 @@
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
   }
 
+  main:not(.explicit-height) {
+    min-height: 100%;
+  }
+
   .explicit-height {
     height: 100%;
   }
