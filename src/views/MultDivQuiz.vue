@@ -10,12 +10,12 @@
     if (Math.random() < 0.5)
       return {
         prefix: `${a} × ${b} = `,
-        answers: ["" + c],
+        answers: [c],
       };
     else
       return {
         prefix: `${c} ÷ ${a} = `,
-        answers: ["" + b],
+        answers: [b],
       };
   }
 </script>
