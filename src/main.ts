@@ -16,6 +16,16 @@ export let router = createRouter({
       path: "/practice/squares",
       component: () => import("@/views/SquareQuizView.vue"),
     },
+    { path: "/fake-gradient", redirect: "/fake-gradient/100" },
+    {
+      path: "/fake-gradient/:detail",
+      component: () => import("@/views/FakeGradientView.vue"),
+    },
+    { path: "/fake-gradient-2", redirect: "/fake-gradient-2/100" },
+    {
+      path: "/fake-gradient-2/:detail",
+      component: () => import("@/views/FakeGradient2View.vue"),
+    },
     {
       path: "/fractal",
       redirect: "/fractal/z^2+c/2/0/50/-2,2,-2,2",
