@@ -17,7 +17,10 @@
     equation = "z^2+c";
   }
 
-  let iterations = +params.iterations || 100;
+  let limit = +params.limit || 2;
+  if (!isFinite(limit) || limit < 0) limit = 2;
+
+  let iterations = +params.iterations || 50;
   if (!isFinite(iterations) || iterations < 5) iterations = 50;
   iterations = Math.floor(iterations);
 
@@ -39,13 +42,15 @@
   }: CoordinateCanvasInfo) {
     let maxIterLoc = gl.getUniformLocation(program, "maxIterations");
     let colorModeLoc = gl.getUniformLocation(program, "colorMode");
+    let limitLoc = gl.getUniformLocation(program, "limit");
     gl.uniform1i(colorModeLoc, theme);
     gl.uniform1i(maxIterLoc, iterations);
+    gl.uniform1f(limitLoc, limit);
 
     function makeRouterURL() {
       return `/fractal/${encodeURIComponent(
         "" + equation
-      )}/${theme}/${iterations}/${getCode()}`;
+      )}/${limit}/${theme}/${iterations}/${getCode()}`;
     }
 
     let lastSaveTime = Date.now();
@@ -137,6 +142,7 @@
     out vec4 color;
     uniform int maxIterations;
     uniform int colorMode;
+    uniform float limit;
 
     vec3 hsl2rgb(vec3 c) {
       vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
@@ -212,7 +218,7 @@
         pz = z;
         z = ieq;
         iterations++;
-        if(length(z) > 2.0)
+        if(length(z) > limit)
           break;
 
         sz.x += dot(z - pz, pz - ppz);
