@@ -39,9 +39,7 @@
 
     <form @submit="onSubmit" class="form">
       <span>{{ prefix }}</span>
-      <br />
       <input class="field" v-model="field" type="number" inputmode="numeric" />
-      <br />
       <span>{{ suffix }}</span>
     </form>
   </DocumentDisplay>
@@ -59,12 +57,20 @@
     width: 4em;
     font-size: inherit;
     padding: 4px;
-    border: 1px solid var(--link-color);
-    background-color: #fff1;
+    border: 1px solid var(--border-color);
+    background-color: var(--field-background);
     text-align: center;
     border-radius: 8px;
+    color: inherit;
+    transition: box-shadow 0.3s;
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
 
     @include focus {
+      outline: 0;
+      box-shadow: var(--accent-color) 0 0 6px 1px;
     }
   }
 </style>
