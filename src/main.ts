@@ -10,7 +10,11 @@ export let router = createRouter({
     { path: "/", component: HomeView },
     {
       path: "/practice/mult-div",
-      component: () => import("@/views/MultDivQuiz.vue"),
+      component: () => import("@/views/MultDivQuizView.vue"),
+    },
+    {
+      path: "/practice/squares",
+      component: () => import("@/views/SquareQuizView.vue"),
     },
     {
       path: "/fractal",
