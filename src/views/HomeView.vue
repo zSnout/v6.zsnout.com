@@ -22,11 +22,15 @@
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
     </p>
 
-    <p><RouterLink to="/fractal">Fractal Generator</RouterLink></p>
+    <div class="links">
+      <RouterLink to="/fractal">Fractal Generator</RouterLink>
+      <RouterLink to="/practice/mult-div">Practice 2x2 to 12x12</RouterLink>
+      <RouterLink to="/practice/squares">Practice 2² to 20²</RouterLink>
+    </div>
   </DocumentDisplay>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   h1 {
     margin: 0;
     color: var(--accent-color);
@@ -34,5 +38,18 @@
     font-weight: 700;
     padding-bottom: 0.25em;
     border-bottom: 1px solid var(--accent-color);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+
+    a {
+      display: inline-block;
+      padding: 0.25em 0.5em;
+      background: var(--field-background);
+      border-radius: 4px;
+    }
   }
 </style>
