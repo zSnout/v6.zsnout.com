@@ -3,7 +3,11 @@
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
 
-  defineProps<{ navBrakpoint?: number; explicitHeight?: boolean }>();
+  defineProps<{
+    navBrakpoint?: number;
+    explicitHeight?: boolean;
+    flexbox?: boolean;
+  }>();
 </script>
 
 <template>
@@ -13,7 +17,7 @@
 
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB :explicit-height="explicitHeight">
-      <main :class="{ 'explicit-height': explicitHeight }">
+      <main :class="{ 'explicit-height': explicitHeight, flexbox }">
         <slot v-bind="$attrs" />
       </main>
     </SafeAreaTB>
@@ -42,6 +46,13 @@
 
   .explicit-height {
     height: 100%;
+  }
+
+  .flexbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .navbar {
