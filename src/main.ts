@@ -4,7 +4,7 @@ import { registerSW } from "virtual:pwa-register";
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-Object.entries = entries;
+Object.entries = Object.entries || entries;
 function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
 function entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
 function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][] {
