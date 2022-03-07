@@ -4,10 +4,22 @@ import { registerSW } from "virtual:pwa-register";
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
+Object.entries = entries;
+function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
+function entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
+function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][] {
+  let keys = Object.keys(obj) as K[];
+  return keys.map((key) => [key, obj[key]]);
+}
+
 export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
+    {
+      path: "/trope-highlighter",
+      component: () => import("@/views/TropeHighlighterView.vue"),
+    },
     {
       path: "/practice/mult-div",
       component: () => import("@/views/MultDivQuizView.vue"),
@@ -72,3 +84,10 @@ registerSW({
   onNeedRefresh() {},
   onOfflineReady() {},
 });
+
+declare global {
+  interface ObjectConstructor {
+    entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
+    entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
+  }
+}
