@@ -26,6 +26,9 @@
       <RouterLink to="/fractal">Fractal Generator</RouterLink>
       <RouterLink to="/practice/mult-div">Practice 2x2 to 12x12</RouterLink>
       <RouterLink to="/practice/squares">Practice 2² to 20²</RouterLink>
+      <RouterLink to="/fake-gradient">Fake Gradient</RouterLink>
+      <RouterLink to="/fake-gradient-2">Fake Gradient 2</RouterLink>
+      <RouterLink to="/trope-highlighter">Hebrew Trope Highlighter</RouterLink>
     </div>
   </DocumentDisplay>
 </template>
@@ -50,6 +53,7 @@
       padding: 0.25em 0.5em;
       background: var(--field-background);
       border-radius: 4px;
+      color: var(--accent-color);
     }
   }
 </style>
