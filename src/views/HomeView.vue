@@ -32,6 +32,7 @@
       <!-- prettier-ignore -->
       <a href="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ">zSnout on YouTube</a>
       <a href="https://github.com/zsnout">zSnout on GitHub</a>
+      <span class="link-cap" />
     </div>
   </DocumentDisplay>
 </template>
@@ -57,6 +58,12 @@
       background: var(--field-background);
       border-radius: 4px;
       color: var(--accent-color);
+      flex: auto;
+      text-align: center;
     }
+  }
+
+  .link-cap {
+    flex-grow: 100;
   }
 </style>
