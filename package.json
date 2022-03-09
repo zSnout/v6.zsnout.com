@@ -8,12 +8,14 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "chess.js": "^0.12.1",
     "chessground": "^8.2.0",
     "pinia": "^2.0.11",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@types/chess.js": "^0.11.2",
     "@types/glob": "^7.2.0",
     "@types/node": "^16.11.25",
     "@vitejs/plugin-vue": "^2.2.2",
