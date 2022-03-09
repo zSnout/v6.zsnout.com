@@ -12,7 +12,6 @@
   let emit = defineEmits<{ (event: "ready", api: Api): void }>();
 
   let boardEl = ref<HTMLElement | null>(null);
-  let api: Api | undefined;
   function onResize() {
     let { value } = boardEl;
     if (value) {
