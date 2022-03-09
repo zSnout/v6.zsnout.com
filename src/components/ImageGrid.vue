@@ -1,13 +1,3 @@
-<script lang="ts">
-  let onResizeListeners = new Set<() => void>();
-
-  window.addEventListener(
-    "resize",
-    () => onResizeListeners.forEach((cb) => cb()),
-    { passive: true }
-  );
-</script>
-
 <script setup lang="ts">
   import { onMounted, onUnmounted, reactive, ref } from "vue";
 
@@ -28,12 +18,12 @@
   }
 
   onMounted(() => {
-    onResizeListeners.add(onResize);
+    window.addEventListener("resize", onResize, { passive: true });
     onResize();
   });
 
   onUnmounted(() => {
-    onResizeListeners.delete(onResize);
+    window.removeEventListener("resize", onResize);
   });
 </script>
 
