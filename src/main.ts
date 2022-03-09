@@ -29,6 +29,15 @@ export let router = createRouter({
       path: "/chess/random/:mode",
       component: () => import("@/views/ChessVersusRandomView.vue"),
     },
+    {
+      path: "/chess/capture",
+      redirect: () =>
+        `/chess/capture/${Math.random() < 0.5 ? "white" : "black"}`,
+    },
+    {
+      path: "/chess/capture/:mode",
+      component: () => import("@/views/ChessVersusCaptureAIView.vue"),
+    },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
       path: "/fake-gradient/:detail",
