@@ -19,8 +19,10 @@
     if (orig == "a0" || dest == "a0" || !api) return;
     game.move({ from: orig, to: dest, promotion: "q" });
     api.set({
+      turnColor: game.turn() === "w" ? "white" : "black",
       fen: game.fen(),
       check: game.in_check(),
+      lastMove: [orig, dest],
       movable: {
         color: game.turn() === "w" ? "white" : "black",
         dests: new Map(),
@@ -46,6 +48,9 @@
   let game = Chess(position);
   let config: Config = {
     orientation,
+    premovable: {
+      enabled: false,
+    },
     movable: {
       free: false,
       color: game.turn() === "w" ? "white" : "black",
