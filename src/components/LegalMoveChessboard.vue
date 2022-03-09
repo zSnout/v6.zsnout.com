@@ -54,7 +54,7 @@
     movable: {
       free: false,
       color: game.turn() === "w" ? "white" : "black",
-      dests: getDests(),
+      dests: new Map(),
       events: {
         after: afterMove,
       },
@@ -75,9 +75,24 @@
     return dests;
   }
 
-  function onReady(_api: Api) {
+  async function onReady(_api: Api) {
     api = _api;
+
     emit("ready", api, game);
+
+    let intercept: ShortMove | Promise<ShortMove> | undefined;
+    emit("move", api, game, (move) => (intercept = move));
+
+    if (!intercept) {
+      api.set({
+        movable: {
+          dests: getDests(),
+        },
+      });
+    } else {
+      let move = await intercept;
+      setTimeout(() => afterMove(move.from, move.to));
+    }
   }
 </script>
 
