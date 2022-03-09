@@ -55,6 +55,9 @@
     touch-action: none;
     -webkit-touch-callout: none;
     border-radius: 8px;
-    overflow: hidden;
+
+    :deep(cg-board) {
+      border-radius: 8px;
+    }
   }
 </style>
