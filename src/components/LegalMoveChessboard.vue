@@ -5,7 +5,7 @@
   import type { Config } from "chessground/config";
   import type { Key } from "chessground/types";
 
-  type Intercept = (move: ShortMove | Promise<ShortMove>) => void;
+  export type Intercept = (move: ShortMove | Promise<ShortMove>) => void;
 
   let { position, orientation = "white" } =
     defineProps<{ position?: string; orientation?: "white" | "black" }>();
