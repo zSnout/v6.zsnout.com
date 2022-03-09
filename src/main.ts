@@ -17,8 +17,8 @@ export let router = createRouter({
   routes: [
     { path: "/", component: HomeView },
     {
-      path: "/chess/ruleless",
-      component: () => import("@/views/chess/RulelessChessboardView.vue"),
+      path: "/chess/board",
+      component: () => import("@/views/chess/StandardChessboardView.vue"),
     },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
