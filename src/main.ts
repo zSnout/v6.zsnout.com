@@ -16,6 +16,10 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
+    {
+      path: "/chess/ruleless",
+      component: () => import("@/views/chess/RulelessChessboardView.vue"),
+    },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
       path: "/fake-gradient/:detail",
