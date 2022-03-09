@@ -1,7 +1,7 @@
 import App from "@/App.vue";
 import HomeView from "@/views/HomeView.vue";
 import { registerSW } from "virtual:pwa-register";
-import { createApp } from "vue";
+import { createApp, type Component } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 Object.entries = Object.entries || entries;
@@ -16,18 +16,6 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
-    {
-      path: "/trope-highlighter",
-      component: () => import("@/views/TropeHighlighterView.vue"),
-    },
-    {
-      path: "/practice/mult-div",
-      component: () => import("@/views/MultDivQuizView.vue"),
-    },
-    {
-      path: "/practice/squares",
-      component: () => import("@/views/SquareQuizView.vue"),
-    },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
       path: "/fake-gradient/:detail",
@@ -71,6 +59,18 @@ export let router = createRouter({
     {
       path: "/fractal/:equation/:limit/:theme/:iterations/:coords",
       component: () => import("@/views/FractalView.vue"),
+    },
+    {
+      path: "/practice/mult-div",
+      component: () => import("@/views/MultDivQuizView.vue"),
+    },
+    {
+      path: "/practice/squares",
+      component: () => import("@/views/SquareQuizView.vue"),
+    },
+    {
+      path: "/trope-highlighter",
+      component: () => import("@/views/TropeHighlighterView.vue"),
     },
     { path: "/:path(.*)", component: () => import("@/views/NotFoundView.vue") },
   ],
