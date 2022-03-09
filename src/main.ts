@@ -20,6 +20,15 @@ export let router = createRouter({
       path: "/chess/board",
       component: () => import("@/views/StandardChessboardView.vue"),
     },
+    {
+      path: "/chess/random",
+      redirect: () =>
+        `/chess/random/${Math.random() < 0.5 ? "white" : "black"}`,
+    },
+    {
+      path: "/chess/random/:mode",
+      component: () => import("@/views/ChessVersusRandomView.vue"),
+    },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
       path: "/fake-gradient/:detail",
