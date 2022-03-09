@@ -46,8 +46,8 @@
     :orientation="mode == 'w' ? 'white' : 'black'"
   >
     <template #nav>
-      <NavLink to="/chess/random/white">Reload as White</NavLink>
-      <NavLink to="/chess/random/black">Reload as Black</NavLink>
+      <NavLink to="/chess/capture/white">Reload as White</NavLink>
+      <NavLink to="/chess/capture/black">Reload as Black</NavLink>
     </template>
   </LegalMoveChessboard>
 </template>
