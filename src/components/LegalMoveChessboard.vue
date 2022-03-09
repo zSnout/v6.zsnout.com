@@ -12,7 +12,7 @@
 
   let emit = defineEmits<{
     (event: "ready", api: Api, game: ChessInstance): void;
-    (event: "move", api: Api, game: ChessInstance, intercept: Intercept): void;
+    (event: "move", intercept: Intercept, game: ChessInstance, api: Api): void;
   }>();
 
   async function afterMove(orig: Key, dest: Key) {
@@ -30,7 +30,7 @@
     });
 
     let intercept: ShortMove | Promise<ShortMove> | undefined;
-    emit("move", api, game, (move) => (intercept = move));
+    emit("move", (move) => (intercept = move), game, api);
 
     if (!intercept) {
       api.set({
@@ -81,7 +81,7 @@
     emit("ready", api, game);
 
     let intercept: ShortMove | Promise<ShortMove> | undefined;
-    emit("move", api, game, (move) => (intercept = move));
+    emit("move", (move) => (intercept = move), game, api);
 
     if (!intercept) {
       api.set({
@@ -97,5 +97,9 @@
 </script>
 
 <template>
-  <Chessboard @ready="onReady" :config="config" />
+  <Chessboard @ready="onReady" :config="config">
+    <template #nav>
+      <slot name="nav" />
+    </template>
+  </Chessboard>
 </template>
