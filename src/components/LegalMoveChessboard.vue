@@ -1,31 +1,57 @@
 <script setup lang="ts">
   import Chessboard from "@/components/Chessboard.vue";
-  import { Chess, type Square } from "chess.js";
+  import { Chess, type Square, type ChessInstance, type ShortMove } from "chess.js"; // prettier-ignore
   import type { Api } from "chessground/api";
   import type { Config } from "chessground/config";
+  import type { Key } from "chessground/types";
 
-  let { position } = defineProps<{ position?: string }>();
+  type Intercept = (move: ShortMove | Promise<ShortMove>) => void;
+
+  let { position, orientation = "white" } =
+    defineProps<{ position?: string; orientation?: "white" | "black" }>();
+
+  let emit = defineEmits<{
+    (event: "ready", api: Api, game: ChessInstance): void;
+    (event: "move", api: Api, game: ChessInstance, intercept: Intercept): void;
+  }>();
+
+  async function afterMove(orig: Key, dest: Key) {
+    if (orig == "a0" || dest == "a0" || !api) return;
+    game.move({ from: orig, to: dest, promotion: "q" });
+    api.set({
+      fen: game.fen(),
+      check: game.in_check(),
+      movable: {
+        color: game.turn() === "w" ? "white" : "black",
+        dests: new Map(),
+      },
+    });
+
+    let intercept: ShortMove | Promise<ShortMove> | undefined;
+    emit("move", api, game, (move) => (intercept = move));
+
+    if (!intercept) {
+      api.set({
+        movable: {
+          dests: getDests(),
+        },
+      });
+    } else {
+      let move = await intercept;
+      setTimeout(() => afterMove(move.from, move.to));
+    }
+  }
 
   let api: Api | undefined;
   let game = Chess(position);
   let config: Config = {
+    orientation,
     movable: {
       free: false,
       color: game.turn() === "w" ? "white" : "black",
       dests: getDests(),
       events: {
-        after(orig, dest) {
-          if (orig == "a0" || dest == "a0" || !api) return;
-          game.move({ from: orig, to: dest, promotion: "q" });
-          api.set({
-            fen: game.fen(),
-            check: game.in_check(),
-            movable: {
-              color: game.turn() === "w" ? "white" : "black",
-              dests: getDests(),
-            },
-          });
-        },
+        after: afterMove,
       },
     },
   };
@@ -46,6 +72,7 @@
 
   function onReady(_api: Api) {
     api = _api;
+    emit("ready", api, game);
   }
 </script>
 
