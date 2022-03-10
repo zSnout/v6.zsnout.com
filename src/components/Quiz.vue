@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import DocumentDisplay from "./DocumentDisplay.vue";
 
   export interface Question {
@@ -13,6 +13,7 @@
   let prefix = ref("");
   let suffix = ref("");
   let answers: number[] = [];
+  let fieldEl = ref<HTMLElement | null>(null);
 
   function replaceQuestion() {
     let { prefix: p, suffix: s, answers: a } = generator();
@@ -29,6 +30,7 @@
   }
 
   replaceQuestion();
+  onMounted(() => fieldEl.value?.focus());
 </script>
 
 <template>
@@ -39,7 +41,13 @@
 
     <form @submit="onSubmit" class="form">
       <span>{{ prefix }}</span>
-      <input class="field" v-model="field" type="number" inputmode="numeric" />
+      <input
+        class="field"
+        v-model="field"
+        type="number"
+        inputmode="numeric"
+        ref="fieldEl"
+      />
       <span>{{ suffix }}</span>
     </form>
   </DocumentDisplay>
