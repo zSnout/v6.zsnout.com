@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import { RouterLink } from "vue-router";
 
   let prelinks: [name: string, to: string, keywords?: string][] = [
@@ -36,6 +36,9 @@
       .split(" ")
       .every((e) => keywords.includes(e));
   }
+
+  let fieldEl = ref<HTMLElement | null>(null);
+  onMounted(() => fieldEl.value?.focus());
 </script>
 
 <template>
@@ -62,6 +65,7 @@
       type="search"
       placeholder="Search..."
       v-model="field"
+      ref="fieldEl"
     />
 
     <div class="links">
