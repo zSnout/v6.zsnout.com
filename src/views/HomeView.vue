@@ -117,6 +117,7 @@
 
     @include focus {
       outline: 0;
+      box-shadow: var(--border-color) 0 0 6px 1px;
     }
   }
 
