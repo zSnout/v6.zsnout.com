@@ -1,6 +1,9 @@
 <script setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import { ref } from "vue";
   import { RouterLink } from "vue-router";
+
+  let field = ref("");
 </script>
 
 <template>
@@ -22,7 +25,14 @@
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
     </p>
 
-    <div class="links">
+    <input
+      class="search"
+      type="search"
+      placeholder="Search..."
+      v-model="field"
+    />
+
+    <div class="links" ref="links">
       <RouterLink to="/fractal">Fractal Generator</RouterLink>
       <RouterLink to="/practice/mult-div">Practice 2x2 to 12x12</RouterLink>
       <RouterLink to="/practice/squares">Practice 2² to 20²</RouterLink>
@@ -36,13 +46,15 @@
       <RouterLink to="/chess/vsbad">Chess vs. Bad AI</RouterLink>
       <!-- prettier-ignore -->
       <a href="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ">zSnout on YouTube</a>
-      <a href="https://github.com/zsnout">zSnout on GitHub</a>
+      <a href="https://github.com/zSnout">zSnout on GitHub</a>
       <span class="link-cap" />
     </div>
   </DocumentDisplay>
 </template>
 
 <style scoped lang="scss">
+  @use "@/assets/util.scss" as *;
+
   h1 {
     margin: 0;
     color: var(--accent-color);
@@ -50,6 +62,28 @@
     font-weight: 700;
     padding-bottom: 0.25em;
     border-bottom: 1px solid var(--accent-color);
+  }
+
+  .search {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    background-color: var(--field-background);
+    font-size: inherit;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    border: none;
+    color: inherit;
+    width: 100%;
+    height: 2em;
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
+    @include focus {
+      outline: 0;
+    }
   }
 
   .links {
