@@ -1,9 +1,41 @@
-<script setup>
+<script setup lang="ts">
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import { ref } from "vue";
   import { RouterLink } from "vue-router";
 
+  let prelinks: [name: string, to: string, keywords?: string][] = [
+    ["Fractal Generator", "/fractal"],
+    ["Practice 2x2 to 12x12", "/practice/mult-div"],
+    ["Practice 2² to 20²", "/practice/squares"],
+    ["Fake Gradient", "/fake-gradient"],
+    ["Fake Gradient 2", "/fake-gradient-2"],
+    ["Hebrew Trope Highlighter", "/trope-highlighter"],
+    ["Chessboard", "/chess/board"],
+    ["Chess vs. Random AI", "/chess/random"],
+    ["Chess vs. Capturing AI", "/chess/capture"],
+    ["Chess vs. No-Capture AI", "/chess/nocapture"],
+    ["Chess vs. Bad AI", "/chess/vsbad"],
+  ];
+
+  let links = prelinks.map(([name, to, keywords]) => ({
+    name,
+    to,
+    keywords: (keywords?.split(" ") || [])
+      .concat(name.match(/\w+/g) || [])
+      .map((x) => x.toLowerCase())
+      .join(" "),
+  }));
+
   let field = ref("");
+
+  function matches(keywords: string, query: string) {
+    if (!query.trim()) return true;
+
+    return query
+      .trim()
+      .split(" ")
+      .every((e) => keywords.includes(e));
+  }
 </script>
 
 <template>
@@ -32,18 +64,16 @@
       v-model="field"
     />
 
-    <div class="links" ref="links">
-      <RouterLink to="/fractal">Fractal Generator</RouterLink>
-      <RouterLink to="/practice/mult-div">Practice 2x2 to 12x12</RouterLink>
-      <RouterLink to="/practice/squares">Practice 2² to 20²</RouterLink>
-      <RouterLink to="/fake-gradient">Fake Gradient</RouterLink>
-      <RouterLink to="/fake-gradient-2">Fake Gradient 2</RouterLink>
-      <RouterLink to="/trope-highlighter">Hebrew Trope Highlighter</RouterLink>
-      <RouterLink to="/chess/board">Chessboard</RouterLink>
-      <RouterLink to="/chess/random">Chess vs. Random AI</RouterLink>
-      <RouterLink to="/chess/capture">Chess vs. Capturing AI</RouterLink>
-      <RouterLink to="/chess/nocapture">Chess vs. No-Capture AI</RouterLink>
-      <RouterLink to="/chess/vsbad">Chess vs. Bad AI</RouterLink>
+    <div class="links">
+      <RouterLink
+        v-for="(link, i) in links"
+        :key="i"
+        :to="link.to"
+        v-show="matches(link.keywords, field)"
+      >
+        {{ link.name }}
+      </RouterLink>
+
       <!-- prettier-ignore -->
       <a href="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ">zSnout on YouTube</a>
       <a href="https://github.com/zSnout">zSnout on GitHub</a>
