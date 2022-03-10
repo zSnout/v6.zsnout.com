@@ -1,57 +1,27 @@
 <script setup lang="ts">
-  import LegalMoveChessboard, {
-    type Intercept,
-  } from "@/components/LegalMoveChessboard.vue";
-  import { router } from "@/main";
-  import type { ChessInstance } from "chess.js";
-  import { onBeforeRouteUpdate, useRoute } from "vue-router";
+  import LegalMoveChessboard from "@/components/LegalMoveChessboard.vue";
   import NavLink from "@/components/NavLink.vue";
-
-  let premode = useRoute().params.mode;
-  let mode: "w" | "b" =
-    premode == "white"
-      ? "w"
-      : premode == "black"
-      ? "b"
-      : Math.random() < 0.5
-      ? "w"
-      : "b";
+  import type { ChessInstance } from "chess.js";
+  import ChessVersusAI from "../components/ChessVersusAI.vue";
 
   let pieces = ["k", "q", "r", "b", "n", "p", undefined];
 
-  function onMove(intercept: Intercept, game: ChessInstance) {
-    if (game.turn() != mode) {
-      let moves = game.moves({ verbose: true });
-      if (moves.length) {
-        moves
-          .sort(() => (Math.random() < 0.5 ? -1 : 1))
-          .sort(
-            ({ piece: a }, { piece: b }) =>
-              pieces.indexOf(b) - pieces.indexOf(a)
-          )
-          .sort(
-            ({ captured: a }, { captured: b }) =>
-              pieces.indexOf(b) - pieces.indexOf(a)
-          );
+  function onMove(game: ChessInstance) {
+    let moves = game.moves({ verbose: true });
+    moves
+      .sort(() => (Math.random() < 0.5 ? -1 : 1))
+      .sort(
+        ({ piece: a }, { piece: b }) => pieces.indexOf(b) - pieces.indexOf(a)
+      )
+      .sort(
+        ({ captured: a }, { captured: b }) =>
+          pieces.indexOf(b) - pieces.indexOf(a)
+      );
 
-        intercept(moves[0]);
-      }
-    }
+    return moves[0];
   }
-
-  onBeforeRouteUpdate(() => {
-    setTimeout(() => router.go(0));
-  });
 </script>
 
 <template>
-  <LegalMoveChessboard
-    @move="onMove"
-    :orientation="mode == 'w' ? 'white' : 'black'"
-  >
-    <template #nav>
-      <NavLink to="/chess/vsbad/white">Reload as White</NavLink>
-      <NavLink to="/chess/vsbad/black">Reload as Black</NavLink>
-    </template>
-  </LegalMoveChessboard>
+  <ChessVersusAI :move="onMove" />
 </template>
