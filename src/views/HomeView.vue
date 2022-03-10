@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
-  import { onMounted, ref } from "vue";
+  import { onMounted, onUnmounted, ref } from "vue";
   import { RouterLink } from "vue-router";
 
   let prelinks: [name: string, to: string, keywords?: string][] = [
@@ -26,6 +26,16 @@
       .join(" "),
   }));
 
+  let tips = [
+    'Double-click the "Escape" key to go home and focus the search bar.',
+    'Hit the giant "zSnout" icon to go to the homepage!',
+    "In the Fractal Generator, you can right-click to save a picture on desktop.",
+  ];
+
+  let timezoneOffset = new Date().getTimezoneOffset();
+  let dayNumber = Math.floor((Date.now() + timezoneOffset) / 60 / 60 / 24) - 19061828; // prettier-ignore
+  let dailyTip = tips[dayNumber % tips.length];
+
   let field = ref("");
 
   function matches(keywords: string, query: string) {
@@ -37,8 +47,23 @@
       .every((e) => keywords.includes(e));
   }
 
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape" || event.key == "/") {
+      event.preventDefault();
+      fieldEl.value?.focus();
+    }
+  }
+
   let fieldEl = ref<HTMLElement | null>(null);
-  onMounted(() => fieldEl.value?.focus());
+
+  onMounted(() => {
+    fieldEl.value?.focus();
+    window.addEventListener("keydown", onKeyDown);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("keydown", onKeyDown);
+  });
 </script>
 
 <template>
@@ -49,6 +74,7 @@
 
   <DocumentDisplay>
     <h1>Welcome to zSnout!</h1>
+
     <p>
       zSnout is collection of different projects created for fun by Zachary
       Sakowitz during COVID-19. Our source code is publicly available on our
@@ -59,6 +85,8 @@
       >. You can also
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
     </p>
+
+    <p class="daily-tip">Daily tip: {{ dailyTip }}</p>
 
     <input
       class="search"
@@ -139,5 +167,9 @@
 
   .link-cap {
     flex-grow: 100;
+  }
+
+  .daily-tip {
+    margin-block-start: -0.5em;
   }
 </style>
