@@ -130,3 +130,13 @@ declare global {
     entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
   }
 }
+
+let lastEscapeKeyTime = 0;
+window.addEventListener("keydown", ({ key }) => {
+  if (key.toLowerCase() == "escape") {
+    if (lastEscapeKeyTime + 1000 > Date.now()) {
+      router.push("/");
+      lastEscapeKeyTime = 0;
+    } else lastEscapeKeyTime = Date.now();
+  }
+});
