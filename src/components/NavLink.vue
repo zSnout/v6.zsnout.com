@@ -9,7 +9,12 @@
     <slot />
   </RouterLink>
 
-  <a v-else class="navlink" tabindex="0">
+  <a
+    v-else
+    class="navlink"
+    tabindex="0"
+    @keydown="({ key }) => (key == ' ' || key == 'Enter') && $el.click()"
+  >
     <slot />
   </a>
 </template>
