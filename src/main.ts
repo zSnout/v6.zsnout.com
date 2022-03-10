@@ -133,7 +133,7 @@ declare global {
 
 let lastEscapeKeyTime = 0;
 window.addEventListener("keydown", ({ key }) => {
-  if (key.toLowerCase() == "escape") {
+  if (key == "Escape") {
     if (lastEscapeKeyTime + 1000 > Date.now()) {
       router.push("/");
       lastEscapeKeyTime = 0;
