@@ -47,6 +47,14 @@ export let router = createRouter({
       path: "/chess/nocapture/:mode",
       component: () => import("@/views/ChessVersusNoCaptureAIView.vue"),
     },
+    {
+      path: "/chess/vsbad",
+      redirect: () => `/chess/vsbad/${Math.random() < 0.5 ? "white" : "black"}`,
+    },
+    {
+      path: "/chess/vsbad/:mode",
+      component: () => import("@/views/ChessVersusBadAIView.vue"),
+    },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
       path: "/fake-gradient/:detail",

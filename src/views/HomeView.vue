@@ -31,6 +31,9 @@
       <RouterLink to="/trope-highlighter">Hebrew Trope Highlighter</RouterLink>
       <RouterLink to="/chess/board">Chessboard</RouterLink>
       <RouterLink to="/chess/random">Chess vs. Random AI</RouterLink>
+      <RouterLink to="/chess/capture">Chess vs. Capturing AI</RouterLink>
+      <RouterLink to="/chess/nocapture">Chess vs. No-Capture AI</RouterLink>
+      <RouterLink to="/chess/vsbad">Chess vs. Bad AI</RouterLink>
       <!-- prettier-ignore -->
       <a href="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ">zSnout on YouTube</a>
       <a href="https://github.com/zsnout">zSnout on GitHub</a>
