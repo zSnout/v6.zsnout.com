@@ -3,8 +3,17 @@
 type Data = [input: number, output: boolean][];
 type MultiInputData = [input: number[], output: boolean][];
 type DataObject = Record<string, number>[];
+type SplitDataObject = [
+  true: DataObject, // data that is classified as TRUE
+  false: DataObject, // data that is classified as FALSE
+  division: KeyedDivision // the division used to split the data
+];
 
-function scoreDivision(data: Data, division: number) {
+type Division = [division: number, numCorrect: number, direction: "lt" | "gte"]; // direction = which way the model believes TRUE is
+type IndexedDivision = [index: number, ...division: Division];
+type KeyedDivision = [key: string, ...division: Division];
+
+function scoreDivision(data: Data, division: number): Division {
   let incorrect = 0;
 
   for (let [input, output] of data) {
@@ -19,7 +28,8 @@ function scoreDivision(data: Data, division: number) {
     }
   }
 
-  return Math.min(incorrect, data.length - incorrect);
+  let direction: "lt" | "gte" = incorrect < data.length / 2 ? "lt" : "gte";
+  return [division, Math.min(incorrect, data.length - incorrect), direction];
 }
 
 export function getDivisions(data: Data) {
@@ -29,10 +39,10 @@ export function getDivisions(data: Data) {
     .map((e, i) => (e * 1e16 + inputs[i + 1] * 1e16) / 2e16)
     .concat(Math.min(...inputs) - 1, Math.max(...inputs) + 1);
 
-  let accuracies: [division: number, numCorrect: number][] = [];
+  let accuracies: Division[] = [];
 
   for (let division of divisions)
-    accuracies.push([division, scoreDivision(data, division)]);
+    accuracies.push(scoreDivision(data, division));
 
   return accuracies;
 }
@@ -45,7 +55,7 @@ export function getBestDivision(data: Data) {
 
 export function getBestMultiInputDivision(
   data: MultiInputData
-): [index: number, division: number, numCorrect: number] {
+): IndexedDivision {
   let datasets = data[0][0].map((_, i) =>
     data.map<[input: number, output: boolean]>(([input, output]) => [
       input[i],
@@ -65,7 +75,7 @@ export function getBestMultiInputDivision(
 export function getBestObjectDivison(
   data: DataObject,
   output: string
-): [key: string, division: number, numCorrect: number] {
+): KeyedDivision {
   let dataset = data.map<[number[], boolean]>((entry) => [
     Object.entries(entry)
       .filter(([key]) => key != output)
@@ -74,13 +84,40 @@ export function getBestObjectDivison(
     !!entry[output],
   ]);
 
-  let [index, division, numCorrect] = getBestMultiInputDivision(dataset);
+  let [index, ...division] = getBestMultiInputDivision(dataset);
 
   return [
     Object.keys(data[0])
       .filter((key) => key != output)
       .sort()[index],
-    division,
-    numCorrect,
+    ...division,
   ];
+}
+
+export function splitOnBestDivision(
+  data: DataObject,
+  output: string
+): SplitDataObject {
+  let predictsTrue: DataObject = [];
+  let predictsFalse: DataObject = [];
+  let [key, division, numCorrect, direction] = getBestObjectDivison(data, output); // prettier-ignore
+
+  for (let entry of data) {
+    if (
+      (direction == "lt" && entry[key] < division) ||
+      (direction == "gte" && entry[key] > division)
+    ) {
+      predictsTrue.push(entry);
+    } else predictsFalse.push(entry);
+  }
+
+  return [predictsTrue, predictsFalse, [key, division, numCorrect, direction]];
+}
+
+export function filterData(data: DataObject, keep: string[]) {
+  return data.map((entry) =>
+    Object.fromEntries(
+      Object.entries(entry).filter(([key]) => keep.includes(key))
+    )
+  ) as any as DataObject;
 }
