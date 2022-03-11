@@ -117,6 +117,14 @@ export let router = createRouter({
       component: () => import("@/views/SquareQuizView.vue"),
     },
     {
+      path: "/rainbow-noise",
+      redirect: "/rainbow-noise/50",
+    },
+    {
+      path: "/rainbow-noise/:chance",
+      component: () => import("@/views/RainbowNoiseView.vue"),
+    },
+    {
       path: "/trope-highlighter",
       component: () => import("@/views/TropeHighlighterView.vue"),
     },
