@@ -5,9 +5,9 @@
     "In the Fractal Generator, you can right-click to save a picture on desktop.",
   ];
 
-  let timezoneOffset = new Date().getTimezoneOffset();
+  let timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
   let msInDay = 1000 * 60 * 60 * 24;
-  let day = Math.floor((Date.now() + timezoneOffset) / msInDay) - 19062;
+  let day = Math.floor((Date.now() - timezoneOffset) / msInDay) - 19061;
   let dailyTip = tips[day % tips.length];
 </script>
 
