@@ -1,8 +1,10 @@
 <script setup lang="ts">
   let tips = [
     'Double-click the "Escape" key to go home and focus the search bar.',
-    'Hit the giant "zSnout" icon to go to the homepage!',
+    "Bookmark a fractal page to save its location and equation forever.",
+    'Hit the giant "zSnout" icon to go to the homepage.',
     "In the Fractal Generator, you can right-click to save a picture on desktop.",
+    "Copy the URL of the standard chessboard or autoflip board to share it.",
   ];
 
   let timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
