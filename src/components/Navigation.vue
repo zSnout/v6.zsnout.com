@@ -115,15 +115,17 @@
     height: 2em;
     padding: 12px 0;
     padding-top: max(12px, env(safe-area-inset-top));
-    border-bottom: 1px solid #b2b2b2;
+    border-bottom: 1px solid #066567;
     user-select: none;
     z-index: 3;
 
     @include dark {
       background-color: #345558;
+      border-bottom: 1px solid #72a8aa;
 
       &.floating {
         background-color: transparent;
+        border-bottom: 0;
       }
     }
 
