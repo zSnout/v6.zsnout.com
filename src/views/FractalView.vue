@@ -25,8 +25,8 @@
   iterations = Math.floor(iterations);
 
   let theme = +params.theme;
-  if (!isFinite(theme) || theme < 0 || theme >= 13) theme = 0;
-  theme = Math.floor(theme) % 13;
+  if (!isFinite(theme) || theme < 0 || theme >= 14) theme = 0;
+  theme = Math.floor(theme) % 14;
 
   let _changeTheme: (() => void) | undefined;
   let _changeEquation: (() => void) | undefined;
@@ -59,7 +59,7 @@
     loadCode("" + coords);
 
     _changeTheme = () => {
-      theme = (theme + 1) % 13;
+      theme = (theme + 1) % 14;
 
       gl.uniform1i(colorModeLoc, theme);
       render();
@@ -204,7 +204,7 @@
       vec2 z, pz, ppz, nz;
       vec3 sz;
 
-      if(colorMode >= 7) {
+      if(colorMode == 7 || colorMode == 8) {
         z = c;
         for(int i = 0; i < maxIterations; i++) {
           ppz = pz;
@@ -231,7 +231,15 @@
         sz.y += dot(z - pz, z - pz);
         sz.z += dot(z - ppz, z - ppz);
 
-        if(colorMode == 2 || colorMode == 5) {
+        if (colorMode == 13) {
+          if((pos.x >= 0.0 && pos.y < 0.0)) {
+            sz -= sign(vec3(float(z), float(pz), float(ppz)));
+          } else if((pos.x < 0.0 && pos.y >= 0.0)) {
+            sz += sign(vec3(float(z), float(pz), float(ppz)));
+          } else if(pos.x < 0.0 && pos.y < 0.0) {
+            sz += z.yxx;
+          }
+        } else if(colorMode == 2 || colorMode == 5) {
           sz -= sign(vec3(float(z), float(pz), float(ppz)));
         } else if(colorMode == 3 || colorMode == 6) {
           sz += sign(vec3(float(z), float(pz), float(ppz)));
@@ -264,7 +272,7 @@
     void main() {
       vec2 c = convert(pos);
 
-      if (colorMode >= 9) {
+      if (colorMode >= 9 && colorMode <= 12) {
         vec2 sz = runNewton2(c);
         color = vec4(newtonPalette(atan(sz.y / sz.x)), 1);
         return;
@@ -276,7 +284,7 @@
       float iterations = res.w;
 
       float frac = float(iterations) / float(maxIterations);
-      if(colorMode >= 7) {
+      if(colorMode == 7 || colorMode == 8) {
         color = vec4(hsl2rgb(vec3(iterations, 1, 0.5)), 1);
       } else if(frac < 1.0 && (colorMode == 0)) {
         color = vec4(palette(frac), 1);
