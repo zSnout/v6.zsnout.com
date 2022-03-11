@@ -232,9 +232,9 @@
         sz.z += dot(z - ppz, z - ppz);
 
         if (colorMode == 13) {
-          if((pos.x >= 0.0 && pos.y < 0.0)) {
+          if(pos.x >= 0.0 && pos.y < 0.0) {
             sz -= sign(vec3(float(z), float(pz), float(ppz)));
-          } else if((pos.x < 0.0 && pos.y >= 0.0)) {
+          } else if(pos.x < 0.0 && pos.y >= 0.0) {
             sz += sign(vec3(float(z), float(pz), float(ppz)));
           } else if(pos.x < 0.0 && pos.y < 0.0) {
             sz += z.yxx;
