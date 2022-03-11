@@ -47,17 +47,15 @@
   let api: Api | undefined;
   let game = Chess(position);
   let config: Config = {
+    fen: game.fen().split(" ")[0],
     orientation,
-    premovable: {
-      enabled: false,
-    },
+    premovable: { enabled: false },
+    turnColor: game.turn() === "w" ? "white" : "black",
     movable: {
       free: false,
       color: game.turn() === "w" ? "white" : "black",
       dests: new Map(),
-      events: {
-        after: afterMove,
-      },
+      events: { after: afterMove },
     },
   };
 
@@ -85,7 +83,10 @@
 
     if (!intercept) {
       api.set({
+        turnColor: game.turn() === "w" ? "white" : "black",
+        check: game.in_check(),
         movable: {
+          color: game.turn() === "w" ? "white" : "black",
           dests: getDests(),
         },
       });
