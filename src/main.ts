@@ -26,6 +26,11 @@ export let router = createRouter({
     { path: "/", component: HomeView },
     {
       path: "/chess/board",
+      redirect:
+        "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
+    },
+    {
+      path: "/chess/board/:position",
       component: () => import("@/views/StandardChessboardView.vue"),
     },
     {
