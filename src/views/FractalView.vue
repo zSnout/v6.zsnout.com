@@ -25,8 +25,8 @@
   iterations = Math.floor(iterations);
 
   let theme = +params.theme;
-  if (!isFinite(theme) || theme < 0 || theme > 9) theme = 0;
-  theme = Math.floor(theme) % 10;
+  if (!isFinite(theme) || theme < 0 || theme >= 13) theme = 0;
+  theme = Math.floor(theme) % 13;
 
   let _changeTheme: (() => void) | undefined;
   let _changeEquation: (() => void) | undefined;
@@ -59,7 +59,7 @@
     loadCode("" + coords);
 
     _changeTheme = () => {
-      theme = (theme + 1) % 10;
+      theme = (theme + 1) % 13;
 
       gl.uniform1i(colorModeLoc, theme);
       render();
@@ -204,19 +204,15 @@
       vec2 z, pz, ppz, nz;
       vec3 sz;
 
-      if(colorMode == 7 || colorMode == 8 || colorMode == 9) {
+      if(colorMode >= 7) {
         z = c;
         for(int i = 0; i < maxIterations; i++) {
           ppz = pz;
           pz = z;
           z = ieq;
-
-          if (colorMode == 9) nz = sin(mult(z, nz)) + cos(nz) + cos(z);
         }
 
-        if(colorMode == 9)
-          return vec4(nz, 0, 0);
-        else if(colorMode == 8 && z.y <= 0.0)
+        if(colorMode == 8 && z.y <= 0.0)
           return vec4(sz, (atan(z.y, z.x) / 3.14159265) + 0.25);
         else
           return vec4(sz, atan(z.y, z.x) / 3.14159265);
@@ -250,14 +246,16 @@
     vec2 runNewton2(vec2 c) {
       vec2 z = vec2(0, 0);
       vec2 sz = vec2(0, 0);
-      // vec2 sc = c - vec2(1, 0);
       for(int i = 0; i < maxIterations; i++) {
-        // vec2 result = cube(z) + mult(sc, z) - c;
-        // vec2 deriv = mult(vec2(3, 0), sqr(z)) + sc;
-        // z = z - div(result, deriv);
-
         z = ieq;
-        sz = sin(mult(z, sz)) + cos(sz) + cos(z);
+        if(colorMode == 9)
+          sz = sin(mult(z, sz)) + cos(sz) + cos(z);
+        else if(colorMode == 10)
+          sz = sin(sz + z) + cos(sz) + z;
+        else if(colorMode == 11)
+          sz = cos(mult(sz, z)) + cos(sz) + z;
+        else if(colorMode == 12)
+          sz = sin(mult(sz, z)) + cos(z);
       }
 
       return sz;
@@ -266,7 +264,7 @@
     void main() {
       vec2 c = convert(pos);
 
-      if (colorMode == 9) {
+      if (colorMode >= 9) {
         vec2 sz = runNewton2(c);
         color = vec4(newtonPalette(atan(sz.y / sz.x)), 1);
         return;
@@ -278,7 +276,7 @@
       float iterations = res.w;
 
       float frac = float(iterations) / float(maxIterations);
-      if(colorMode == 7 || colorMode == 8) {
+      if(colorMode >= 7) {
         color = vec4(hsl2rgb(vec3(iterations, 1, 0.5)), 1);
       } else if(frac < 1.0 && (colorMode == 0)) {
         color = vec4(palette(frac), 1);
