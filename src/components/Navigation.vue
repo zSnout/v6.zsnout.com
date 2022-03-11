@@ -179,8 +179,16 @@
       backdrop-filter: blur(0.5em);
       border-radius: 0.5em;
 
+      @supports not (backdrop-filter: blur(0.5em)) {
+        background-color: #fff8;
+      }
+
       @include dark {
         background-color: #0004;
+
+        @supports not (backdrop-filter: blur(0.5em)) {
+          background-color: #0004;
+        }
       }
     }
   }
