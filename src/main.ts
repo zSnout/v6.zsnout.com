@@ -12,6 +12,14 @@ function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][] {
   return keys.map((key) => [key, obj[key]]);
 }
 
+Object.fromEntries = Object.fromEntries || fromEntries;
+function fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V } {
+  return entries.reduce((obj, [key, value]) => {
+    obj[key] = value;
+    return obj;
+  }, {} as { [X in K]: V });
+}
+
 export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -128,6 +136,7 @@ declare global {
   interface ObjectConstructor {
     entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
     entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
+    fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V };
   }
 }
 
