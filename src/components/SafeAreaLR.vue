@@ -3,7 +3,13 @@
 </script>
 
 <template>
-  <div :class="{ 'safe-area': true, 'keep-width': keepWidth }">
+  <div
+    :class="{
+      'safe-area': true,
+      'keep-width': keepWidth,
+      'keep-height': keepHeight,
+    }"
+  >
     <div :class="{ 'constrained': true, 'keep-height': keepHeight }">
       <slot />
     </div>
