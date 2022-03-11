@@ -12,6 +12,11 @@ type SplitDataObject = [
 type Division = [division: number, numCorrect: number, direction: "lt" | "gte"]; // direction = which way the model believes TRUE is
 type IndexedDivision = [index: number, ...division: Division];
 type KeyedDivision = [key: string, ...division: Division];
+type Model = [
+  true: Model | KeyedDivision,
+  false: Model | KeyedDivision,
+  division: KeyedDivision
+];
 
 function scoreDivision(data: Data, division: number): Division {
   let incorrect = 0;
@@ -30,6 +35,10 @@ function scoreDivision(data: Data, division: number): Division {
 
   let direction: "lt" | "gte" = incorrect < data.length / 2 ? "lt" : "gte";
   return [division, Math.min(incorrect, data.length - incorrect), direction];
+}
+
+function indent(text: string) {
+  return text.replace(/\n/g, "\n  ");
 }
 
 export function getDivisions(data: Data) {
@@ -112,6 +121,50 @@ export function splitOnBestDivision(
   }
 
   return [predictsTrue, predictsFalse, [key, division, numCorrect, direction]];
+}
+
+export function createModel(
+  depth: number,
+  data: DataObject,
+  output: string
+): Model | KeyedDivision {
+  let [onTrue, onFalse, division] = splitOnBestDivision(data, output);
+
+  if (depth == 1) return division;
+  return [
+    createModel(depth - 1, onTrue, output),
+    createModel(depth - 1, onFalse, output),
+    division,
+  ];
+}
+
+export function visualizeModel(
+  model: Model | KeyedDivision,
+  output: string
+): string {
+  if (model.length == 4) {
+    return `
+    if ${model[0]} < ${model[1]}
+      ${output} = ${model[3] == "lt"}
+    else
+      ${output} = ${model[3] == "gte"}
+    `.trim();
+  } else {
+    return `
+    if ${model[2][0]} < ${model[2][1]}
+      ${indent(
+        model[2][3] == "lt"
+          ? visualizeModel(model[0], output)
+          : visualizeModel(model[1], output)
+      )}
+    else
+      ${indent(
+        model[2][3] == "lt"
+          ? visualizeModel(model[1], output)
+          : visualizeModel(model[0], output)
+      )}
+    `.trim();
+  }
 }
 
 export function filterData(data: DataObject, keep: string[]) {
