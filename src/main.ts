@@ -34,6 +34,15 @@ export let router = createRouter({
       component: () => import("@/views/StandardChessboardView.vue"),
     },
     {
+      path: "/chess/autoflip",
+      redirect:
+        "/chess/autoflip/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
+    },
+    {
+      path: "/chess/autoflip/:position",
+      component: () => import("@/views/AutoFlipChessboardView.vue"),
+    },
+    {
       path: "/chess/random",
       redirect: () =>
         `/chess/random/${Math.random() < 0.5 ? "white" : "black"}`,

@@ -10,6 +10,7 @@
     ["Fake Gradient 2", "/fake-gradient-2"],
     ["Hebrew Trope Highlighter", "/trope-highlighter"],
     ["Chessboard", "/chess/board"],
+    ["Auto-Flip Chessboard", "/chess/autoflip"],
     ["Chess vs. Random AI", "/chess/random"],
     ["Chess vs. Capturing AI", "/chess/capture"],
     ["Chess vs. No-Capture AI", "/chess/nocapture"],
