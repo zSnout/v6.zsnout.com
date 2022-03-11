@@ -132,14 +132,6 @@ registerSW({
   onOfflineReady() {},
 });
 
-declare global {
-  interface ObjectConstructor {
-    entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
-    entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
-    fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V };
-  }
-}
-
 let lastEscapeKeyTime = 0;
 window.addEventListener("keydown", ({ key }) => {
   if (key == "Escape") {
@@ -149,3 +141,11 @@ window.addEventListener("keydown", ({ key }) => {
     } else lastEscapeKeyTime = Date.now();
   }
 });
+
+declare global {
+  interface ObjectConstructor {
+    entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
+    entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
+    fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V };
+  }
+}
