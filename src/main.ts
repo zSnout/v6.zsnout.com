@@ -87,6 +87,7 @@ export let router = createRouter({
         { path: "sunlight", redirect: "/fractal/z^2-z+1%2Fc" },
         { path: "snowflake", redirect: "/fractal/z^3-z^2-z-c" },
         { path: "puddles", redirect: "/fractal/(z^3+1)%2F(cz^2+1)" },
+        { path: "mandelball", redirect: "/fractal/z-(zzz+z*(c-1)-c)%2F(3zz+c-1)" }, // prettier-ignore
         {
           path: ":equation",
           redirect({ params: { equation } }) {
