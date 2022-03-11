@@ -1,16 +1,7 @@
 <script setup lang="ts">
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import DailyTip from "../components/DailyTip.vue";
   import SearchBar from "../components/SearchBar.vue";
-
-  let tips = [
-    'Double-click the "Escape" key to go home and focus the search bar.',
-    'Hit the giant "zSnout" icon to go to the homepage!',
-    "In the Fractal Generator, you can right-click to save a picture on desktop.",
-  ];
-
-  let timezoneOffset = new Date().getTimezoneOffset();
-  let dayNumber = Math.floor((Date.now() + timezoneOffset) / 60 / 60 / 24) - 19061828; // prettier-ignore
-  let dailyTip = tips[dayNumber % tips.length];
 </script>
 
 <template>
@@ -33,7 +24,7 @@
       <a href="https://store.zsnout.com/">buy a fractal shirt</a>.
     </p>
 
-    <p class="daily-tip">Daily tip: {{ dailyTip }}</p>
+    <DailyTip class="daily-tip" />
 
     <SearchBar />
   </DocumentDisplay>
