@@ -3,10 +3,10 @@
   import CoordinateCanvas, {
     type CoordinateCanvasInfo,
   } from "@/components/CoordinateCanvas.vue";
+  import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";
   import { ref } from "vue";
   import { useRoute } from "vue-router";
-  import NavLink from "../components/NavLink.vue";
 
   let { params } = useRoute();
   let { equation, coords } = params;
