@@ -2,9 +2,12 @@
   import { onMounted, ref } from "vue";
   import FullscreenDisplay from "./FullscreenDisplay.vue";
 
-  let emit =
-    defineEmits<{ (event: "ready", canvas: HTMLCanvasElement): void }>();
   defineProps<{ breakpoint?: number }>();
+  let emit = defineEmits<{
+    (event: "ready", canvas: HTMLCanvasElement): void;
+    (event: "resize", canvas: HTMLCanvasElement): void;
+  }>();
+
   let canvas = ref<HTMLCanvasElement | null>(null);
 
   function onResize() {
@@ -13,6 +16,7 @@
       canvas.value.width = width * devicePixelRatio;
       canvas.value.height = height * devicePixelRatio;
       canvas.value.dispatchEvent(new UIEvent("resize"));
+      emit("resize", canvas.value);
     }
   }
 
