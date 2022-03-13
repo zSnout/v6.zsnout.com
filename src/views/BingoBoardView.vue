@@ -82,17 +82,17 @@
 
   .outer-cell {
     width: 20%;
-    background-color: var(--field-background);
     display: inline-flex;
     justify-content: center;
     align-items: center;
 
-    &.selected {
-      background-color: var(--field-background-heavy);
+    &.selected,
+    .header & {
+      background-color: var(--field-background);
     }
 
     @include hover {
-      background-color: var(--field-background-heavy);
+      background-color: var(--field-background);
     }
   }
 
