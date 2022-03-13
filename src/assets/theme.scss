@@ -1,13 +1,14 @@
 @use "./util.scss" as *;
 
 body {
-  --background: white;
+  --background: #f0f0f0;
   --text-color: black;
   --accent-color: #13474b;
   --link-color: #008383;
   --border-color: #066567;
-  --field-background: #0002;
-  --field-background-heavy: #0006;
+  --shadow-color: #eee;
+  --pure-background: #fff;
+  --field-background: #fff;
 
   @include dark {
     --background: #202124;
@@ -15,8 +16,9 @@ body {
     --accent-color: #a3d5d6;
     --link-color: #42b8b8;
     --border-color: #2c8d8d;
+    --shadow-color: #111;
+    --pure-background: #ffffff08;
     --field-background: #fff1;
-    --field-background-heavy: #fff3;
   }
 }
 
