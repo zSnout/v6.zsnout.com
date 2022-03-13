@@ -7,6 +7,7 @@ body {
   --link-color: #008383;
   --border-color: #066567;
   --field-background: #0002;
+  --field-background-heavy: #0006;
 
   @include dark {
     --background: #202124;
@@ -15,6 +16,7 @@ body {
     --link-color: #42b8b8;
     --border-color: #2c8d8d;
     --field-background: #fff1;
+    --field-background-heavy: #fff3;
   }
 }
 
