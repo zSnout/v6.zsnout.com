@@ -23,17 +23,17 @@
   @use "@/assets/util.scss" as *;
 
   .navlink {
-    height: 2em;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    color: inherit;
-    text-decoration: none;
-    font-size: inherit;
-    border-radius: 0.25em;
-    transition: background-color 0.3s;
+    height: 2em;
     padding: 0 8px;
+    color: inherit;
+    font-size: inherit;
+    text-decoration: none;
+    border-radius: 0.25em;
     cursor: pointer;
+    transition: background-color 0.3s;
 
     @include focus {
       background-color: #0004;
@@ -43,15 +43,15 @@
   .drawer .navlink {
     display: flex;
     justify-content: center;
-    text-align: center;
-    padding: 4px 0;
     margin-bottom: 0.5em;
-    background-color: #2f3035;
+    padding: 4px 0;
     color: white;
+    text-align: center;
+    background-color: #2f3035;
 
     @include dark {
-      background-color: #dcecee;
       color: black;
+      background-color: #dcecee;
     }
   }
 

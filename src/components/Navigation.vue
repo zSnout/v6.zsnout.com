@@ -109,15 +109,15 @@
   .navigation {
     position: fixed;
     top: 0;
-    left: 0;
     right: 0;
-    background-color: #c5d8da;
+    left: 0;
+    z-index: 3;
     height: 2em;
     padding: 12px 0;
     padding-top: max(12px, env(safe-area-inset-top));
+    background-color: #c5d8da;
     border-bottom: 1px solid #066567;
     user-select: none;
-    z-index: 3;
 
     @include dark {
       background-color: #345558;
@@ -138,9 +138,9 @@
   .drawer {
     position: relative;
     top: -100vh;
-    transition: top 1s;
     height: 100%;
     overflow-y: auto;
+    transition: top 1s;
 
     &.visible {
       top: 0;
@@ -148,18 +148,21 @@
   }
 
   .drawer-outer {
-    position: absolute;
-    z-index: 1;
+    position: absolute; 
 
-    // This should match the size of the navigation bar. We use several values as fallbacks for old browsers.
+    // This should match the size of the navigation bar. We use several val
     top: 57px;
     top: calc(2em + 25px);
     top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
+    z-index: 1;  x: 1;
 
-    // Again, we need to match the heights. There's not choice but to use `calc` here.
+    // Again, we need to match the heights. There's not choice
     height: calc(100% - 57px);
     height: calc(100% - 2em - 25px);
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
+    x: 1;
+    x: 1;
+    -index: 1;
   }
 
   .drawer-open {
@@ -176,8 +179,8 @@
     .floating & {
       padding: 0.5em;
       background-color: #fff4;
-      backdrop-filter: blur(0.5em);
       border-radius: 0.5em;
+      backdrop-filter: blur(0.5em);
 
       @supports not (backdrop-filter: blur(0.5em)) {
         background-color: #fff8;
@@ -202,21 +205,21 @@
   }
 
   .mobile-nav-outer {
-    z-index: 2;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
     width: 100vw;
     height: 100vh;
   }
 
   .mobile-nav-bg {
-    display: block;
-    height: 100%;
-    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
     background-color: #dcecee;
     opacity: 0;
     transition: opacity 1s, backdrop-filter 1s;
@@ -237,8 +240,8 @@
       }
 
       &.visible {
-        backdrop-filter: blur(0.5em);
         opacity: 1;
+        backdrop-filter: blur(0.5em);
       }
     }
   }
@@ -274,11 +277,11 @@
   }
 
   .logo {
+    display: inline-block;
     height: 2em;
     padding: 0.5em;
     border-radius: 0.25em;
     transition: background-color 0.3s;
-    display: inline-block;
 
     @media (max-width: 400px) {
       height: 1.5em;

@@ -26,18 +26,21 @@
 
 <style scoped lang="scss">
   .document {
-    position: relative;
-    z-index: 1;
+    position: relative; 
 
-    // This should match the size of the navigation bar. We use several values as fallbacks for old browsers.
+    // This should match the size of the navigation bar. We use several val
     top: 57px;
     top: calc(2em + 25px);
     top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
+    z-index: 1;  x: 1;
 
-    // Again, we need to match the heights. There's not choice but to use `calc` here.
+    // Again, we need to match the heights. There's not choice
     height: calc(100% - 57px);
     height: calc(100% - 2em - 25px);
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
+    x: 1;
+    x: 1;
+    -index: 1;
   }
 
   main:not(.explicit-height) {
@@ -51,8 +54,8 @@
   .flexbox {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
   }
 
   .navbar {

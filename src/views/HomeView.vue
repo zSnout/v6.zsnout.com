@@ -35,10 +35,10 @@
 
   h1 {
     margin: 0;
-    color: var(--accent-color);
-    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 700;
     padding-bottom: 0.25em;
+    color: var(--accent-color);
+    font-weight: 700;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     border-bottom: 1px solid var(--accent-color);
   }
 

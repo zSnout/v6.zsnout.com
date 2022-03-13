@@ -10,8 +10,9 @@ Afterward you can submit
 to GitHub and we'll start working on it!
 
 You can also prototype code in
-[StackBlitz](https://stackblitz.com/github/zsnout/zsnout-vue)
-without needing to install anything onto your computer! More information is available under the "Remote Development" section.
+[StackBlitz](https://stackblitz.com/github/zsnout/zsnout-vue) without needing to
+install anything onto your computer! More information is available under the
+"Remote Development" section.
 
 If you're feeling up to the task, you can directly contribute code to zSnout by
 submitting a [pull request](https://github.com/zSnout/zsnout-vue/pulls). When

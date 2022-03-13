@@ -51,17 +51,17 @@
   @use "@/assets/util.scss" as *;
 
   .board {
-    width: calc(5 * 2em + 5 * 4px);
-    height: calc(6 * 2em + 5 * 4px);
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
-    user-select: none;
-    cursor: pointer;
     gap: 4px;
+    justify-content: stretch;
+    width: calc(5 * 2em + 5 * 4px);
+    height: calc(6 * 2em + 5 * 4px);
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
 
     @media (max-width: 400px), (max-height: 450px) {
       font-size: 1.5em;
@@ -74,17 +74,17 @@
 
   .row {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 4px;
     flex: 1;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: center;
   }
 
   .outer-cell {
-    width: 20%;
     display: inline-flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 20%;
 
     &.selected,
     .header & {

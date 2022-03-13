@@ -211,12 +211,12 @@
       content: "Enter Hebrew with tropes here";
     }
 
-    direction: rtl;
-    font-family: "Frank Ruhl Libre", "Times New Roman", serif;
-    font-size: 3em;
-    line-height: 1.5em;
     height: 100%;
     overflow: hidden auto;
+    font-size: 3em;
+    font-family: "Frank Ruhl Libre", "Times New Roman", serif;
+    line-height: 1.5em;
+    direction: rtl;
 
     @each $trope, $color in $tropes {
       :deep() .#{$trope} {

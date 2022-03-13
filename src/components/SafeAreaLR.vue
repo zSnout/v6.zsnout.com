@@ -20,8 +20,8 @@
   .safe-area {
     --padding: 12px;
     padding: 0 12px;
-    padding-left: max(var(--padding), env(safe-area-inset-left));
     padding-right: max(var(--padding), env(safe-area-inset-right));
+    padding-left: max(var(--padding), env(safe-area-inset-left));
 
     @media screen and (min-width: 400px) and (min-height: 400px) {
       --padding: 24px;

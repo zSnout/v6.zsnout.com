@@ -1,6 +1,6 @@
 name: Bug report
 description: Create a report to help us improve
-labels: bug
+labels: [bug]
 body:
   - type: markdown
     attributes:
@@ -18,7 +18,8 @@ body:
     id: reproduce
     attributes:
       label: To reproduce
-      description: Steps to reproduce the behavior. Include screenshots if applicable.
+      description:
+        Steps to reproduce the behavior. Include screenshots if applicable.
       placeholder: |
         - Go to ...
         - Click on ...
@@ -29,7 +30,8 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      description: A clear and concise description of what you expected to happen.
+      description:
+        A clear and concise description of what you expected to happen.
     validations:
       required: true
   - type: dropdown

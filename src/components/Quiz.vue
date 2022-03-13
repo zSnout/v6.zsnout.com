@@ -63,13 +63,13 @@
 
   .field {
     width: 4em;
-    font-size: inherit;
     padding: 4px;
-    border: 1px solid var(--border-color);
-    background-color: var(--field-background);
-    text-align: center;
-    border-radius: 8px;
     color: inherit;
+    font-size: inherit;
+    text-align: center;
+    background-color: var(--field-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     transition: box-shadow 0.3s;
 
     &::-webkit-inner-spin-button {

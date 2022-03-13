@@ -13,12 +13,12 @@
   html,
   body,
   #app {
-    font-size: 16px;
     width: 100%;
     height: 100%;
     margin: 0;
-    overscroll-behavior: none;
+    font-size: 16px;
     line-height: 1.5;
+    overscroll-behavior: none;
   }
 
   body {
@@ -30,8 +30,8 @@
     text-decoration: none;
 
     @include focus {
-      outline: none;
       text-decoration: underline;
+      outline: none;
     }
   }
 </style>

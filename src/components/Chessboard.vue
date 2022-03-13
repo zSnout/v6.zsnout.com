@@ -52,9 +52,9 @@
 <style scoped lang="scss">
   .chessboard {
     margin: auto;
+    border-radius: 8px;
     touch-action: none;
     -webkit-touch-callout: none;
-    border-radius: 8px;
 
     :deep(cg-board) {
       border-radius: 8px;
