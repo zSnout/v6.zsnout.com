@@ -87,8 +87,6 @@
       />
 
       <SearchItem name="zSnout on GitHub" to="https://github.com/zSnout" />
-
-      <span class="link-cap" />
     </div>
   </div>
 </template>
@@ -119,8 +117,8 @@
   }
 
   .links {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(12em, 100%), 1fr));
     gap: 0.5em;
   }
 
