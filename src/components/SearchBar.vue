@@ -1,27 +1,30 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from "vue";
   import { RouterLink } from "vue-router";
+  import SearchItem from "./SearchItem.vue";
 
-  let prelinks: [name: string, to: string, keywords?: string][] = [
-    ["Fractal Generator", "/fractal"],
-    ["Practice 2x2 to 12x12", "/practice/mult-div"],
-    ["Practice 2² to 20²", "/practice/squares"],
-    ["Fake Gradient", "/fake-gradient"],
-    ["Fake Gradient 2", "/fake-gradient-2"],
-    ["Hebrew Trope Highlighter", "/trope-highlighter"],
-    ["Chessboard", "/chess/board"],
-    ["Auto-Flip Chessboard", "/chess/autoflip"],
-    ["Chess vs. Random AI", "/chess/random"],
-    ["Chess vs. Capturing AI", "/chess/capture"],
-    ["Chess vs. No-Capture AI", "/chess/nocapture"],
-    ["Chess vs. Bad AI", "/chess/vsbad"],
-    ["Randomized Rainbow", "/rainbow-noise"],
-    ["Bingo Board", "/bingo"],
-  ];
+  let prelinks: [name: string, to: string, desc?: string, keywords?: string][] =
+    [
+      ["Fractal Generator", "/fractal"],
+      ["Practice 2x2 to 12x12", "/practice/mult-div"],
+      ["Practice 2² to 20²", "/practice/squares"],
+      ["Fake Gradient", "/fake-gradient"],
+      ["Fake Gradient 2", "/fake-gradient-2"],
+      ["Hebrew Trope Highlighter", "/trope-highlighter"],
+      ["Chessboard", "/chess/board"],
+      ["Auto-Flip Chessboard", "/chess/autoflip"],
+      ["Chess vs. Random AI", "/chess/random"],
+      ["Chess vs. Capturing AI", "/chess/capture"],
+      ["Chess vs. No-Capture AI", "/chess/nocapture"],
+      ["Chess vs. Bad AI", "/chess/vsbad"],
+      ["Randomized Rainbow", "/rainbow-noise"],
+      ["Bingo Board", "/bingo"],
+    ];
 
-  let links = prelinks.map(([name, to, keywords]) => ({
+  let links = prelinks.map(([name, to, desc, keywords]) => ({
     name,
     to,
+    desc,
     keywords: (keywords?.split(" ") || [])
       .concat(name.match(/\w+/g) || [])
       .map((x) => x.toLowerCase())
@@ -69,18 +72,22 @@
     />
 
     <div class="links">
-      <RouterLink
+      <SearchItem
         v-for="(link, i) in links"
+        v-show="matches(link.keywords, field)"
         :key="i"
         :to="link.to"
-        v-show="matches(link.keywords, field)"
-      >
-        {{ link.name }}
-      </RouterLink>
+        :name="link.name"
+        :desc="link.desc"
+      />
 
-      <!-- prettier-ignore -->
-      <a href="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ">zSnout on YouTube</a>
-      <a href="https://github.com/zSnout">zSnout on GitHub</a>
+      <SearchItem
+        name="zSnout on YouTube"
+        to="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ"
+      />
+
+      <SearchItem name="zSnout on GitHub" to="https://github.com/zSnout" />
+
       <span class="link-cap" />
     </div>
   </div>
@@ -115,16 +122,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
-
-    a {
-      display: inline-block;
-      padding: 0.25em 0.5em;
-      background: var(--field-background);
-      border-radius: 4px;
-      color: var(--accent-color);
-      flex: auto;
-      text-align: center;
-    }
   }
 
   .link-cap {
