@@ -5,13 +5,13 @@
 </script>
 
 <template>
-  <RouterLink v-if="!to.includes('://')" :to="to" class="item">
-    {{ name }}
-  </RouterLink>
-
-  <a v-else :href="to" class="item" target="_blank">
+  <a v-if="to.includes('://')" :href="to" class="item" target="_blank">
     {{ name }}
   </a>
+
+  <RouterLink v-else :to="to" class="item">
+    {{ name }}
+  </RouterLink>
 </template>
 
 <style scoped>
