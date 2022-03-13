@@ -24,6 +24,7 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
+    { path: "/bingo", component: () => import("@/views/BingoBoardView.vue") },
     {
       path: "/chess/board",
       redirect:

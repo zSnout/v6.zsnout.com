@@ -16,6 +16,7 @@
     ["Chess vs. No-Capture AI", "/chess/nocapture"],
     ["Chess vs. Bad AI", "/chess/vsbad"],
     ["Randomized Rainbow", "/rainbow-noise"],
+    ["Bingo Board", "/bingo"],
   ];
 
   let links = prelinks.map(([name, to, keywords]) => ({
