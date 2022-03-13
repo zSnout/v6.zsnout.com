@@ -3,7 +3,9 @@
 body {
   --background: #f0f0f0;
   --text-color: black;
+  --text-color-light: #666;
   --accent-color: #13474b;
+  --accent-color-light: #8bb2b4;
   --link-color: #008383;
   --border-color: #066567;
   --shadow-color: #ddd;
@@ -13,7 +15,9 @@ body {
   @include dark {
     --background: #202124;
     --text-color: white;
+    --text-color-light: #aaa;
     --accent-color: #a3d5d6;
+    --accent-color-light: #3b6a6b;
     --link-color: #42b8b8;
     --border-color: #2c8d8d;
     --shadow-color: #1a1a1a;
@@ -23,6 +27,6 @@ body {
 }
 
 body {
-  background-color: var(--background);
   color: var(--text-color);
+  background-color: var(--background);
 }
