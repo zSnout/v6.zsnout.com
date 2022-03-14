@@ -176,6 +176,10 @@
     @include focus {
       outline: 0;
       box-shadow: var(--accent-color-light) 0 0 6px 1px;
+
+      @include dark {
+        box-shadow: #fff8 0 0 6px 1px;
+      }
     }
   }
 
