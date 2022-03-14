@@ -10,7 +10,7 @@
   .list-move,
   .list-enter-active,
   .list-leave-active {
-    transition: opacity 0.3s, transform 0.3s;
+    transition: opacity 0.5s, transform 0.5s;
   }
 
   .list-enter-from,
@@ -21,5 +21,6 @@
 
   .list-leave-active {
     position: absolute;
+    width: inherit;
   }
 </style>
