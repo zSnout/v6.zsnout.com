@@ -57,6 +57,11 @@
         "Have a fun day of playing BINGO with your friends on our interactive board.",
       ],
       [
+        "Bingo Master Controls",
+        "/bingo/master",
+        "Use our automatic BINGO number generator to play BINGO with friends.",
+      ],
+      [
         "Chess vs. Random AI",
         "/chess/random",
         "Need to relax after a long day? Play against the worst chess player you've ever seen.",
@@ -138,6 +143,7 @@
         :desc="link.desc"
       />
 
+      <!-- We've temporarily removed the YouTube link as there's no updated content on the channel. -->
       <!-- <SearchItem
         name="zSnout on YouTube"
         to="https://youtube.com/channel/UCZ1po0sntEdbIsG8yLOqSAQ"

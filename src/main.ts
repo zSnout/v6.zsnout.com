@@ -26,6 +26,10 @@ export let router = createRouter({
     { path: "/", component: HomeView },
     { path: "/bingo", component: () => import("@/views/BingoBoardView.vue") },
     {
+      path: "/bingo/master",
+      component: () => import("@/views/BingoMasterView.vue"),
+    },
+    {
       path: "/chess/board",
       redirect:
         "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
