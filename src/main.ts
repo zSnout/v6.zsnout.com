@@ -127,6 +127,7 @@ export let router = createRouter({
       path: "/fractal/:equation/:limit/:theme/:iterations/:coords",
       component: () => import("@/views/FractalView.vue"),
     },
+    { path: "/frame", component: () => import("@/views/FrameOverlayView.vue") },
     {
       path: "/practice/mult-div",
       component: () => import("@/views/MultDivQuizView.vue"),

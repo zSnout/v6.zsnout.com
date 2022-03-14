@@ -1,9 +1,8 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from "vue";
-  import { RouterLink } from "vue-router";
   import SearchItem from "./SearchItem.vue";
 
-  let prelinks: [name: string, to: string, desc?: string, keywords?: string][] =
+  let prelinks: [name: string, to: string, desc: string, keywords?: string][] =
     [
       [
         "Fractal Generator",
@@ -80,6 +79,11 @@
         "Chess vs. Bad AI",
         "/chess/vsbad",
         "Play against a chess bot that avoids capturing and never moves high-value pieces.",
+      ],
+      [
+        "Click Only",
+        "/frame",
+        "Try limiting yourself to exploring zSnout using only your keyboard and left-clicks.",
       ],
     ];
 
