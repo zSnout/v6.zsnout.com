@@ -104,14 +104,43 @@
       .every((e) => keywords.includes(e));
   }
 
+  function getGridColumnCount() {
+    if (linksEl.value) {
+      let style = getComputedStyle(linksEl.value).gridTemplateColumns;
+      return style.split(" ").length;
+    } else return 0;
+  }
+
   function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape" || event.key == "/") {
       event.preventDefault();
       fieldEl.value?.focus();
     }
+
+    let active = document.activeElement;
+    if (fieldEl.value && active == fieldEl.value) {
+      if (event.key == "ArrowRight" || event.key == "ArrowDown")
+        (linksEl.value?.children[0] as HTMLElement).focus();
+    } else if (linksEl.value && active?.parentElement == linksEl.value) {
+      if (event.key == "ArrowLeft") {
+        (active.previousElementSibling as HTMLElement)?.focus();
+      } else if (event.key == "ArrowRight") {
+        (active.nextElementSibling as HTMLElement)?.focus();
+      } else if (event.key == "ArrowUp" || event.key == "ArrowDown") {
+        let travel = getGridColumnCount() * (event.key == "ArrowUp" ? -1 : 1);
+        let index = Array.from(linksEl.value.children).indexOf(active);
+
+        let newIndex = Math.max(index + travel, 0);
+        newIndex = Math.min(newIndex, linksEl.value.children.length - 1);
+
+        let next = linksEl.value.children[newIndex];
+        (next as HTMLElement)?.focus();
+      }
+    }
   }
 
   let fieldEl = ref<HTMLElement | null>(null);
+  let linksEl = ref<HTMLElement | null>(null);
 
   onMounted(() => {
     fieldEl.value?.focus();
@@ -133,7 +162,7 @@
       ref="fieldEl"
     />
 
-    <div class="links">
+    <div class="links" ref="linksEl">
       <SearchItem
         v-for="(link, i) in links"
         v-show="matches(link.keywords, field)"
