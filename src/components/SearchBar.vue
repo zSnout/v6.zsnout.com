@@ -140,6 +140,8 @@
         let next = linksEl.value.children[newIndex];
         (next as HTMLElement)?.focus();
       }
+
+      if (event.key.startsWith("Arrow")) event.preventDefault();
     }
   }
 
