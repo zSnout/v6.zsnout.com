@@ -7,6 +7,7 @@
     navBrakpoint?: number;
     explicitHeight?: boolean;
     flexbox?: boolean;
+    flexRow?: boolean;
   }>();
 </script>
 
@@ -17,7 +18,13 @@
 
   <SafeAreaLR class="document" keep-height>
     <SafeAreaTB :explicit-height="explicitHeight">
-      <main :class="{ 'explicit-height': explicitHeight, flexbox }">
+      <main
+        :class="{
+          'explicit-height': explicitHeight,
+          'flex-row': flexRow,
+          flexbox,
+        }"
+      >
         <slot v-bind="$attrs" />
       </main>
     </SafeAreaTB>
@@ -49,6 +56,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .flex-row {
+    flex-direction: row;
   }
 
   .navbar {
