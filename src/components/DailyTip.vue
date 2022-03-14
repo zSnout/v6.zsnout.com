@@ -4,7 +4,8 @@
     "Bookmark a fractal page to save its location and equation forever.",
     'Hit the giant "zSnout" icon to go to the homepage.',
     "In the Fractal Generator, you can right-click to save a picture on desktop.",
-    "Copy the URL of the standard chessboard or autoflip board to share it.",
+    "Copy the URL of the standard chessboard or autoflip board to save your game.",
+    "You're looking at the sixth major version of zSnout.",
   ];
 
   let timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
