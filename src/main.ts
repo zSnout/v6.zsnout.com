@@ -128,6 +128,7 @@ export let router = createRouter({
       component: () => import("@/views/FractalView.vue"),
     },
     { path: "/frame", component: () => import("@/views/FrameOverlayView.vue") },
+    { path: "/metaballs", component: () => import("@/views/MetaballView.vue") },
     {
       path: "/practice/mult-div",
       component: () => import("@/views/MultDivQuizView.vue"),
