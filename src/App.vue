@@ -2,7 +2,7 @@
   import { RouterView } from "vue-router";
 
   let today = new Date();
-  if (true || (today.getMonth() == 2 && today.getDate() == 17)) {
+  if (today.getMonth() == 2 && today.getDate() == 17) {
     // St. Patrick's Day
     document.body.classList.add("theme-stpatrick");
   }
