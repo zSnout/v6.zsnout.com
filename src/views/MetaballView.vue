@@ -1,3 +1,8 @@
+<!--
+  Thanks to metaballs-js (https://www.npmjs.com/package/metaballs-js) for the original implementation.
+  Thanks to Jamie Wong (http://jamie-wong.com/2016/07/06/metaballs-and-webgl/) for providing a tutorial.
+-->
+
 <script setup lang="ts">
   import WebGL2Canvas, {
     type WebGL2ProgramInfo,
