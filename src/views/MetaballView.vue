@@ -26,8 +26,6 @@
         mb.y += mb.dy;
         if (mb.y < 0) mb.y = 1 - mb.y;
         else if (mb.y > 1) mb.y = mb.y - 1;
-
-        console.log(mb.x, mb.y);
       });
 
       let data = new Float32Array(metaballs.length * 3);
