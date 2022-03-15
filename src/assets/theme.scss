@@ -11,9 +11,12 @@ body {
   --shadow-color: #ddd;
   --pure-background: #fff;
   --field-background: #fff;
+  --nav-background: #c5d8da;
+  --nav-border: #066567;
 
   &.theme-stpatrick {
     --link-color: #008337;
+    --nav-background: #c5dacf;
   }
 
   @include dark {
@@ -27,6 +30,8 @@ body {
     --shadow-color: #1a1a1a;
     --pure-background: #ffffff08;
     --field-background: #fff1;
+    --nav-background: #345558;
+    --nav-border: #72a8aa;
 
     &.theme-stpatrick {
       --link-color: #42b86f;

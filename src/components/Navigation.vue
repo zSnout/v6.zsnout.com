@@ -115,19 +115,9 @@
     height: 2em;
     padding: 12px 0;
     padding-top: max(12px, env(safe-area-inset-top));
-    background-color: #c5d8da;
-    border-bottom: 1px solid #066567;
+    background-color: var(--nav-background);
+    border-bottom: 1px solid var(--nav-border);
     user-select: none;
-
-    @include dark {
-      background-color: #345558;
-      border-bottom: 1px solid #72a8aa;
-
-      &.floating {
-        background-color: transparent;
-        border-bottom: 0;
-      }
-    }
 
     &.floating {
       background-color: transparent;
