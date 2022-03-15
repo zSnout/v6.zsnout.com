@@ -77,7 +77,8 @@
         float dy = mb.y - _pos.y;
         dy = min(dy, 1.0 - dy);
 
-        dist += 1.0 / (dx * dx + dy * dy);
+        float sum = dx * dx + dy * dy;
+        dist += 1.0 / sum;
       }
 
       if (dist > 1000.0) color = vec4(1, 1, 1, 1);
