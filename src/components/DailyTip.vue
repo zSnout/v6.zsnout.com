@@ -17,6 +17,10 @@
   if (today.getMonth() == 2 && today.getDate() == 15)
     // Special message for my dog Zorro's birthday on March 15
     dailyTip = "Today is the birthday of the original zSnout, my dog Zorro.";
+
+  if (today.getMonth() == 3 && today.getDate() == 1)
+    /** */
+    dailyTip = "Happy Halloween!";
 </script>
 
 <template>
