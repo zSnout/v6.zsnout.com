@@ -1,6 +1,7 @@
 <!--
   Thanks to metaballs-js (https://www.npmjs.com/package/metaballs-js) for the original implementation.
   Thanks to Jamie Wong (http://jamie-wong.com/2016/07/06/metaballs-and-webgl/) for providing a tutorial.
+  Test implementation created using Desmos (https://www.desmos.com/calculator/u3wzt8v1ih).
 -->
 
 <script setup lang="ts">
