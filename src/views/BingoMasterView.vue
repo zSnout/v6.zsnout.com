@@ -4,7 +4,7 @@
   import NavLink from "@/components/NavLink.vue";
   import AnimatedList from "../components/AnimatedList.vue";
 
-  function shuffle(array: number[]) {
+  function shuffle(array: string[]) {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -27,9 +27,11 @@
     currentNum.value = nums[index];
   }
 
-  let nums = shuffle(Array.from({ length: 75 }, (_, i) => i + 1));
+  let nums = shuffle(
+    Array.from({ length: 75 }, (_, i) => "BINGO"[Math.floor(i / 15)] + (i + 1))
+  );
   let currentNum = ref(nums[0]);
-  let oldNums = ref<number[]>([]);
+  let oldNums = ref<string[]>([]);
   let index = 0;
 </script>
 
