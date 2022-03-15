@@ -13,6 +13,7 @@
     v-else
     class="navlink"
     tabindex="0"
+    role="button"
     @keydown="({ key }) => (key == ' ' || key == 'Enter') && $el.click()"
   >
     <slot />
