@@ -148,7 +148,7 @@
   }
 
   .drawer-outer {
-    position: absolute; 
+    position: absolute;
 
     // This should match the size of the navigation bar. We use several val
     top: 57px;
@@ -190,7 +190,7 @@
         background-color: #0004;
 
         @supports not (backdrop-filter: blur(0.5em)) {
-          background-color: #0004;
+          background-color: #0008;
         }
       }
     }
