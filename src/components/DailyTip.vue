@@ -8,10 +8,15 @@
     "You're looking at the sixth major version of zSnout.",
   ];
 
-  let timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+  let today = new Date();
+  let timezoneOffset = today.getTimezoneOffset() * 60 * 1000;
   let msInDay = 1000 * 60 * 60 * 24;
   let day = Math.floor((Date.now() - timezoneOffset) / msInDay) - 19061;
   let dailyTip = tips[day % tips.length];
+
+  if (today.getMonth() == 2 && today.getDate() == 15)
+    // Special message for my dog Zorro's birthday on March 15
+    dailyTip = "Today is the birthday of the original zSnout, my dog Zorro.";
 </script>
 
 <template>
