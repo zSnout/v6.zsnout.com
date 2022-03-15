@@ -139,20 +139,9 @@
 
   .drawer-outer {
     position: absolute;
-
-    // This should match the size of the navigation bar. We use several val
-    top: 57px;
-    top: calc(2em + 25px);
     top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
-    z-index: 1;  x: 1;
-
-    // Again, we need to match the heights. There's not choice
-    height: calc(100% - 57px);
-    height: calc(100% - 2em - 25px);
+    z-index: 1;
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
-    x: 1;
-    x: 1;
-    -index: 1;
   }
 
   .drawer-open {
