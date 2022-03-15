@@ -3,12 +3,14 @@
     type WebGL2ProgramInfo,
   } from "@/components/WebGL2Canvas.vue";
 
-  let metaballs = Array.from({ length: 10 }, () => {
+  let metaballs = Array.from({ length: 50 }, () => {
     let x = Math.random();
     let y = Math.random();
-    // let dx = Math.random() * 0.1 - 0.05;
-    // let dy = Math.sqrt(0.001 - dx * dx);
-    return { x, y };
+    let r = Math.random() * 5 + 5;
+    let dx = ((Math.random() - 0.5) * 2) / 200;
+    let dy = ((Math.random() - 0.5) * 2) / 200;
+
+    return { x, y, r, dx, dy };
   });
 
   function onReady({ canvas, gl, program, render }: WebGL2ProgramInfo) {
@@ -16,35 +18,38 @@
     let windowLoc = gl.getUniformLocation(program, "window_size");
 
     function nextFrame() {
-      // metaballs.map((mb) => {
-      //   mb.x += mb.dx;
-      //   if (mb.x < -bound) {
-      //     mb.x = bound2 - mb.x;
-      //   } else if (mb.x > bound) {
-      //     mb.x = mb.x - bound2;
-      //   }
-      //   mb.y += mb.dy;
-      //   if (mb.y < -bound) {
-      //     mb.y = bound2 - mb.y;
-      //   } else if (mb.y > bound) {
-      //     mb.y = mb.y - bound2;
-      //   }
-      // });
+      metaballs.map((mb) => {
+        mb.x += mb.dx;
+        if (mb.x < 0) mb.x = 1 - mb.x;
+        else if (mb.x > 1) mb.x = mb.x - 1;
 
-      let data = new Float32Array(metaballs.length * 2);
+        mb.y += mb.dy;
+        if (mb.y < 0) mb.y = 1 - mb.y;
+        else if (mb.y > 1) mb.y = mb.y - 1;
+
+        console.log(mb.x, mb.y);
+      });
+
+      let data = new Float32Array(metaballs.length * 3);
       for (let i = 0; i < metaballs.length; i++) {
-        data[i * 2] = metaballs[i].x;
-        data[i * 2 + 1] = metaballs[i].y;
+        let { x, y, r } = metaballs[i];
+
+        data[i * 2] = x;
+        data[i * 2 + 1] = y;
+        data[i * 2 + 2] = r;
       }
 
-      gl.uniform2fv(metaballLoc, data);
-      gl.uniform2fv(windowLoc, [canvas.width, canvas.height]);
+      gl.uniform3fv(metaballLoc, data);
+
+      if (canvas.height > canvas.width)
+        gl.uniform2fv(windowLoc, [1, canvas.height / canvas.width]);
+      else gl.uniform2fv(windowLoc, [canvas.width / canvas.height, 1]);
 
       render();
+      requestAnimationFrame(nextFrame);
     }
 
     nextFrame();
-    setInterval(nextFrame, 1000 / 60);
   }
 </script>
 
@@ -59,33 +64,25 @@
     out vec4 color;
 
     uniform vec2 window_size;
-    uniform vec2 metaballs[${metaballs.length}];
-
-    // float sqr(float x) {
-    //   return x * x;
-    // }
-
-    // float metaball(vec2 a, vec2 b) {
-    //   return 1.0 / sqrt(sqr(a.x - b.x) + sqr(a.y - b.y));
-    // }
+    uniform vec3 metaballs[${metaballs.length}];
 
     void main() {
-      vec2 c = pos * window_size;
+      vec2 _pos = pos * window_size / 2.0;
       float dist;
 
       for (int i = 0; i < ${metaballs.length}; i++) {
-        vec2 mb = metaballs[i];
-        
-        float dx = abs((mb.x * window_size.x) - pos.x);
-        dx = min(dx, window_size.x - dx);
-        
-        float dy = abs((mb.y * window_size.y) - pos.y);
-        dy = min(dy, window_size.y - dy);
-        
+        vec3 mb = metaballs[i];
+
+        float dx = mb.x - _pos.x;
+        dx = min(dx, 1.0 - dx);
+
+        float dy = mb.y - _pos.y;
+        dy = min(dy, 1.0 - dy);
+
         dist += 1.0 / (dx * dx + dy * dy);
       }
 
-      if (dist >= 1.0) color = vec4(1, 1, 1, 1);
+      if (dist > 1000.0) color = vec4(1, 1, 1, 1);
       else color = vec4(0, 0, 0, 1);
     }
     `"
