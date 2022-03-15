@@ -1,7 +1,7 @@
 import App from "@/App.vue";
-import HomeView from "@/views/HomeView.vue";
+import HomeView from "@/HomeView.vue";
 import { registerSW } from "virtual:pwa-register";
-import { createApp, type Component } from "vue";
+import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 Object.entries = Object.entries || entries;

@@ -2,8 +2,9 @@
   import DailyTip from "@/components/DailyTip.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
+  import FractalSection from "./components/FractalSection.vue";
 
-  let mainLinks: Link[] = [
+  let links: Link[] = [
     {
       to: "/fractal",
       name: "Fractal Generator",
@@ -130,7 +131,8 @@
     </p>
 
     <DailyTip class="daily-tip" />
-    <SearchBar :links="mainLinks" autofocus />
+    <SearchBar :links="links" autofocus />
+    <FractalSection />
   </DocumentDisplay>
 </template>
 
