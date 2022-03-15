@@ -131,8 +131,8 @@
     </p>
 
     <DailyTip class="daily-tip" />
-    <SearchBar :links="links" autofocus />
-    <FractalSection />
+    <SearchBar class="link-outer" :links="links" autofocus />
+    <FractalSection class="link-outer fractal-links" />
   </DocumentDisplay>
 </template>
 
@@ -150,5 +150,13 @@
 
   .daily-tip {
     margin-block-start: -0.5em;
+  }
+
+  .link-outer {
+    margin: 1em 0;
+  }
+
+  .fractal-links {
+    margin-top: 2em;
   }
 </style>
