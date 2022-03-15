@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { onMounted } from "vue";
   import NavLink from "./NavLink.vue";
   import WebGL2Canvas, { type WebGL2ProgramInfo } from "./WebGL2Canvas.vue";
 
@@ -33,6 +34,7 @@
     showResetButton?: boolean;
     breakpoint?: number;
   }>();
+
   let { showResetButton, breakpoint } = props;
 
   let coordConvertShader = `
@@ -256,7 +258,7 @@
   }
 
   function reset() {
-    _reset && _reset();
+    _reset?.();
   }
 </script>
 
