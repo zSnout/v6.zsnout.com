@@ -11,16 +11,22 @@
       keywords: "image",
     },
     {
+      to: "/metaballs",
+      name: "Metaballs",
+      desc: "Watch this real-time animation of bouncing and merging circles. It's great as a screen saver!",
+      keywords: "screensaver animation",
+    },
+    {
       to: "/practice/mult-div",
       name: "Practice 2x2 to 12x12",
       desc: "Quickly practice your times tables with this interactive and fast quiz app.",
-      keywords: "quiz",
+      keywords: "quiz multiplication division",
     },
     {
       to: "/practice/squares",
       name: "Practice 2² to 20²",
       desc: "Master your square numbers from 4 to 400 guided by our simple quiz app.",
-      keywords: "quiz",
+      keywords: "quiz squares numbers",
     },
     {
       to: "/fake-gradient",
