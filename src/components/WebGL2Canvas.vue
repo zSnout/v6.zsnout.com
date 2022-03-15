@@ -1,4 +1,13 @@
-<script lang="ts">
+<script setup lang="ts">
+  import FullscreenCanvas from "./FullscreenCanvas.vue";
+
+  export interface WebGL2ProgramInfo {
+    canvas: HTMLCanvasElement;
+    gl: WebGL2RenderingContext;
+    program: WebGLProgram;
+    render(): void;
+  }
+
   function createShader(
     gl: WebGL2RenderingContext,
     type: "VERTEX" | "FRAGMENT",
@@ -43,18 +52,6 @@
     gl_Position = vec4(pos = _pos * vec2(1, -1), 0, 1);
   }
   `.trim();
-</script>
-
-<script setup lang="ts">
-  import { unref, watch } from "vue";
-  import FullscreenCanvas from "./FullscreenCanvas.vue";
-
-  export interface WebGL2ProgramInfo {
-    canvas: HTMLCanvasElement;
-    gl: WebGL2RenderingContext;
-    program: WebGLProgram;
-    render(): void;
-  }
 
   let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
   let { shader } = defineProps<{ shader: string; breakpoint?: number }>();
