@@ -3,13 +3,24 @@
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import FractalSection from "@/components/FractalSection.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
+  import { ref } from "vue";
+
+  let fractal = ref<HTMLElement | null>(null);
 
   let links: Link[] = [
     {
       to: "/fractal",
-      name: "Fractal Generator",
+      name: "Fractal Explorer",
       desc: "Explore amazingly colored and detailed fractals using live zooming and panning.",
       keywords: "image",
+    },
+    {
+      to: () => {
+        console.log(fractal.value);
+        fractal?.value?.scrollIntoView({ behavior: "smooth" });
+      },
+      name: "Fractal Presets",
+      desc: "Explore intricate images created using preset configurations of the Explorer.",
     },
     {
       to: "/metaballs",
@@ -132,6 +143,7 @@
 
     <DailyTip class="daily-tip" />
     <SearchBar class="link-outer" :links="links" autofocus />
+    <span ref="fractal" />
     <FractalSection class="link-outer fractal-links" />
   </DocumentDisplay>
 </template>

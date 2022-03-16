@@ -3,7 +3,7 @@
   import SearchItem from "./SearchItem.vue";
 
   export interface Link {
-    to: string;
+    to: string | (() => void);
     name: string;
     desc: string;
     show?: boolean;

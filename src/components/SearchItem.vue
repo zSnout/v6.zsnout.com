@@ -1,11 +1,16 @@
 <script setup lang="ts">
   import { RouterLink } from "vue-router";
 
-  defineProps<{ name: string; to: string; desc?: string }>();
+  defineProps<{ name: string; to: string | (() => void); desc?: string }>();
 </script>
 
 <template>
-  <a v-if="to.includes('://')" :href="to" class="item" target="_blank">
+  <a v-if="typeof to == 'function'" @click="to" class="item" role="button">
+    <div class="name">{{ name }}</div>
+    <div class="desc">{{ desc }}</div>
+  </a>
+
+  <a v-else-if="to.includes('://')" :href="to" class="item" target="_blank">
     <div class="name">{{ name }}</div>
     <div class="desc">{{ desc }}</div>
   </a>
@@ -28,6 +33,7 @@
     background-color: var(--pure-background);
     border-radius: 4px;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
+    cursor: pointer;
     transition: box-shadow 0.3s;
 
     @include focus {
