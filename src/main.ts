@@ -100,7 +100,7 @@ export let router = createRouter({
         { path: "multibrot-set", redirect: "/fractal/z^4+c" },
         { path: "burning-ship", redirect: "/fractal/abs(z)^2+c" },
         { path: "feather", redirect: "/fractal/z^3%2F(rawsqr(z)+1)+c/10" },
-        { path: "flower", redirect: "/fractal/z^2+z+c" },
+        { path: "flower", redirect: "/fractal/z^2+z+c/2/1" },
         { path: "raindrop", redirect: "/fractal/z^2+1%2Fc" },
         { path: "telescope", redirect: "/fractal/z^2+z+1%2Fc" },
         { path: "sunlight", redirect: "/fractal/z^2-z+1%2Fc" },
@@ -118,6 +118,23 @@ export let router = createRouter({
               redirect({ params: { equation, limit } }) {
                 return `/fractal/${encodeURIComponent("" + equation)}/${limit}/0/50/-2,2,-2,2`; // prettier-ignore
               },
+              children: [
+                {
+                  path: ":theme",
+                  redirect({ params: { equation, limit, theme } }) {
+                    return `/fractal/${encodeURIComponent("" + equation)}/${limit}/${theme}/50/-2,2,-2,2`; // prettier-ignore
+                  },
+                  children: [
+                    {
+                      path: ":iterations",
+                      // prettier-ignore
+                      redirect({ params: { equation, limit, theme, iterations } }) {
+                        return `/fractal/${encodeURIComponent("" + equation)}/${limit}/${theme}/${iterations}/-2,2,-2,2`;
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
