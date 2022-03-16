@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import DailyTip from "@/components/DailyTip.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import FractalSection from "@/components/FractalSection.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
-  import FractalSection from "./components/FractalSection.vue";
 
   let links: Link[] = [
     {
