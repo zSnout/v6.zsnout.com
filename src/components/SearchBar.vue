@@ -71,7 +71,7 @@
   let linksEl = ref<HTMLElement | null>(null);
 
   onMounted(() => {
-    if (autofocus) fieldEl.value?.focus();
+    if (autofocus && !scrollY) fieldEl.value?.focus();
     window.addEventListener("keydown", onKeyDown);
   });
 
