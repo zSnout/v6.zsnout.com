@@ -97,7 +97,7 @@ export let router = createRouter({
       redirect: "/fractal/z^2+c/2/0/50/-2,2,-2,2",
       children: [
         { path: "mandelbrot-set", redirect: "/fractal/z^2+c" },
-        { path: "multibrot-set", redirect: "/fractal/z^3+c" },
+        { path: "multibrot-set", redirect: "/fractal/z^4+c/1e15" },
         { path: "burning-ship", redirect: "/fractal/abs(z)^2+c" },
         { path: "feather", redirect: "/fractal/z^3%2F(rawsqr(z)+1)+c/10" },
         { path: "flower", redirect: "/fractal/z^2+z+c" },
