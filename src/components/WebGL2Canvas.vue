@@ -107,9 +107,16 @@
 </script>
 
 <template>
-  <FullscreenCanvas @ready="onReady" :breakpoint="breakpoint">
+  <FullscreenCanvas class="canvas" @ready="onReady" :breakpoint="breakpoint">
     <template #nav>
       <slot name="nav" />
     </template>
   </FullscreenCanvas>
 </template>
+
+<style scoped>
+  .canvas {
+    touch-action: none;
+    user-zoom: none;
+  }
+</style>
