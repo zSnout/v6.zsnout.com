@@ -15,10 +15,7 @@
       keywords: "image",
     },
     {
-      to: () => {
-        console.log(fractal.value);
-        fractal?.value?.scrollIntoView({ behavior: "smooth" });
-      },
+      to: () => fractal.value?.scrollIntoView({ behavior: "smooth" }),
       name: "Fractal Presets",
       desc: "Explore intricate images created using preset configurations of the Explorer.",
     },
