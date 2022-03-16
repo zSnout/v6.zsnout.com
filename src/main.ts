@@ -110,6 +110,7 @@ export let router = createRouter({
           redirect: "/fractal/(z^3+1)%2F(cz^2+1)/2/2/50/-8,8,-8,8",
         },
         { path: "mandelball", redirect: "/fractal/z-(zzz+z*(c-1)-c)%2F(3zz+c-1)" }, // prettier-ignore
+        { path: "chinese-lantern", redirect: "/fractal/1%2F(z%5E4+c+1)" },
         {
           path: ":equation",
           redirect({ params: { equation } }) {

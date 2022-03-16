@@ -57,6 +57,11 @@
       name: "Mandelbrot's Necklace",
       desc: "A necklace created from circles containing the Mandelbrot Set and an amazing rainbow.",
     },
+    {
+      to: "/fractal/chinese-lantern",
+      name: "Chinese Lantern",
+      desc: "A fractal based off of the Chinese Lantern flower with concentric circles.",
+    },
   ];
 </script>
 
