@@ -5,7 +5,7 @@
   } from "@/components/CoordinateCanvas.vue";
   import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";
-  import { ref } from "vue";
+  import { onUnmounted, ref } from "vue";
   import { useRoute } from "vue-router";
 
   let { params } = useRoute();
@@ -32,6 +32,8 @@
   let _changeEquation: (() => void) | undefined;
   let _increaseDetail: (() => void) | undefined;
   let _decreaseDetail: (() => void) | undefined;
+
+  let interval: number | undefined;
 
   function onReady({
     program,
@@ -107,7 +109,7 @@
       router.replace(makeRouterURL());
     };
 
-    setInterval(() => {
+    interval = setInterval(() => {
       let now = Date.now();
       if (now - lastSaveTime > 1000 && getCode() != lastCoordCode) {
         lastSaveTime = now;
@@ -302,6 +304,7 @@
   }
 
   let glShader = ref(makeShader());
+  onUnmounted(() => clearInterval(interval));
 </script>
 
 <template>
