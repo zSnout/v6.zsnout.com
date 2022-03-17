@@ -140,7 +140,7 @@
 
     <DailyTip class="daily-tip" />
     <SearchBar class="link-outer" :links="links" autofocus />
-    <span ref="fractal" />
+    <span ref="fractal" id="fractal-id" />
     <FractalSection class="link-outer fractal-links" />
   </DocumentDisplay>
 </template>
