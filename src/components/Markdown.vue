@@ -1,10 +1,12 @@
 <script lang="ts">
-  export function dedent([content]: TemplateStringsArray) {
-    return content
-      .split("\n")
-      .map((line) => line.slice(2))
-      .join("\n")
-      .trim();
+  export function dedent(content: TemplateStringsArray, ...els: any[]) {
+    return (
+      content[0] +
+      content
+        .slice(1)
+        .map((e, i) => els[i] + e)
+        .join("")
+    );
   }
 </script>
 
