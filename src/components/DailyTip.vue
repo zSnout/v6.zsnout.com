@@ -19,7 +19,7 @@
     dailyTip = "Today is the birthday of the original zSnout, my dog Zorro.";
 
   if (today.getMonth() == 3 && today.getDate() == 1)
-    /** */
+    // April Fools' Message
     dailyTip = "Happy Halloween!";
 </script>
 
