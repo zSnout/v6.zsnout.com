@@ -30,10 +30,6 @@ export let router = createRouter({
       component: () => import("@/views/BingoMasterView.vue"),
     },
     {
-      path: "/blog/github-copilot-is-amazing",
-      component: () => import("@/views/blog/GithubCopilotView.vue"),
-    },
-    {
       path: "/chess/board",
       redirect:
         "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
