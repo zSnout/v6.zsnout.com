@@ -25,6 +25,7 @@
     font-size: 16px;
     line-height: 1.5;
     overscroll-behavior: none;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -38,6 +39,24 @@
     @include focus {
       text-decoration: underline;
       outline: none;
+    }
+  }
+
+  [id] {
+    scroll-margin-top: calc(3em + 13px + max(12px, env(safe-area-inset-top)));
+  }
+
+  @media (max-width: 600px) {
+    [id] {
+      scroll-margin-top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));
+    }
+  }
+
+  @media (max-width: 400px) {
+    [id] {
+      scroll-margin-top: calc(
+        1.5em + 13px + max(12px, env(safe-area-inset-top))
+      );
     }
   }
 </style>
