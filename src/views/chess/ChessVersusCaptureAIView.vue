@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { ChessInstance } from "chess.js";
-  import ChessVersusAI from "../components/ChessVersusAI.vue";
+  import ChessVersusAI from "../../components/ChessVersusAI.vue";
 
   let pieces = ["k", "q", "r", "b", "n", "p", undefined];
 
@@ -10,7 +10,7 @@
       .sort(() => (Math.random() < 0.5 ? -1 : 1))
       .sort(
         ({ captured: a }, { captured: b }) =>
-          pieces.indexOf(b) - pieces.indexOf(a)
+          pieces.indexOf(a) - pieces.indexOf(b)
       );
 
     return moves[0];

@@ -30,13 +30,17 @@ export let router = createRouter({
       component: () => import("@/views/BingoMasterView.vue"),
     },
     {
+      path: "/blog/github-copilot-is-amazing",
+      component: () => import("@/views/blog/GithubCopilotView.vue"),
+    },
+    {
       path: "/chess/board",
       redirect:
         "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
     },
     {
       path: "/chess/board/:position",
-      component: () => import("@/views/StandardChessboardView.vue"),
+      component: () => import("@/views/chess/StandardChessboardView.vue"),
     },
     {
       path: "/chess/autoflip",
@@ -45,7 +49,7 @@ export let router = createRouter({
     },
     {
       path: "/chess/autoflip/:position",
-      component: () => import("@/views/AutoFlipChessboardView.vue"),
+      component: () => import("@/views/chess/AutoFlipChessboardView.vue"),
     },
     {
       path: "/chess/random",
@@ -54,7 +58,7 @@ export let router = createRouter({
     },
     {
       path: "/chess/random/:mode",
-      component: () => import("@/views/ChessVersusRandomView.vue"),
+      component: () => import("@/views/chess/ChessVersusRandomView.vue"),
     },
     {
       path: "/chess/capture",
@@ -63,7 +67,7 @@ export let router = createRouter({
     },
     {
       path: "/chess/capture/:mode",
-      component: () => import("@/views/ChessVersusCaptureAIView.vue"),
+      component: () => import("@/views/chess/ChessVersusCaptureAIView.vue"),
     },
     {
       path: "/chess/nocapture",
@@ -72,7 +76,7 @@ export let router = createRouter({
     },
     {
       path: "/chess/nocapture/:mode",
-      component: () => import("@/views/ChessVersusNoCaptureAIView.vue"),
+      component: () => import("@/views/chess/ChessVersusNoCaptureAIView.vue"),
     },
     {
       path: "/chess/vsbad",
@@ -80,7 +84,7 @@ export let router = createRouter({
     },
     {
       path: "/chess/vsbad/:mode",
-      component: () => import("@/views/ChessVersusBadAIView.vue"),
+      component: () => import("@/views/chess/ChessVersusBadAIView.vue"),
     },
     { path: "/fake-gradient", redirect: "/fake-gradient/100" },
     {
