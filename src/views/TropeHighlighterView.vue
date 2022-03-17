@@ -107,7 +107,12 @@
       return element;
     });
 
-    textbox.value.replaceChildren(...elements);
+    let nodes: (Node | string)[] = [elements[0]];
+    for (let el of elements.slice(1)) {
+      nodes.push(" ", el);
+    }
+
+    textbox.value.replaceChildren(...nodes);
   }
 
   function onInput() {
@@ -226,6 +231,8 @@
 
     :deep() span {
       padding: 0.125em;
+      margin: 0 -0.125em;
+      white-space: nowrap;
     }
 
     @include focus {
