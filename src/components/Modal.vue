@@ -17,6 +17,7 @@
 
   let visible = ref(false);
   let hiding = ref(false);
+  let begone = ref(false);
   let oldFocus: HTMLElement | null = null;
   let buttonEl = ref<HTMLElement | null>(null);
   let cancelText = buttons?.find((b) => b.value === "cancel")?.content;
@@ -50,6 +51,8 @@
       setTimeout(() => {
         oldFocus?.focus();
         resolve();
+
+        begone.value = true;
       }, 1000)
     );
   }
@@ -73,8 +76,11 @@
 
 <template>
   <Teleport to="#app">
-    <div :class="{ background: true, visible, hiding }" />
-    <div :class="{ container: true, visible, hiding }" @click="cancel()">
+    <div :class="{ background: true, visible, hiding, begone }" />
+    <div
+      :class="{ container: true, visible, hiding, begone }"
+      @click="cancel()"
+    >
       <SafeAreaLR keep-height keep-width>
         <SafeAreaTB explicit-height>
           <div class="modal-outer">
@@ -123,6 +129,10 @@
 
     &.hiding {
       transition: opacity 0.5s 0.5s;
+    }
+
+    &.begone {
+      display: none;
     }
   }
 
