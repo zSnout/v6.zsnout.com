@@ -4,9 +4,9 @@
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
 
-  export interface Button {
+  export interface Button<T extends string = string> {
     displayName: string;
-    id: string;
+    id: T;
   }
 
   defineProps<{ buttons?: Button[]; cancelText?: string }>();
