@@ -91,16 +91,16 @@
                 </div>
 
                 <div class="buttons" ref="buttonEl">
+                  <ModalButton @click="cancel()" class="cancel">
+                    {{ cancelText || "Cancel" }}
+                  </ModalButton>
+
                   <ModalButton
                     v-for="(button, i) in buttons"
                     :key="i"
                     @click="select(button.value)"
                   >
                     {{ button.content }}
-                  </ModalButton>
-
-                  <ModalButton @click="cancel()">
-                    {{ cancelText || "Cancel" }}
                   </ModalButton>
                 </div>
               </div>
@@ -200,5 +200,9 @@
     flex-direction: row;
     gap: 0.5em;
     margin-top: auto;
+  }
+
+  .cancel {
+    margin-right: auto;
   }
 </style>
