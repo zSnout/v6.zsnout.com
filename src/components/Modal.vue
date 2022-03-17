@@ -79,7 +79,9 @@
           <div class="modal-outer">
             <div class="modal" @click="$event.stopPropagation()">
               <div class="modal-inner">
-                <slot />
+                <div class="text">
+                  <slot />
+                </div>
 
                 <div class="buttons" ref="buttons">
                   <ModalButton
@@ -172,10 +174,17 @@
   }
 
   .modal-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     padding: 0.5em;
     background-color: var(--field-background);
+  }
+
+  .buttons {
+    margin-top: auto;
   }
 </style>
