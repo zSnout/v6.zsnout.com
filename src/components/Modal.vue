@@ -19,6 +19,8 @@
   let hiding = ref(false);
   let begone = ref(false);
   let oldFocus: HTMLElement | null = null;
+  let _firstButton: HTMLElement | null = null;
+  let _lastButton: HTMLElement | null = null;
   let buttonEl = ref<HTMLElement | null>(null);
   let cancelText = buttons?.find((b) => b.value === "cancel")?.content;
   let hasSentResponse = true; // This is set to false once CSS animations have completed.
@@ -28,6 +30,16 @@
     (buttonEl.value?.children[0] as HTMLElement)?.focus();
     window.addEventListener("keydown", onKeyDown);
 
+    let buttons = buttonEl.value?.children;
+    let firstButton = (buttons?.[0] as HTMLElement) || null;
+    let lastButton = (buttons?.[buttons?.length - 1] as HTMLElement) || null;
+
+    _firstButton = firstButton;
+    _lastButton = lastButton;
+
+    firstButton?.addEventListener("keydown", onFirstButtonKeyDown);
+    lastButton?.addEventListener("keydown", onLastButtonKeyDown);
+
     setTimeout(() => {
       visible.value = true;
       setTimeout(() => (hasSentResponse = false), 1000);
@@ -36,8 +48,24 @@
 
   onUnmounted(() => {
     window.removeEventListener("keydown", onKeyDown);
+    _firstButton?.removeEventListener("keydown", onFirstButtonKeyDown);
+    _lastButton?.removeEventListener("keydown", onLastButtonKeyDown);
     oldFocus?.focus();
   });
+
+  function onFirstButtonKeyDown(event: KeyboardEvent) {
+    if (event.key == "Tab" && event.shiftKey) {
+      event.preventDefault();
+      _lastButton?.focus();
+    }
+  }
+
+  function onLastButtonKeyDown(event: KeyboardEvent) {
+    if (event.key == "Tab" && !event.shiftKey) {
+      event.preventDefault();
+      _firstButton?.focus();
+    }
+  }
 
   function onKeyDown({ key }: KeyboardEvent) {
     if (key == "Escape") cancel();
@@ -96,7 +124,9 @@
                   </ModalButton>
 
                   <ModalButton
-                    v-for="(button, i) in buttons"
+                    v-for="(button, i) in buttons?.filter(
+                      (e) => e.value != 'cancel'
+                    )"
                     :key="i"
                     @click="select(button.value)"
                   >
