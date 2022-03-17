@@ -8,11 +8,3 @@
 <template>
   <div class="markdown" v-html="instance.render(source)" />
 </template>
-
-<style scoped lang="scss">
-  .markdown :deep() {
-    p {
-      color: red;
-    }
-  }
-</style>
