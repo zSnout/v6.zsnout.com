@@ -5,11 +5,11 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
 
   export interface Button<T extends string = string> {
-    displayName: string;
-    id: T;
+    content: string;
+    value: T;
   }
 
-  defineProps<{ buttons?: Button[]; cancelText?: string }>();
+  let { buttons } = defineProps<{ buttons?: Button[] }>();
   let emit = defineEmits<{
     (event: "cancel"): void;
     (event: "select", button: string): void;
@@ -18,12 +18,13 @@
   let visible = ref(false);
   let hiding = ref(false);
   let oldFocus: HTMLElement | null = null;
-  let buttons = ref<HTMLElement | null>(null);
+  let buttonEl = ref<HTMLElement | null>(null);
+  let cancelText = buttons?.find((b) => b.value === "cancel")?.content;
   let hasSentResponse = true; // This is set to false once CSS animations have completed.
 
   onMounted(() => {
     (oldFocus = document.activeElement as HTMLElement | null)?.blur();
-    (buttons.value?.children[0] as HTMLElement)?.focus();
+    (buttonEl.value?.children[0] as HTMLElement)?.focus();
     window.addEventListener("keydown", onKeyDown);
 
     setTimeout(() => {
@@ -83,13 +84,13 @@
                   <slot />
                 </div>
 
-                <div class="buttons" ref="buttons">
+                <div class="buttons" ref="buttonEl">
                   <ModalButton
                     v-for="(button, i) in buttons"
                     :key="i"
-                    @click="select(button.id)"
+                    @click="select(button.value)"
                   >
-                    {{ button.displayName }}
+                    {{ button.content }}
                   </ModalButton>
 
                   <ModalButton @click="cancel()">
