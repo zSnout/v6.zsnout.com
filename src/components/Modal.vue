@@ -18,11 +18,12 @@
   let visible = ref(false);
   let hiding = ref(false);
   let oldFocus: HTMLElement | null = null;
+  let buttons = ref<HTMLElement | null>(null);
   let hasSentResponse = true; // This is set to false once CSS animations have completed.
-  let background = ref<HTMLElement | null>(null);
 
   onMounted(() => {
     (oldFocus = document.activeElement as HTMLElement | null)?.blur();
+    (buttons.value?.children[0] as HTMLElement)?.focus();
     window.addEventListener("keydown", onKeyDown);
 
     setTimeout(() => {
@@ -43,7 +44,13 @@
   function hide() {
     hiding.value = true;
     setTimeout(() => (visible.value = false));
-    return new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return new Promise<void>((resolve) =>
+      setTimeout(() => {
+        oldFocus?.focus();
+        resolve();
+      }, 1000)
+    );
   }
 
   async function cancel() {
@@ -51,7 +58,6 @@
     hasSentResponse = true;
 
     await hide();
-    alert("canceled");
     emit("cancel");
   }
 
@@ -60,14 +66,13 @@
     hasSentResponse = true;
 
     await hide();
-    alert("selected " + id);
     emit("select", id);
   }
 </script>
 
 <template>
   <Teleport to="#app">
-    <div :class="{ background: true, visible, hiding }" ref="background" />
+    <div :class="{ background: true, visible, hiding }" />
     <div :class="{ container: true, visible, hiding }" @click="cancel()">
       <SafeAreaLR keep-height keep-width>
         <SafeAreaTB explicit-height>
@@ -76,7 +81,7 @@
               <div class="modal-inner">
                 <slot />
 
-                <div class="buttons">
+                <div class="buttons" ref="buttons">
                   <ModalButton
                     v-for="(button, i) in buttons"
                     :key="i"
