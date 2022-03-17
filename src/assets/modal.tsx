@@ -1,4 +1,5 @@
 import Modal, { type Button } from "@/components/Modal.vue";
+import { render } from "vue";
 
 export function createModal<T extends string>(
   content: string,
@@ -14,5 +15,7 @@ export function createModal<T extends string>(
         {content}
       </Modal>
     );
+
+    render(modal, document.body);
   });
 }
