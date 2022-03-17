@@ -42,6 +42,10 @@
   ---
 
   Overall, I think that Copilot is a great tool. I hope that it gets better and can help more, but I also believe that nobody should rely on it too much.
+
+  <br>
+  
+  _zSnout is not affiliated with GitHub or GitHub Copilot in any way. This article includes opinions from Zachary Sakowitz and does not reflect the opinions of zSnout as a whole._
     `;
 </script>
 
