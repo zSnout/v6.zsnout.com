@@ -178,9 +178,8 @@ export let router = createRouter({
   ],
 });
 
-let app = createApp(App);
-app.use(router);
-app.mount("#app");
+export let app = createApp(App);
+app.use(router).mount("#app");
 
 registerSW({
   onNeedRefresh() {},
