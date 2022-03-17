@@ -31,7 +31,7 @@ export let router = createRouter({
     },
     {
       path: "/blog/github-copilot-is-amazing",
-      component: () => import("@/views/blog/GithubCopilotView.vue"),
+      component: () => import("@/views/blog/GithubCopilotIsAmazingView.vue"),
     },
     {
       path: "/chess/board",
