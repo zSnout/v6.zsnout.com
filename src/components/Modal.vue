@@ -196,6 +196,9 @@
   }
 
   .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
     margin-top: auto;
   }
 </style>
