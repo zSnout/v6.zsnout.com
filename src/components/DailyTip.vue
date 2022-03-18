@@ -21,6 +21,10 @@
   if (today.getMonth() == 3 && today.getDate() == 1)
     // April Fools' Message
     dailyTip = "Happy Halloween!";
+
+  if (today.getMonth() == 3 && today.getDate() == 3)
+    // zSnout Anniversary
+    dailyTip = "Today is the anniversary of when zSnout was created in 2019!";
 </script>
 
 <template>
