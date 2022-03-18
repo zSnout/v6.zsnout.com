@@ -1,6 +1,8 @@
 import Vue from "@vitejs/plugin-vue";
 import VueJSX from "@vitejs/plugin-vue-jsx";
 import glob from "glob";
+import MarkdownItAnchor from "markdown-it-anchor";
+import MarkdownItTOC from "markdown-it-toc-done-right";
 import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
 import ViteMD from "vite-plugin-md";
@@ -15,7 +17,13 @@ export default new Promise(async (resolve) =>
       plugins: [
         Vue({ include: [/\.vue$/, /\.md$/] }),
         VueJSX(),
-        ViteMD(),
+        ViteMD({
+          markdownItSetup(markdown) {
+            markdown
+              .use(MarkdownItAnchor)
+              .use(MarkdownItTOC, { listType: "ul" });
+          },
+        }),
         VitePWA({
           devOptions: { enabled: false },
           manifest: false,
