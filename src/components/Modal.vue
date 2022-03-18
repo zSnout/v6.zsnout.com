@@ -3,6 +3,7 @@
   import ModalButton from "./ModalButton.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
+  import ModalField from "./ModalField.vue";
 
   export interface Button<T extends string = string> {
     content: string;
@@ -128,6 +129,10 @@
                   <slot />
                 </div>
 
+                <form class="field">
+                  <ModalField />
+                </form>
+
                 <div class="buttons" ref="buttonEl">
                   <ModalButton @click="cancel()" class="cancel">
                     {{ cancelText || "Cancel" }}
@@ -211,7 +216,6 @@
     height: 300px;
     max-height: 100%;
     background-color: var(--background);
-    border-radius: 4px;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
     transition: top 0.5s 0.5s;
 
@@ -233,13 +237,18 @@
     height: 100%;
     padding: 0.5em;
     background-color: var(--field-background);
+    border-radius: 0.5em;
+  }
+
+  .text {
+    margin-bottom: auto;
+    padding: 0.25em;
   }
 
   .buttons {
     display: flex;
     flex-direction: row;
     gap: 0.5em;
-    margin-top: auto;
   }
 
   .cancel {
