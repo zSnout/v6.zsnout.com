@@ -290,6 +290,6 @@
   }
 
   .cancel {
-    margin-right: auto;
+    margin-left: auto;
   }
 </style>
