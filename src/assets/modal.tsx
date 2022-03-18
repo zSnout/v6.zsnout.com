@@ -14,6 +14,7 @@ export function createModal<T extends string>(
       else resolve(value);
 
       render(null, el);
+      el.remove();
     }
 
     let modal = (
@@ -30,11 +31,3 @@ export function createModal<T extends string>(
     render(modal, el);
   });
 }
-
-createModal("a", [
-  {
-    content: "a",
-    value: "a",
-    submitter: true,
-  },
-]);
