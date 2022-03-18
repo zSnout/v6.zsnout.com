@@ -1,5 +1,5 @@
 import Modal, { type Button } from "@/components/Modal.vue";
-import { createTextVNode, render } from "vue";
+import { render } from "vue";
 
 export function createModal<T extends string>(
   content: string,
@@ -30,4 +30,13 @@ export function createModal<T extends string>(
 
     render(modal, el);
   });
+}
+
+export async function alert(message: string) {
+  await createModal(message, [
+    {
+      content: "OK",
+      value: "cancel",
+    },
+  ]);
 }
