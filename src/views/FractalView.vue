@@ -1,11 +1,13 @@
 <script setup lang="ts">
+  import { getCookie, setCookie } from "@/assets/cookie";
   import { rpnToGLSL, toReversePolish } from "@/assets/glsl-math";
+  import { alert } from "@/assets/modal";
   import CoordinateCanvas, {
     type CoordinateCanvasInfo,
   } from "@/components/CoordinateCanvas.vue";
   import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";
-  import { onUnmounted, ref } from "vue";
+  import { onMounted, onUnmounted, ref } from "vue";
   import { useRoute } from "vue-router";
 
   let { params } = useRoute();
@@ -304,6 +306,14 @@
   }
 
   let glShader = ref(makeShader());
+
+  onMounted(() => {
+    if (getCookie("hasVisitedFractalView") != "1")
+      alert(
+        "When using a touchscreen, drag your finger to move the image and use two finger pinching to zoom in and out. When using a desktop, click and drag to move the image and scroll on the image to zoom in and out. You may also pinch to zoom on a trackpad."
+      ).then(() => setCookie("hasVisitedFractalView", "1"));
+  });
+
   onUnmounted(() => clearInterval(interval));
 </script>
 
