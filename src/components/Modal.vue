@@ -6,6 +6,7 @@
   import ModalField from "./ModalField.vue";
 
   export interface Button<T extends string = string> {
+    submitter?: true | ((value: string) => boolean);
     content: string;
     value: T;
   }
@@ -14,15 +15,23 @@
   let emit = defineEmits<{
     (event: "cancel"): void;
     (event: "select", button: string): void;
+    (event: "submit", value: string): void;
   }>();
+
+  let nonCancelButtons = buttons?.filter((e) => e.value != "cancel") || [];
+  let fieldSubmitter = buttons?.find((e) => e.submitter);
 
   let visible = ref(false);
   let hiding = ref(false);
   let begone = ref(false);
+
   let oldFocus: HTMLElement | null = null;
   let _firstButton: HTMLElement | null = null;
   let _lastButton: HTMLElement | null = null;
+
   let buttonEl = ref<HTMLElement | null>(null);
+  let fieldEl = ref<HTMLElement | null>(null);
+
   let cancelText = buttons?.find((b) => b.value === "cancel")?.content;
   let hasSentResponse = true; // This is set to false once CSS animations have completed.
 
@@ -111,6 +120,27 @@
     await hide();
     emit("select", id);
   }
+
+  async function onSubmit(event: Event) {
+    event.preventDefault();
+    if (!fieldEl.value) return;
+    let field = fieldEl.value.children[0] as HTMLInputElement;
+    if (!field || !field.value) return;
+
+    if (hasSentResponse) return;
+    let value = field.value;
+
+    if (
+      typeof fieldSubmitter?.submitter == "function" &&
+      !fieldSubmitter.submitter(value)
+    )
+      return;
+
+    hasSentResponse = true;
+
+    await hide();
+    emit("submit", value);
+  }
 </script>
 
 <template>
@@ -129,7 +159,12 @@
                   <slot />
                 </div>
 
-                <form class="field">
+                <form
+                  v-if="fieldSubmitter"
+                  class="field"
+                  ref="fieldEl"
+                  @submit="onSubmit"
+                >
                   <ModalField />
                 </form>
 
@@ -139,11 +174,11 @@
                   </ModalButton>
 
                   <ModalButton
-                    v-for="(button, i) in buttons?.filter(
-                      (e) => e.value != 'cancel'
-                    )"
+                    v-for="(button, i) in nonCancelButtons"
                     :key="i"
-                    @click="select(button.value)"
+                    @click="
+                      button.submitter ? onSubmit($event) : select(button.value)
+                    "
                   >
                     {{ button.content }}
                   </ModalButton>
@@ -216,6 +251,7 @@
     height: 300px;
     max-height: 100%;
     background-color: var(--background);
+    border-radius: 0.5em;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
     transition: top 0.5s 0.5s;
 
