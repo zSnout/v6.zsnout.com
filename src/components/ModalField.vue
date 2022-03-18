@@ -1,9 +1,37 @@
 <script setup lang="ts">
+  import { onMounted, onUnmounted, ref } from "vue";
+
   defineProps<{ placeholder?: string; value?: string }>();
+  let fieldEl = ref<HTMLElement | null>(null);
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key == "/") {
+      event.stopImmediatePropagation();
+
+      if (document.activeElement == fieldEl.value)
+        return fieldEl.value?.focus();
+
+      fieldEl.value?.focus();
+      event.preventDefault();
+    }
+  }
+
+  onMounted(() => {
+    document.addEventListener("keydown", onKeyDown);
+    fieldEl.value?.focus();
+  });
+
+  onUnmounted(() => document.removeEventListener("keydown", onKeyDown));
 </script>
 
 <template>
-  <input type="text" class="field" :placeholder="placeholder" :value="value" />
+  <input
+    type="text"
+    class="field"
+    ref="fieldEl"
+    :placeholder="placeholder"
+    :value="value"
+  />
 </template>
 
 <style scoped lang="scss">
