@@ -59,7 +59,7 @@
 
     setTimeout(() => {
       visible.value = true;
-      setTimeout(() => (hasSentResponse = false), 1000);
+      setTimeout(() => (hasSentResponse = false), 500);
     });
   });
 
@@ -107,7 +107,7 @@
         resolve();
 
         begone.value = true;
-      }, 1000)
+      }, 500)
     );
   }
 
@@ -208,14 +208,14 @@
     width: 100%;
     height: calc(100% - 2em - 13px - max(12px, env(safe-area-inset-top)));
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.2s;
 
     &.visible {
       opacity: 1;
     }
 
     &.hiding {
-      transition: opacity 0.5s 0.5s;
+      transition: opacity 0.2s 0.3s;
     }
 
     &.begone {
@@ -260,7 +260,7 @@
     background-color: var(--background);
     border-radius: 0.5em;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
-    transition: top 0.5s 0.5s;
+    transition: top 0.3s 0.2s;
 
     .visible & {
       top: 0;
