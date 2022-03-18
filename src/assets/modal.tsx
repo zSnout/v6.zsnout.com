@@ -3,21 +3,23 @@ import { render } from "vue";
 
 export function createModal<T extends string>(
   content: string,
-  buttons: Button<T>[]
+  buttons: Button<T | "cancel">[]
 ) {
-  return new Promise<T | "cancel">((resolve) => {
+  return new Promise<T | null>((resolve) => {
     let el = document.createElement("div");
     document.body.append(el);
 
-    function send(value: T | "cancel") {
-      resolve(value);
+    function send(value: T | null) {
+      if (value == "cancel") resolve(null);
+      else resolve(value);
+
       render(null, el);
     }
 
     let modal = (
       <Modal
         buttons={buttons}
-        onCancel={() => send("cancel")}
+        onCancel={() => send(null)}
         onSelect={(value) => send(value as T)}
       >
         {content}
