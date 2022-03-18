@@ -1,15 +1,15 @@
 import Modal, { type Button } from "@/components/Modal.vue";
-import { render } from "vue";
+import { createTextVNode, render } from "vue";
 
 export function createModal<T extends string>(
   content: string,
   buttons: Button<T | "cancel">[]
 ) {
-  return new Promise<T | null>((resolve) => {
+  return new Promise<T | { value: string } | null>((resolve) => {
     let el = document.createElement("div");
     document.body.append(el);
 
-    function send(value: T | null) {
+    function send(value: T | { value: string } | null) {
       if (value == "cancel") resolve(null);
       else resolve(value);
 
@@ -21,6 +21,7 @@ export function createModal<T extends string>(
         buttons={buttons}
         onCancel={() => send(null)}
         onSelect={(value) => send(value as T)}
+        onSubmit={(value) => send({ value })}
       >
         {content}
       </Modal>
@@ -29,3 +30,11 @@ export function createModal<T extends string>(
     render(modal, el);
   });
 }
+
+createModal("a", [
+  {
+    content: "a",
+    value: "a",
+    submitter: true,
+  },
+]);
