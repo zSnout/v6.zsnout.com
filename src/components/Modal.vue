@@ -147,6 +147,7 @@
 <template>
   <Teleport to="#app">
     <div :class="{ background: true, visible, hiding, begone }" />
+
     <div
       :class="{ container: true, visible, hiding, begone }"
       @click="cancel()"
