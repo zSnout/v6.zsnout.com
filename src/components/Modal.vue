@@ -67,8 +67,18 @@
     }
   }
 
-  function onKeyDown({ key }: KeyboardEvent) {
-    if (key == "Escape") cancel();
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key == "Escape") cancel();
+    if (event.key == "Tab") {
+      if (!buttonEl.value) return;
+
+      if ([...buttonEl.value.children].indexOf(document.activeElement!) == -1) {
+        event.preventDefault();
+
+        if (event.shiftKey) _lastButton?.focus();
+        else _firstButton?.focus();
+      }
+    }
   }
 
   function hide() {
