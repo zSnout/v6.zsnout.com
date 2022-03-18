@@ -82,7 +82,8 @@
     if (event.key == "Tab") {
       if (!buttonEl.value) return;
 
-      if ([...buttonEl.value.children].indexOf(document.activeElement!) == -1) {
+      let buttons = [...buttonEl.value.children];
+      if (!buttons.includes(document.activeElement!)) {
         event.preventDefault();
 
         if (event.shiftKey) _lastButton?.focus();
