@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
 
-import { CSSProperties, Ref } from "vue";
+import { CSSProperties, Ref, Component } from "vue";
 
 declare global {
   type StyleValueRefs = {
@@ -20,5 +20,10 @@ declare global {
 
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
+  }
+
+  declare module "*.md" {
+    const file: Component;
+    export default file;
   }
 }

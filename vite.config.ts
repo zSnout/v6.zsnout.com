@@ -1,9 +1,10 @@
-import vue from "@vitejs/plugin-vue";
-import vueJsx from "@vitejs/plugin-vue-jsx";
+import Vue from "@vitejs/plugin-vue";
+import VueJSX from "@vitejs/plugin-vue-jsx";
+import glob from "glob";
 import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
+import ViteMD from "vite-plugin-md";
 import { VitePWA } from "vite-plugin-pwa";
-import glob from "glob";
 
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
@@ -12,8 +13,9 @@ export default new Promise(async (resolve) =>
     defineConfig({
       publicDir: publicDir,
       plugins: [
-        vue(),
-        vueJsx(),
+        Vue({ include: [/\.vue$/, /\.md$/] }),
+        VueJSX(),
+        ViteMD(),
         VitePWA({
           devOptions: { enabled: false },
           manifest: false,
