@@ -25,7 +25,6 @@
   let hiding = ref(false);
   let begone = ref(false);
 
-  let oldFocus: HTMLElement | null = null;
   let _firstButton: HTMLElement | null = null;
   let _lastButton: HTMLElement | null = null;
 
@@ -36,8 +35,11 @@
   let hasSentResponse = true; // This is set to false once CSS animations have completed.
 
   onMounted(() => {
-    (oldFocus = document.activeElement as HTMLElement | null)?.blur();
-    (buttonEl.value?.children[0] as HTMLElement)?.focus();
+    if (!fieldSubmitter) {
+      (document.activeElement as HTMLElement | null)?.blur();
+      (buttonEl.value?.children[0] as HTMLElement)?.focus();
+    }
+
     window.addEventListener("keydown", onKeyDown);
 
     let buttons = buttonEl.value?.children;
@@ -60,7 +62,6 @@
     window.removeEventListener("keydown", onKeyDown);
     _firstButton?.removeEventListener("keydown", onFirstButtonKeyDown);
     _lastButton?.removeEventListener("keydown", onLastButtonKeyDown);
-    oldFocus?.focus();
   });
 
   function onFirstButtonKeyDown(event: KeyboardEvent) {
@@ -98,7 +99,6 @@
 
     return new Promise<void>((resolve) =>
       setTimeout(() => {
-        oldFocus?.focus();
         resolve();
 
         begone.value = true;
