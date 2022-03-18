@@ -1,13 +1,17 @@
 <script setup lang="ts">
-  import type { Component } from "vue";
   import DocumentDisplay from "./DocumentDisplay.vue";
   import Markdown from "./Markdown.vue";
+  import Prose from "./Prose.vue";
 
-  defineProps<{ source: string | Component }>();
+  defineProps<{ source?: string }>();
 </script>
 
 <template>
   <DocumentDisplay>
-    <Markdown :source="source" />
+    <Markdown v-if="source" :source="source" />
+
+    <Prose v-else>
+      <slot />
+    </Prose>
   </DocumentDisplay>
 </template>
