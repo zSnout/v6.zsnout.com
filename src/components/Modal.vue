@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from "vue";
   import ModalButton from "./ModalButton.vue";
+  import ModalField from "./ModalField.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
-  import ModalField from "./ModalField.vue";
 
   export interface Button<T extends string = string> {
     submitter?: true | ((value: string) => boolean);
@@ -11,7 +11,12 @@
     value: T;
   }
 
-  let { buttons } = defineProps<{ buttons?: Button[] }>();
+  let { buttons } = defineProps<{
+    buttons?: Button[];
+    placeholder?: string;
+    fieldValue?: string;
+  }>();
+
   let emit = defineEmits<{
     (event: "cancel"): void;
     (event: "select", button: string): void;
@@ -167,7 +172,7 @@
                   ref="fieldEl"
                   @submit="onSubmit"
                 >
-                  <ModalField />
+                  <ModalField :placeholder="placeholder" :value="fieldValue" />
                 </form>
 
                 <div class="buttons" ref="buttonEl">
