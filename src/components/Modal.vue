@@ -210,6 +210,11 @@
     opacity: 0;
     transition: opacity 0.2s;
 
+    .floating ~ & {
+      top: 0;
+      height: 100%;
+    }
+
     &.visible {
       opacity: 1;
     }
