@@ -17,11 +17,9 @@
     border: none;
     border-radius: 0.25em;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
 
     @include focus {
-      outline: none;
-      box-shadow: 0 0 6px 1px var(--accent-color);
+      outline: 1px solid var(--border-color);
     }
   }
 </style>
