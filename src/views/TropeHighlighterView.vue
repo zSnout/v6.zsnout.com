@@ -1,4 +1,6 @@
 <script setup lang="tsx">
+  import { getCookie, setCookie } from "@/assets/cookie";
+  import { alert } from "@/assets/modal";
   import { onMounted, onUnmounted, ref } from "vue";
   import DocumentDisplay from "../components/DocumentDisplay.vue";
   import NavLink from "../components/NavLink.vue";
@@ -120,8 +122,18 @@
     textbox.value.classList.toggle("empty", !!textbox.value.textContent);
   }
 
-  onMounted(onInput);
-  onMounted(() => document.documentElement.classList.add("theme-light"));
+  onMounted(() => {
+    onInput();
+    document.documentElement.classList.add("theme-light");
+
+    if (getCookie("hasVisitedTropeHighlighter") != "1") {
+      setCookie("hasVisitesTropeHighlighter", "1");
+      alert(
+        "Hey! If you're using dark mode, you might notice that our trope highlighter always uses light mode. This is to allow for a better printing and screenshot experience by default."
+      );
+    }
+  });
+
   onUnmounted(() => document.documentElement.classList.remove("theme-light"));
 </script>
 
