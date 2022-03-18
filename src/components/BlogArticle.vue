@@ -1,8 +1,9 @@
 <script setup lang="ts">
+  import type { Component } from "vue";
   import DocumentDisplay from "./DocumentDisplay.vue";
   import Markdown from "./Markdown.vue";
 
-  defineProps<{ source: string }>();
+  defineProps<{ source: string | Component }>();
 </script>
 
 <template>

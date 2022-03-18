@@ -14,16 +14,24 @@
   import MarkdownIt from "markdown-it";
   import MarkdownItAnchor from "markdown-it-anchor";
   import MarkdownItTOC from "markdown-it-toc-done-right";
+  import type { Component } from "vue";
 
   let instance = MarkdownIt()
     .use(MarkdownItAnchor)
     .use(MarkdownItTOC, { listType: "ul" });
 
-  defineProps<{ source: string }>();
+  let { source } = defineProps<{ source: string | Component }>();
+  let Source = source;
 </script>
 
 <template>
-  <div class="markdown" v-html="instance.render(source)" />
+  <div
+    v-if="typeof source == 'string'"
+    class="markdown"
+    v-html="instance.render(source)"
+  />
+
+  <div v-else><Source /></div>
 </template>
 
 <style scoped lang="scss">
