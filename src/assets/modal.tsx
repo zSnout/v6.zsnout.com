@@ -4,7 +4,7 @@ import { render } from "vue";
 export function createModal<T extends string>(
   content: string,
   buttons: Button<T | "cancel">[],
-  info?: {
+  options?: {
     fieldValue?: string;
     placeholder?: string;
   }
@@ -24,8 +24,8 @@ export function createModal<T extends string>(
     let modal = (
       <Modal
         buttons={buttons}
-        placeholder={info?.placeholder}
-        fieldValue={info?.fieldValue}
+        placeholder={options?.placeholder}
+        fieldValue={options?.fieldValue}
         onCancel={() => send(null)}
         onSelect={(value) => send(value as T)}
         onSubmit={(value) => send({ value })}
@@ -38,13 +38,62 @@ export function createModal<T extends string>(
   });
 }
 
-export async function alert(message: string) {
+export async function alert(
+  message: string,
+  options: { buttonText?: string } = {}
+) {
   await createModal(message, [
     {
-      content: "OK",
+      content: options.buttonText || "OK",
       value: "cancel",
     },
   ]);
 }
 
-export async function prompt(message: string, _default?: string) {}
+export async function prompt(
+  message: string,
+  options: {
+    default?: string;
+    placeholder?: string;
+    submitText?: string;
+    cancelText?: string;
+    validator?(value: string): boolean;
+  } = {}
+) {
+  let result = await createModal(
+    message,
+    [
+      {
+        submitter: options.validator || true,
+        content: options.submitText || "OK",
+        value: "submit",
+      },
+      {
+        content: options.cancelText || "Cancel",
+        value: "cancel",
+      },
+    ],
+    { fieldValue: options.default, placeholder: options.placeholder }
+  );
+
+  if (typeof result == "string" || result == null) return null;
+  return result.value;
+}
+
+export async function confirm(
+  message: string,
+  options: { submitText?: string; cancelText?: string } = {}
+) {
+  let result = await createModal(message, [
+    {
+      content: options.submitText || "OK",
+      value: "ok",
+    },
+    {
+      content: options.cancelText || "Cancel",
+      value: "cancel",
+    },
+  ]);
+
+  return result == "ok";
+}
