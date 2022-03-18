@@ -34,6 +34,10 @@ export let router = createRouter({
       component: () => import("@/views/blog/GithubCopilotIsAmazingView.vue"),
     },
     {
+      path: "/blog/what-makes-zsnout-different",
+      component: () => import("@/views/blog/WhatMakesZSnoutDifferentView.vue"),
+    },
+    {
       path: "/chess/board",
       redirect:
         "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
