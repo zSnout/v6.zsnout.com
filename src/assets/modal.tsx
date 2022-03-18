@@ -3,7 +3,11 @@ import { render } from "vue";
 
 export function createModal<T extends string>(
   content: string,
-  buttons: Button<T | "cancel">[]
+  buttons: Button<T | "cancel">[],
+  info?: {
+    fieldValue?: string;
+    placeholder?: string;
+  }
 ) {
   return new Promise<T | { value: string } | null>((resolve) => {
     let el = document.createElement("div");
@@ -20,6 +24,8 @@ export function createModal<T extends string>(
     let modal = (
       <Modal
         buttons={buttons}
+        placeholder={info?.placeholder}
+        fieldValue={info?.fieldValue}
         onCancel={() => send(null)}
         onSelect={(value) => send(value as T)}
         onSubmit={(value) => send({ value })}
@@ -40,3 +46,5 @@ export async function alert(message: string) {
     },
   ]);
 }
+
+export async function prompt(message: string, _default?: string) {}
