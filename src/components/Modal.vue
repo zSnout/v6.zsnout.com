@@ -224,11 +224,11 @@
   }
 
   .background {
-    z-index: 4;
+    z-index: 2;
   }
 
   .container {
-    z-index: 5;
+    z-index: 3;
     background-color: var(--background);
   }
 
