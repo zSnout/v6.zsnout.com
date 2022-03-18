@@ -111,7 +111,7 @@
     top: 0;
     right: 0;
     left: 0;
-    z-index: 3;
+    z-index: 5;
     height: 2em;
     padding: 12px 0;
     padding-top: max(12px, env(safe-area-inset-top));
@@ -187,7 +187,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 4;
     width: 100vw;
     height: 100vh;
   }
