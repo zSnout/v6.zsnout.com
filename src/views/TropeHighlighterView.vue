@@ -126,12 +126,10 @@
     onInput();
     document.documentElement.classList.add("theme-light");
 
-    if (getCookie("hasVisitedTropeHighlighter") != "1") {
-      setCookie("hasVisitesTropeHighlighter", "1");
+    if (getCookie("hasVisitedTropeHighlighter") != "1")
       alert(
         "Hey! If you're using dark mode, you might notice that our trope highlighter always uses light mode. This is to allow for a better printing and screenshot experience by default."
-      );
-    }
+      ).then(() => setCookie("hasVisitedTropeHighlighter", "1"));
   });
 
   onUnmounted(() => document.documentElement.classList.remove("theme-light"));
