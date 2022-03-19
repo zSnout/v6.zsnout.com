@@ -1,9 +1,9 @@
 <script setup lang="tsx">
   import { getCookie, setCookie } from "@/assets/cookie";
   import { alert } from "@/assets/modal";
+  import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import NavLink from "@/components/NavLink.vue";
   import { onMounted, onUnmounted, ref } from "vue";
-  import DocumentDisplay from "../components/DocumentDisplay.vue";
-  import NavLink from "../components/NavLink.vue";
 
   let textbox = ref<HTMLDivElement | null>(null);
 

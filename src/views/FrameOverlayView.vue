@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, withCtx } from "vue";
+  import { ref } from "vue";
 
   function onClick(event: MouseEvent) {
     if (!frame.value) return;

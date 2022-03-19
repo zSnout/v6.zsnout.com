@@ -1,6 +1,6 @@
 <script setup>
-  import DocumentDisplay from "../components/DocumentDisplay.vue";
-  import NavLink from "../components/NavLink.vue";
+  import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import NavLink from "@/components/NavLink.vue";
 </script>
 
 <template>

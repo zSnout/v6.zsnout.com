@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import BingoCell from "../components/BingoCell.vue";
-  import DocumentDisplay from "../components/DocumentDisplay.vue";
+  import BingoCell from "@/components/BingoCell.vue";
+  import DocumentDisplay from "@/components/DocumentDisplay.vue";
 
   let board = createBoard();
 

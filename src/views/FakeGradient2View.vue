@@ -1,9 +1,9 @@
 <script setup lang="ts">
+  import FullscreenCanvas from "@/components/FullscreenCanvas.vue";
+  import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";
   import { onUnmounted } from "vue";
   import { useRoute } from "vue-router";
-  import FullscreenCanvas from "../components/FullscreenCanvas.vue";
-  import NavLink from "../components/NavLink.vue";
 
   let _lessDetail: (() => void) | undefined;
   let _moreDetail: (() => void) | undefined;

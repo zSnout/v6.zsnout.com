@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { Question } from "@/components/Quiz.vue";
-  import Quiz from "../components/Quiz.vue";
+  import Quiz from "@/components/Quiz.vue";
 
   function generator(): Question {
     let a = Math.floor(11 * Math.random()) + 2;

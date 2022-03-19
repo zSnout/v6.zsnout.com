@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import AnimatedList from "@/components/AnimatedList.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import NavLink from "@/components/NavLink.vue";
-  import AnimatedList from "../components/AnimatedList.vue";
+  import { ref } from "vue";
 
   function shuffle(array: string[]) {
     for (let i = array.length - 1; i > 0; i--) {

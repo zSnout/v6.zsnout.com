@@ -1,8 +1,6 @@
 <script setup lang="ts">
-  import LegalMoveChessboard from "@/components/LegalMoveChessboard.vue";
-  import NavLink from "@/components/NavLink.vue";
+  import ChessVersusAI from "@/components/ChessVersusAI.vue";
   import type { ChessInstance } from "chess.js";
-  import ChessVersusAI from "../../components/ChessVersusAI.vue";
 
   let pieces = ["k", "q", "r", "b", "n", "p", undefined];
 
