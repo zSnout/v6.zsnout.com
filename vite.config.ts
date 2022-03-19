@@ -1,3 +1,4 @@
+import MarkdownItKatex from "@traptitech/markdown-it-katex";
 import Vue from "@vitejs/plugin-vue";
 import VueJSX from "@vitejs/plugin-vue-jsx";
 import glob from "glob";
@@ -11,15 +12,30 @@ import { VitePWA } from "vite-plugin-pwa";
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
 
+let mathMLElements =
+  "math maction maligngroup malignmark menclose merror mfenced mfrac mi mlongdiv mmultiscripts mn mo mover mpadded mphantom mroot mrow ms mscarries mscarry mscarries msgroup mstack mlongdiv msline mstack mspace msqrt msrow mstack mstack mstyle msub msup msubsup mtable mtd mtext mtr munder munderover semantics annotation math mi mn mo ms mspace mtext menclose merror mfenced mfrac mpadded mphantom mroot mrow msqrt mstyle mmultiscripts mover mprescripts msub msubsup msup munder munderover none maligngroup malignmark mtable mtd mtr mlongdiv mscarries mscarry msgroup msline msrow mstack maction annotation semantics".split(
+    " "
+  );
+
 export default new Promise<UserConfigExport>(async (resolve) =>
   resolve({
     publicDir: publicDir,
     plugins: [
-      Vue({ include: [/\.vue$/, /\.md$/] }),
+      Vue({
+        include: [/\.vue$/, /\.md$/],
+        template: {
+          compilerOptions: {
+            isCustomElement: (tag) => mathMLElements.includes(tag),
+          },
+        },
+      }),
       VueJSX(),
       ViteMD({
         markdownItSetup(markdown) {
-          markdown.use(MarkdownItAnchor).use(MarkdownItTOC, { listType: "ul" });
+          markdown
+            .use(MarkdownItKatex, { throwOnError: false })
+            .use(MarkdownItAnchor)
+            .use(MarkdownItTOC, { listType: "ul" });
         },
       }),
       VitePWA({
