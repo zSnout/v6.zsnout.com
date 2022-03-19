@@ -11,16 +11,18 @@
 </script>
 
 <script setup lang="ts">
+  import MarkdownItKatex from "@traptitech/markdown-it-katex";
   import MarkdownIt from "markdown-it";
   import MarkdownItAnchor from "markdown-it-anchor";
   import MarkdownItTOC from "markdown-it-toc-done-right";
   import Prose from "./Prose.vue";
 
+  defineProps<{ source: string }>();
+
   let instance = MarkdownIt()
+    .use(MarkdownItKatex)
     .use(MarkdownItAnchor)
     .use(MarkdownItTOC, { listType: "ul" });
-
-  defineProps<{ source: string }>();
 </script>
 
 <template>
