@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import SearchBar, { type Link } from "./SearchBar.vue";
+  import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import SearchBar, { type Link } from "@/components/SearchBar.vue";
+  import Title from "@/components/Title.vue";
 
   let links: Link[] = [
     {
@@ -66,5 +68,8 @@
 </script>
 
 <template>
-  <SearchBar :links="links" />
+  <DocumentDisplay>
+    <Title>Fractal Presets</Title>
+    <SearchBar :links="links" />
+  </DocumentDisplay>
 </template>

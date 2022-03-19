@@ -1,11 +1,8 @@
 <script setup lang="ts">
   import DailyTip from "@/components/DailyTip.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
-  import FractalSection from "@/components/FractalSection.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
-  import { ref } from "vue";
-
-  let fractal = ref<HTMLElement | null>(null);
+  import Title from "@/components/Title.vue";
 
   let links: Link[] = [
     {
@@ -15,7 +12,7 @@
       keywords: "image",
     },
     {
-      to: () => fractal.value?.scrollIntoView({ behavior: "smooth" }),
+      to: "/fractal/presets",
       name: "Fractal Presets",
       desc: "Explore intricate images created using preset configurations of the Explorer.",
     },
@@ -119,13 +116,8 @@
 </script>
 
 <template>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
-  />
-
   <DocumentDisplay>
-    <h1>Welcome to zSnout!</h1>
+    <Title>Welcome to zSnout!</Title>
 
     <p>
       zSnout is collection of different projects created for fun by Zachary
@@ -139,23 +131,13 @@
     </p>
 
     <DailyTip class="daily-tip" />
+
     <SearchBar class="link-outer" :links="links" autofocus />
-    <span ref="fractal" id="fractal-id" />
-    <FractalSection class="link-outer fractal-links" />
   </DocumentDisplay>
 </template>
 
 <style scoped lang="scss">
   @use "@/assets/util.scss" as *;
-
-  h1 {
-    margin: 0;
-    padding-bottom: 0.25em;
-    color: var(--accent-color);
-    font-weight: 700;
-    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    border-bottom: 1px solid var(--accent-color);
-  }
 
   .daily-tip {
     margin-block-start: -0.5em;

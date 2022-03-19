@@ -101,6 +101,10 @@ export let router = createRouter({
       component: () => import("@/views/FakeGradient2View.vue"),
     },
     {
+      path: "/fractal/presets",
+      component: () => import("@/views/FractalPresetsView.vue"),
+    },
+    {
       path: "/fractal",
       redirect: "/fractal/z^2+c/2/0/50/-2,2,-2,2",
       children: [
