@@ -4,14 +4,14 @@ import glob from "glob";
 import MarkdownItAnchor from "markdown-it-anchor";
 import MarkdownItTOC from "markdown-it-toc-done-right";
 import { fileURLToPath, URL } from "url";
-import { defineConfig } from "vite";
+import { defineConfig, type UserConfigExport } from "vite";
 import ViteMD from "vite-plugin-md";
 import { VitePWA } from "vite-plugin-pwa";
 
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
 
-export default new Promise(async (resolve) =>
+export default new Promise<UserConfigExport>(async (resolve) =>
   resolve(
     defineConfig({
       publicDir: publicDir,
