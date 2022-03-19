@@ -10,6 +10,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
+
 export default new Promise(async (resolve) =>
   resolve(
     defineConfig({
