@@ -5,6 +5,8 @@
 </template>
 
 <style scoped>
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
   .title {
     margin: 0 0 0.5em 0;
     padding: 0 0.25em 0.25em;
