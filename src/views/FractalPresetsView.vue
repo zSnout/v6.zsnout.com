@@ -70,6 +70,6 @@
 <template>
   <DocumentDisplay>
     <Title>Fractal Presets</Title>
-    <SearchBar :links="links" />
+    <SearchBar :links="links" autofocus />
   </DocumentDisplay>
 </template>
