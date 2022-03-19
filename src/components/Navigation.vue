@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { ref, watch } from "vue";
   import { RouterLink } from "vue-router";
+  import InstallButton from "./InstallButton.vue";
   import { mediaRef } from "./MatchMedia.vue";
   import NavLink from "./NavLink.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
-  import InstallButton from "./InstallButton.vue";
 
   let { breakpoint } =
     defineProps<{ breakpoint?: number; floating?: boolean }>();
