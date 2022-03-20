@@ -240,8 +240,8 @@
     }
 
     :deep() span {
-      padding: 0.125em;
       margin: 0 -0.125em;
+      padding: 0.125em;
       white-space: nowrap;
     }
 
