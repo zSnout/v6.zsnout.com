@@ -1,7 +1,7 @@
 import App from "@/App.vue";
 import HomeView from "@/HomeView.vue";
 import { registerSW } from "virtual:pwa-register";
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 Object.entries = Object.entries || entries;
@@ -24,6 +24,7 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
+    { path: "/about", component: () => import("@/views/about-us.md") },
     { path: "/bingo", component: () => import("@/views/BingoBoardView.vue") },
     {
       path: "/bingo/master",
@@ -31,11 +32,11 @@ export let router = createRouter({
     },
     {
       path: "/blog/github-copilot-is-amazing",
-      component: () => import("@/views/blog/GithubCopilotIsAmazingView.vue"),
+      component: () => import("@/views/blog/github-copilot-is-amazing.md"),
     },
     {
       path: "/blog/what-makes-zsnout-different",
-      component: () => import("@/views/blog/WhatMakesZSnoutDifferentView.vue"),
+      component: () => import("@/views/blog/what-makes-zsnout-different.md"),
     },
     {
       path: "/chess/board",
@@ -186,7 +187,10 @@ export let router = createRouter({
   ],
 });
 
+let Article = defineAsyncComponent(() => import("@/components/Article.vue"));
+
 export let app = createApp(App);
+app.component("Article", Article);
 app.use(router).mount("#app");
 
 registerSW({
