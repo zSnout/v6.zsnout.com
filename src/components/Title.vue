@@ -9,10 +9,10 @@
 
   .title {
     margin: 0 0 0.5em 0;
-    padding: 0 0.25em 0.25em;
+    padding: 0 0.5em 0.25em;
     color: var(--accent-color);
     font-weight: 700;
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 2px solid var(--border-color);
   }
 </style>
