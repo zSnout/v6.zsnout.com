@@ -117,6 +117,7 @@
     padding-top: max(12px, env(safe-area-inset-top));
     background-color: var(--nav-background);
     border-bottom: 1px solid var(--nav-border);
+    -webkit-user-select: none;
     user-select: none;
 
     &.floating {
