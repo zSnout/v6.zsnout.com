@@ -12,11 +12,6 @@ import { VitePWA } from "vite-plugin-pwa";
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
 
-let mathMLElements =
-  "math maction maligngroup malignmark menclose merror mfenced mfrac mi mlongdiv mmultiscripts mn mo mover mpadded mphantom mroot mrow ms mscarries mscarry mscarries msgroup mstack mlongdiv msline mstack mspace msqrt msrow mstack mstack mstyle msub msup msubsup mtable mtd mtext mtr munder munderover semantics annotation math mi mn mo ms mspace mtext menclose merror mfenced mfrac mpadded mphantom mroot mrow msqrt mstyle mmultiscripts mover mprescripts msub msubsup msup munder munderover none maligngroup malignmark mtable mtd mtr mlongdiv mscarries mscarry msgroup msline msrow mstack maction annotation semantics".split(
-    " "
-  );
-
 export default new Promise<UserConfigExport>(async (resolve) =>
   resolve({
     publicDir: publicDir,
@@ -25,12 +20,14 @@ export default new Promise<UserConfigExport>(async (resolve) =>
         include: [/\.vue$/, /\.md$/],
         template: {
           compilerOptions: {
-            isCustomElement: (tag) => mathMLElements.includes(tag),
+            // Required because Vue seems to think that an `<a>` tag from Markdown is a custom element.
+            isNativeTag: (tag) => tag.toLowerCase() == tag,
           },
         },
       }),
       VueJSX(),
       ViteMD({
+        wrapperComponent: "Article",
         markdownItSetup(markdown) {
           markdown
             .use(MarkdownItKatex, { throwOnError: false })
