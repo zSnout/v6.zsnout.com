@@ -1,4 +1,4 @@
-_Published by Zachary Sakowitz on December 9, 2021._
+_Published by [Zachary Sakowitz][1] on December 9, 2021._
 
 To me, many things stand out to me about zSnout that I simply don't see in other
 websites. For example, zSnout has many subsites for different purposes whereas
@@ -56,3 +56,5 @@ use zSnout in the future. Thanks!
 
 _This article includes opinions from Zachary Sakowitz and does not reflect the
 opinions of zSnout as a whole._
+
+[1]: https://github.com/zsakowitz

@@ -1,9 +1,8 @@
-_Published by [Zachary Sakowitz](https://github.com/zsakowitz) on December
-9, 2021._
+_Published by [Zachary Sakowitz][1] on December 9, 2021._
 
-[GitHub Copilot](https://copilot.github.com/) is an amazing tool that can
-autocomplete code snippets for you. In this article I share my experience using
-GitHub Copilot: the upsides, the downsides, and what I think it could become.
+[GitHub Copilot][2] is an amazing tool that can autocomplete code snippets for
+you. In this article I share my experience using GitHub Copilot: the upsides,
+the downsides, and what I think it could become.
 
 [toc]
 
@@ -67,3 +66,6 @@ can help more, but I also believe that nobody should rely on it too much.
 _zSnout is not affiliated with GitHub or GitHub Copilot in any way. This article
 includes opinions from Zachary Sakowitz and does not reflect the opinions of
 zSnout as a whole._
+
+[1]: https://github.com/zsakowitz
+[2]: https://copilot.github.com/
