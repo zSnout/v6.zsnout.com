@@ -23,9 +23,18 @@ function fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V } {
 export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: "/", component: HomeView },
-    { path: "/about", component: () => import("@/views/AboutUsView.md") },
-    { path: "/bingo", component: () => import("@/views/BingoBoardView.vue") },
+    {
+      path: "/",
+      component: HomeView,
+    },
+    {
+      path: "/about",
+      component: () => import("@/views/AboutUsView.md"),
+    },
+    {
+      path: "/bingo",
+      component: () => import("@/views/BingoBoardView.vue"),
+    },
     {
       path: "/bingo/master",
       component: () => import("@/views/BingoMasterView.vue"),
@@ -91,12 +100,22 @@ export let router = createRouter({
       path: "/chess/vsbad/:mode",
       component: () => import("@/views/chess/ChessVersusBadAIView.vue"),
     },
-    { path: "/fake-gradient", redirect: "/fake-gradient/100" },
+    {
+      path: "/english-is-weird",
+      component: () => import("@/views/EnglishIsWeirdView.vue"),
+    },
+    {
+      path: "/fake-gradient",
+      redirect: "/fake-gradient/100",
+    },
     {
       path: "/fake-gradient/:detail",
       component: () => import("@/views/FakeGradientView.vue"),
     },
-    { path: "/fake-gradient-2", redirect: "/fake-gradient-2/100" },
+    {
+      path: "/fake-gradient-2",
+      redirect: "/fake-gradient-2/100",
+    },
     {
       path: "/fake-gradient-2/:detail",
       component: () => import("@/views/FakeGradient2View.vue"),
@@ -109,21 +128,54 @@ export let router = createRouter({
       path: "/fractal",
       redirect: "/fractal/z^2+c/2/0/50/-2,2,-2,2",
       children: [
-        { path: "mandelbrot-set", redirect: "/fractal/z^2+c" },
-        { path: "multibrot-set", redirect: "/fractal/z^4+c" },
-        { path: "burning-ship", redirect: "/fractal/abs(z)^2+c" },
-        { path: "feather", redirect: "/fractal/z^3%2F(rawsqr(z)+1)+c/10" },
-        { path: "flower", redirect: "/fractal/z^2+z+c/2/1" },
-        { path: "raindrop", redirect: "/fractal/z^2+1%2Fc" },
-        { path: "telescope", redirect: "/fractal/z^2+z+1%2Fc/2/1" },
-        { path: "sunlight", redirect: "/fractal/z^2-z+1%2Fc/2/2/50/-4,4,-4,4" },
-        { path: "snowflake", redirect: "/fractal/z^3-z^2-z-c/2/4" },
+        {
+          path: "mandelbrot-set",
+          redirect: "/fractal/z^2+c",
+        },
+        {
+          path: "multibrot-set",
+          redirect: "/fractal/z^4+c",
+        },
+        {
+          path: "burning-ship",
+          redirect: "/fractal/abs(z)^2+c",
+        },
+        {
+          path: "feather",
+          redirect: "/fractal/z^3%2F(rawsqr(z)+1)+c/10",
+        },
+        {
+          path: "flower",
+          redirect: "/fractal/z^2+z+c/2/1",
+        },
+        {
+          path: "raindrop",
+          redirect: "/fractal/z^2+1%2Fc",
+        },
+        {
+          path: "telescope",
+          redirect: "/fractal/z^2+z+1%2Fc/2/1",
+        },
+        {
+          path: "sunlight",
+          redirect: "/fractal/z^2-z+1%2Fc/2/2/50/-4,4,-4,4",
+        },
+        {
+          path: "snowflake",
+          redirect: "/fractal/z^3-z^2-z-c/2/4",
+        },
         {
           path: "puddles",
           redirect: "/fractal/(z^3+1)%2F(cz^2+1)/2/2/50/-8,8,-8,8",
         },
-        { path: "mandelball", redirect: "/fractal/z-(zzz+z*(c-1)-c)%2F(3zz+c-1)" }, // prettier-ignore
-        { path: "chinese-lantern", redirect: "/fractal/1%2F(z%5E4+c+1)" },
+        {
+          path: "mandelball",
+          redirect: "/fractal/z-(zzz+z*(c-1)-c)%2F(3zz+c-1)",
+        },
+        {
+          path: "chinese-lantern",
+          redirect: "/fractal/1%2F(z%5E4+c+1)",
+        },
         {
           path: ":equation",
           redirect({ params: { equation } }) {
@@ -161,8 +213,14 @@ export let router = createRouter({
       path: "/fractal/:equation/:limit/:theme/:iterations/:coords",
       component: () => import("@/views/FractalView.vue"),
     },
-    { path: "/frame", component: () => import("@/views/FrameOverlayView.vue") },
-    { path: "/metaballs", component: () => import("@/views/MetaballView.vue") },
+    {
+      path: "/frame",
+      component: () => import("@/views/FrameOverlayView.vue"),
+    },
+    {
+      path: "/metaballs",
+      component: () => import("@/views/MetaballView.vue"),
+    },
     {
       path: "/practice/mult-div",
       component: () => import("@/views/MultDivQuizView.vue"),
@@ -183,7 +241,10 @@ export let router = createRouter({
       path: "/trope-highlighter",
       component: () => import("@/views/TropeHighlighterView.vue"),
     },
-    { path: "/:path(.*)", component: () => import("@/views/NotFoundView.vue") },
+    {
+      path: "/:path(.*)",
+      component: () => import("@/views/NotFoundView.vue"),
+    },
   ],
 });
 
