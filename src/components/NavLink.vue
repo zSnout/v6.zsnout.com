@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { RouterLink } from "vue-router";
 
   defineProps<{ to?: string }>();
@@ -12,15 +12,15 @@
   <a
     v-else
     class="navlink"
-    tabindex="0"
     role="button"
+    tabindex="0"
     @keydown="({ key }) => (key == ' ' || key == 'Enter') && $el.click()"
   >
     <slot />
   </a>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .navlink {

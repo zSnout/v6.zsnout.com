@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
   import Title from "@/components/Title.vue";

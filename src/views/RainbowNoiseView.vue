@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import FullscreenCanvas from "@/components/FullscreenCanvas.vue";
   import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";

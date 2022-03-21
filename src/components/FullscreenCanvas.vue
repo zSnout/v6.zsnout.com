@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, ref } from "vue";
   import FullscreenDisplay from "./FullscreenDisplay.vue";
 
@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <FullscreenDisplay resize-child :breakpoint="breakpoint">
+  <FullscreenDisplay :breakpoint="breakpoint" resize-child>
     <template #nav>
       <slot name="nav" />
     </template>

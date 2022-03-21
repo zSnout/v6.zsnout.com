@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   let tips = [
     'Double-click the "Escape" key to go home and focus the search bar.',
     "Bookmark a fractal page to save its location and equation forever.",

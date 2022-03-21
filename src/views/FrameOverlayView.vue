@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { ref } from "vue";
 
   function onClick(event: MouseEvent) {
@@ -27,7 +27,7 @@
 
 <template>
   <div class="overlay" @click="onClick"></div>
-  <iframe class="frame" ref="frame" src="/" />
+  <iframe ref="frame" class="frame" src="/" />
 </template>
 
 <style scoped>

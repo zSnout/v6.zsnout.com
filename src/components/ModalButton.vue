@@ -4,7 +4,7 @@
   </button>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .button {

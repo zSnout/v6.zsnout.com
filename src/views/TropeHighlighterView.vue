@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script lang="tsx" setup>
   import { getCookie, setCookie } from "@/assets/cookie";
   import { alert } from "@/assets/modal";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
@@ -142,22 +142,22 @@
     </template>
 
     <link
-      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500&display=swap"
+      rel="stylesheet"
     />
 
     <div
-      contenteditable
-      class="textbox empty"
       ref="textbox"
+      class="textbox empty"
+      contenteditable
       role="textbox"
-      @paste="onPaste"
       @input="onInput"
+      @paste="onPaste"
     />
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   $tropes: (

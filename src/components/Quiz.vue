@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, ref } from "vue";
   import DocumentDisplay from "./DocumentDisplay.vue";
 
@@ -39,21 +39,21 @@
       <slot name="nav" />
     </template>
 
-    <form @submit="onSubmit" class="form">
+    <form class="form" @submit="onSubmit">
       <span>{{ prefix }}</span>
       <input
-        class="field"
-        v-model="field"
-        type="number"
-        inputmode="numeric"
         ref="fieldEl"
+        v-model="field"
+        class="field"
+        inputmode="numeric"
+        type="number"
       />
       <span>{{ suffix }}</span>
     </form>
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .form {

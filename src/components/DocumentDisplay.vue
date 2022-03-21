@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import Navigation from "./Navigation.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
@@ -31,7 +31,7 @@
   </SafeAreaLR>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .document {
     position: relative;
     top: calc(2em + 13px + max(12px, env(safe-area-inset-top)));

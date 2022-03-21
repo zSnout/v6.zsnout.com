@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import BingoCell from "@/components/BingoCell.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
 
@@ -47,7 +47,7 @@
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .board {

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import LegalMoveChessboard, {
     type Intercept,
   } from "@/components/LegalMoveChessboard.vue";
@@ -40,7 +40,7 @@
 </script>
 
 <template>
-  <LegalMoveChessboard @move="onMove" :orientation="orientation" :key="key">
+  <LegalMoveChessboard :key="key" :orientation="orientation" @move="onMove">
     <template #nav>
       <NavLink @click="loadAs('white')">Reload as White</NavLink>
       <NavLink @click="loadAs('black')">Reload as Black</NavLink>

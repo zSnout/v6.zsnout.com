@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, onUnmounted, reactive, ref } from "vue";
 
   let { cols, rows } = defineProps<{ cols: number; rows: number }>();

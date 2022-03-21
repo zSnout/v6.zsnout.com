@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, onUnmounted, ref } from "vue";
 
   defineProps<{ placeholder?: string; value?: string }>();
@@ -26,15 +26,15 @@
 
 <template>
   <input
-    type="text"
-    class="field"
     ref="fieldEl"
+    class="field"
     :placeholder="placeholder"
     :value="value"
+    type="text"
   />
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .field {

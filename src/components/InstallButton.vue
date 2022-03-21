@@ -16,7 +16,7 @@
   }
 </script>
 
-<script setup lang="ts">
+<script lang="ts" setup>
   import NavLink from "./NavLink.vue";
 </script>
 

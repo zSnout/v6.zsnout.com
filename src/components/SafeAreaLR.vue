@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   defineProps<{ keepWidth?: boolean; keepHeight?: boolean }>();
 </script>
 
@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .safe-area {
     --padding: 12px;
     padding: 0 12px;

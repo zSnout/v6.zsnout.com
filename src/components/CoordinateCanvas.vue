@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted } from "vue";
   import NavLink from "./NavLink.vue";
   import WebGL2Canvas, { type WebGL2ProgramInfo } from "./WebGL2Canvas.vue";
@@ -264,8 +264,8 @@
 
 <template>
   <WebGL2Canvas
-    :shader="coordConvertShader + shader"
     :breakpoint="breakpoint"
+    :shader="coordConvertShader + shader"
     @ready="onReady"
   >
     <template #nav>

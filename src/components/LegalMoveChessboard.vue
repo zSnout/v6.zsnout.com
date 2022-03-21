@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import Chessboard from "@/components/Chessboard.vue";
   import { Chess, type Square, type ChessInstance, type ShortMove } from "chess.js"; // prettier-ignore
   import type { Api } from "chessground/api";
@@ -98,7 +98,7 @@
 </script>
 
 <template>
-  <Chessboard @ready="onReady" :config="config">
+  <Chessboard :config="config" @ready="onReady">
     <template #nav>
       <slot name="nav" />
     </template>

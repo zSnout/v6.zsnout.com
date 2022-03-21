@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, onUnmounted, ref } from "vue";
   import SearchItem from "./SearchItem.vue";
 
@@ -83,27 +83,27 @@
 <template>
   <div class="search-box">
     <input
-      class="search"
-      type="search"
-      placeholder="Search..."
-      v-model="field"
       ref="fieldEl"
+      v-model="field"
+      class="search"
+      placeholder="Search..."
+      type="search"
     />
 
-    <div class="links" ref="linksEl">
+    <div ref="linksEl" class="links">
       <SearchItem
         v-for="(link, i) in links"
         v-show="link.show || matches(link.keywords!, field.toLowerCase())"
         :key="i"
-        :to="link.to"
-        :name="link.name"
         :desc="link.desc"
+        :name="link.name"
+        :to="link.to"
       />
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .search {

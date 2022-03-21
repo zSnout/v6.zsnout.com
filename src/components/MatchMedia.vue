@@ -10,7 +10,7 @@
   }
 </script>
 
-<script setup lang="ts">
+<script lang="ts" setup>
   let { query } = defineProps<{ query: string }>();
   let media = mediaRef(query);
 </script>

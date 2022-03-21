@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   defineProps<{ explicitHeight?: boolean }>();
 </script>
 
@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .safe-area {
     --padding: 12px;
     min-height: calc(100% - 24px);

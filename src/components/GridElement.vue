@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { reactive, type StyleValue } from "vue";
 
   let { colStart, colEnd, rowStart, rowEnd } = defineProps<{
@@ -20,7 +20,7 @@
 
 <template>
   <div class="image-outer" :style="styles">
-    <img class="image" :src="src" :alt="alt" />
+    <img class="image" :alt="alt" :src="src" />
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { ref, watch } from "vue";
   import { RouterLink } from "vue-router";
   import InstallButton from "./InstallButton.vue";
@@ -40,16 +40,16 @@
   <nav :class="{ navigation: true, floating }">
     <SafeAreaLR>
       <div class="aligner">
-        <RouterLink to="/" class="logo-link">
+        <RouterLink class="logo-link" to="/">
           <img
-            alt="zSnout logo"
             class="logo logo-light"
+            alt="zSnout logo"
             src="@/assets/logo-with-name.svg"
           />
 
           <img
-            alt="zSnout logo"
             class="logo logo-dark"
+            alt="zSnout logo"
             src="@/assets/logo-with-name-dark.svg"
           />
         </RouterLink>
@@ -80,10 +80,10 @@
                 }"
               ></div>
 
-              <SafeAreaLR class="drawer-outer" keep-width keep-height>
+              <SafeAreaLR class="drawer-outer" keep-height keep-width>
                 <SafeAreaTB
-                  explicit-height
                   :class="{ drawer: true, visible: isNavDrawerVisible }"
+                  explicit-height
                 >
                   <NavLink to="/">Home</NavLink>
                   <InstallButton />
@@ -103,7 +103,7 @@
   </nav>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .navigation {

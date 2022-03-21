@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import type { Question } from "@/components/Quiz.vue";
   import Quiz from "@/components/Quiz.vue";
 

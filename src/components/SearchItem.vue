@@ -1,27 +1,27 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { RouterLink } from "vue-router";
 
   defineProps<{ name: string; to: string | (() => void); desc?: string }>();
 </script>
 
 <template>
-  <a v-if="typeof to == 'function'" @click="to" class="item" role="button">
+  <a v-if="typeof to == 'function'" class="item" role="button" @click="to">
     <div class="name">{{ name }}</div>
     <div class="desc">{{ desc }}</div>
   </a>
 
-  <a v-else-if="to.includes('://')" :href="to" class="item" target="_blank">
+  <a class="item" :href="to" target="_blank" v-else-if="to.includes('://')">
     <div class="name">{{ name }}</div>
     <div class="desc">{{ desc }}</div>
   </a>
 
-  <RouterLink v-else :to="to" class="item">
+  <RouterLink v-else class="item" :to="to">
     <div class="name">{{ name }}</div>
     <div class="desc">{{ desc }}</div>
   </RouterLink>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .item {

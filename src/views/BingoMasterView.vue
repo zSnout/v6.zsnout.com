@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import AnimatedList from "@/components/AnimatedList.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import NavLink from "@/components/NavLink.vue";
@@ -36,7 +36,7 @@
 </script>
 
 <template>
-  <DocumentDisplay explicit-height flexbox flex-row>
+  <DocumentDisplay explicit-height flex-row flexbox>
     <template #nav>
       <NavLink @click="showPrevious">Previous Number</NavLink>
       <NavLink @click="showNext">Next Number</NavLink>
@@ -54,7 +54,7 @@
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .large {
     width: 75%;
     font-weight: bold;

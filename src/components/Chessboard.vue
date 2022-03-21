@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { Chessground } from "chessground";
   import type { Api } from "chessground/api";
   import "chessground/assets/chessground.base.css";
@@ -45,11 +45,11 @@
       <slot name="nav" />
     </template>
 
-    <div class="chessboard" ref="boardEl" />
+    <div ref="boardEl" class="chessboard" />
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .chessboard {
     margin: auto;
     border-radius: 8px;

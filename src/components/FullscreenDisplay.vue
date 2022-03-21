@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import Navigation from "./Navigation.vue";
   defineProps<{ resizeChild?: boolean; breakpoint?: number }>();
 </script>
 
 <template>
-  <Navigation floating :breakpoint="breakpoint">
+  <Navigation :breakpoint="breakpoint" floating>
     <slot name="nav" />
   </Navigation>
 

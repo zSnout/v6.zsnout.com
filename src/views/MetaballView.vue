@@ -4,7 +4,7 @@
   Test implementation created using Desmos (https://www.desmos.com/calculator/u3wzt8v1ih).
 -->
 
-<script setup lang="ts">
+<script lang="ts" setup>
   import WebGL2Canvas, {
     type WebGL2ProgramInfo,
   } from "@/components/WebGL2Canvas.vue";
@@ -59,7 +59,6 @@
 
 <template>
   <WebGL2Canvas
-    @ready="onReady"
     :shader="`
     #version 300 es
     precision highp float;
@@ -90,5 +89,6 @@
       else color = vec4(0, 0, 0, 1);
     }
     `"
+    @ready="onReady"
   />
 </template>

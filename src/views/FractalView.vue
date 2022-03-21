@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { getCookie, setCookie } from "@/assets/cookie";
   import { rpnToGLSL, toReversePolish } from "@/assets/glsl-math";
   import { alert } from "@/assets/modal";
@@ -319,9 +319,9 @@
 
 <template>
   <CoordinateCanvas
-    show-reset-button
     :breakpoint="650"
     :shader="glShader"
+    show-reset-button
     @ready="onReady"
   >
     <template #nav>

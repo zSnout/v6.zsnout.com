@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import { onMounted, onUnmounted, ref } from "vue";
   import ModalButton from "./ModalButton.vue";
   import ModalField from "./ModalField.vue";
@@ -168,15 +168,15 @@
 
                 <form
                   v-if="fieldSubmitter"
-                  class="field"
                   ref="fieldEl"
+                  class="field"
                   @submit="onSubmit"
                 >
                   <ModalField :placeholder="placeholder" :value="fieldValue" />
                 </form>
 
-                <div class="buttons" ref="buttonEl">
-                  <ModalButton @click="cancel()" class="cancel">
+                <div ref="buttonEl" class="buttons">
+                  <ModalButton class="cancel" @click="cancel()">
                     {{ cancelText || "Cancel" }}
                   </ModalButton>
 
@@ -199,7 +199,7 @@
   </Teleport>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .background,
   .container {
     position: fixed;

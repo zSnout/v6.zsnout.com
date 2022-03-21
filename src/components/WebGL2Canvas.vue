@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import FullscreenCanvas from "./FullscreenCanvas.vue";
 
   export interface WebGL2ProgramInfo {
@@ -107,7 +107,7 @@
 </script>
 
 <template>
-  <FullscreenCanvas class="canvas" @ready="onReady" :breakpoint="breakpoint">
+  <FullscreenCanvas class="canvas" :breakpoint="breakpoint" @ready="onReady">
     <template #nav>
       <slot name="nav" />
     </template>

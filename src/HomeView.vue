@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import DailyTip from "@/components/DailyTip.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
@@ -136,7 +136,7 @@
   </DocumentDisplay>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
   .daily-tip {
