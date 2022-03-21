@@ -18,7 +18,7 @@
       border-radius: 0.25em;
 
       > ul {
-        margin: 0.5em 0;
+        margin: 0.75em 0;
         list-style-type: disc;
       }
 
