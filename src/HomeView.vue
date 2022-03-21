@@ -6,6 +6,11 @@
 
   let links: Link[] = [
     {
+      to: "/about",
+      name: "About",
+      desc: "Learn more about the origin story of the website you're using right now, zSnout.",
+    },
+    {
       to: "/fractal",
       name: "Fractal Explorer",
       desc: "Explore amazingly colored and detailed fractals using live zooming and panning.",
@@ -19,8 +24,20 @@
     {
       to: "/metaballs",
       name: "Metaballs",
-      desc: "Watch this real-time animation of bouncing and merging circles. It's great as a screen saver!",
+      desc: "Watch this real-time animation of bouncing and merging circles. It's great as a screen saver.",
       keywords: "screensaver animation",
+    },
+    {
+      to: "/english-is-weird",
+      name: "English is Weird",
+      desc: 'Ever noticed how the "ti" in "nation" makes a "sh" sound? See other weird quirks of English.',
+      keywords: "word",
+    },
+    {
+      to: "/trope-highlighter",
+      name: "Hebrew Trope Highlighter",
+      desc: "Color Hebrew words based on their tropes to make them stand out and aid with learning.",
+      keywords: "color",
     },
     {
       to: "/practice/mult-div",
@@ -43,12 +60,6 @@
       to: "/fake-gradient-2",
       name: "Fake Gradient 2",
       desc: "Didn't like our first gradient app? Try using the full grayscale spectrum in this app.",
-    },
-    {
-      to: "/trope-highlighter",
-      name: "Hebrew Trope Highlighter",
-      desc: "Color Hebrew words based on their tropes to make them stand out and aid with learning.",
-      keywords: "color",
     },
     {
       to: "/chess/board",
@@ -110,7 +121,7 @@
       to: "https://github.com/zSnout",
       name: "zSnout on GitHub",
       desc: "Support zSnout by contributing on GitHub and improving the website directly.",
-      keywords: "gh",
+      keywords: "gh source code",
     },
   ];
 </script>
