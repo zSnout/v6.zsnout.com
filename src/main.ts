@@ -24,7 +24,7 @@ export let router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: HomeView },
-    { path: "/about", component: () => import("@/views/about-us.md") },
+    { path: "/about", component: () => import("@/views/AboutUsView.md") },
     { path: "/bingo", component: () => import("@/views/BingoBoardView.vue") },
     {
       path: "/bingo/master",
@@ -32,11 +32,11 @@ export let router = createRouter({
     },
     {
       path: "/blog/github-copilot-is-amazing",
-      component: () => import("@/views/blog/github-copilot-is-amazing.md"),
+      component: () => import("@/views/blog/GithubCopilotIsAmazingView.md"),
     },
     {
       path: "/blog/what-makes-zsnout-different",
-      component: () => import("@/views/blog/what-makes-zsnout-different.md"),
+      component: () => import("@/views/blog/WhatMakesZSnoutDifferentView.md"),
     },
     {
       path: "/chess/board",
