@@ -1,6 +1,8 @@
-<script setup>
+<script setup lang="ts">
   import DocumentDisplay from "./DocumentDisplay.vue";
   import Prose from "./Prose.vue";
+
+  defineProps<{ frontmatter?: any }>();
 </script>
 
 <template>
