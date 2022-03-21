@@ -30,7 +30,7 @@
     padding: 0.5em 0.75em;
     color: inherit;
     text-decoration: none;
-    background-color: var(--pure-background);
+    background-color: var(--second-layer-background);
     border-radius: 4px;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
     cursor: pointer;
