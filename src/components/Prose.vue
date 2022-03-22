@@ -153,6 +153,20 @@
       border-radius: 0.25em;
     }
 
+    pre {
+      margin: 0;
+      padding: 0.5em;
+      overflow-x: auto;
+      font-size: 0.875em;
+      font-family: "Courier New", Courier, monospace;
+      background-color: var(--field-background);
+      border-radius: 0.25em;
+
+      code {
+        padding: 0;
+      }
+    }
+
     table {
       min-width: 50%;
       max-width: 100%;
