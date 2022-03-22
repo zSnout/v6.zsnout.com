@@ -155,6 +155,7 @@
 
     pre {
       margin: 0;
+      margin-bottom: 1em;
       padding: 0.5em;
       overflow-x: auto;
       font-size: 0.875em;
@@ -189,11 +190,13 @@
       }
     }
 
-    > :first-child {
+    > :first-child,
+    > .markdown-body > :first-child {
       margin-top: 0;
     }
 
-    > :last-child {
+    > :last-child,
+    > .markdown-body > :last-child {
       margin-bottom: 0;
     }
   }
