@@ -4,7 +4,7 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
 
   defineProps<{
-    navBrakpoint?: number;
+    breakpoint?: number;
     explicitHeight?: boolean;
     flexbox?: boolean;
     flexRow?: boolean;
@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <Navigation class="navbar" :breakpoint="navBrakpoint">
+  <Navigation class="navbar" :breakpoint="breakpoint">
     <slot name="nav" />
   </Navigation>
 
