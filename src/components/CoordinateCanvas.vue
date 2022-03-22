@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import { onMounted } from "vue";
   import NavLink from "./NavLink.vue";
   import WebGL2Canvas, { type WebGL2ProgramInfo } from "./WebGL2Canvas.vue";
 
