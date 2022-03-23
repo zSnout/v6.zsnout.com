@@ -4,7 +4,7 @@
     "^#",
     "^:?is$",
     "^v-for$",
-    "^v-(if|elseif|else)$",
+    "^v-(if|else-if|else)$",
     "^v-show$",
     "^v-cloak$",
     "^v-pre$",
