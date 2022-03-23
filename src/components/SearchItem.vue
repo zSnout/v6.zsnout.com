@@ -10,7 +10,7 @@
     <div class="desc">{{ desc }}</div>
   </a>
 
-  <a class="item" :href="to" target="_blank" v-else-if="to.includes('://')">
+  <a v-else-if="to.includes('://')" class="item" :href="to" target="_blank">
     <div class="name">{{ name }}</div>
     <div class="desc">{{ desc }}</div>
   </a>
