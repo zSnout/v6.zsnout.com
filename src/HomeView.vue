@@ -11,6 +11,12 @@
       desc: "Learn more about the origin story of the website you're using right now, zSnout.",
     },
     {
+      to: "/blog",
+      name: "Blog",
+      desc: "Read articles about zSnout and the development of the website you're using right now.",
+      keywords: "articles list",
+    },
+    {
       to: "/fractal",
       name: "Fractal Explorer",
       desc: "Explore amazingly colored and detailed fractals using live zooming and panning.",

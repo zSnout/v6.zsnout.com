@@ -40,6 +40,10 @@ export let router = createRouter({
       component: () => import("@/views/BingoMasterView.vue"),
     },
     {
+      path: "/blog",
+      component: () => import("@/views/blog/BlogArticleListView.vue"),
+    },
+    {
       path: "/blog/github-copilot-is-amazing",
       component: () => import("@/views/blog/GithubCopilotIsAmazingView.md"),
     },
