@@ -1,6 +1,10 @@
+<!-- Some code was borrowed from https://observablehq.com/@stwind/webgl2-prng-in-glsl and https://www.shadertoy.com/view/XljGzV.-->
+
 <script lang="ts" setup>
-  import FullscreenCanvas from "@/components/FullscreenCanvas.vue";
   import NavLink from "@/components/NavLink.vue";
+  import WebGL2Canvas, {
+    type WebGL2ProgramInfo,
+  } from "@/components/WebGL2Canvas.vue";
   import { router } from "@/main";
   import { useRoute } from "vue-router";
 
@@ -8,31 +12,24 @@
   if (noiseChance < 0 || noiseChance > 100) noiseChance = 50;
   noiseChance = Math.floor(noiseChance);
 
-  let _canvas: HTMLCanvasElement | undefined;
+  let _render: (() => void) | undefined;
 
-  let id = 0;
-  async function onReady(canvas: HTMLCanvasElement) {
-    _canvas = canvas;
-    let myID = (id = Math.random());
-    let total = canvas.width + canvas.height;
-    let chance = noiseChance / 100;
-    let ctx = canvas.getContext("2d")!;
-    if (!ctx) return;
+  function onReady({ gl, program, render }: WebGL2ProgramInfo) {
+    let seedLoc = gl.getUniformLocation(program, "seed");
+    let chanceLoc = gl.getUniformLocation(program, "chance");
 
-    for (let i = 0; i < canvas.width; i++) {
-      for (let j = 0; j < canvas.height; j++) {
-        if (i && !(i % 10) && !j) {
-          await new Promise((resolve) => setTimeout(resolve));
-          if (myID != id) return;
-        }
+    _render = () => {
+      gl.uniform1f(seedLoc, Math.random());
+      gl.uniform1f(chanceLoc, noiseChance / 100);
 
-        if (Math.random() > chance)
-          ctx.fillStyle = `hsl(${~~(360 * ((i + j) / total))}, 100%, 50%)`;
-        else ctx.fillStyle = `hsl(${~~(360 * Math.random())}, 100%, 50%)`;
+      render();
+    };
 
-        ctx.fillRect(i, j, 1, 1);
-      }
-    }
+    _render();
+  }
+
+  function render() {
+    _render?.();
   }
 
   function moreRainbow() {
@@ -41,7 +38,7 @@
     else noiseChance -= 5;
 
     router.replace(`/rainbow-noise/${noiseChance}`);
-    if (_canvas) onReady(_canvas);
+    render();
   }
 
   function moreRandom() {
@@ -50,15 +47,128 @@
     else noiseChance += 5;
 
     router.replace(`/rainbow-noise/${noiseChance}`);
-    if (_canvas) onReady(_canvas);
+    render();
   }
 </script>
 
 <template>
-  <FullscreenCanvas @ready="onReady" @resize="onReady">
+  <WebGL2Canvas
+    :shader="`
+  #version 300 es
+  precision highp float;
+
+  uniform float seed;
+  uniform float chance;
+  in vec2 pos;
+  out vec4 color;
+
+  uint hash( uint x ) {
+    x += ( x << 10u );
+    x ^= ( x >>  6u );
+    x += ( x <<  3u );
+    x ^= ( x >> 11u );
+    x += ( x << 15u );
+    return x;
+  }
+
+  uint hash( uvec2 v ) {
+    return hash( v.x ^ hash(v.y) );
+  }
+
+  uint hash( uvec3 v ) {
+    return hash( v.x ^ hash(v.y) ^ hash(v.z) );
+  }
+
+  uint hashInt( uint x )
+  {
+    x += x >> 11;
+    x ^= x << 7;
+    x += x >> 15;
+    x ^= x << 5;
+    x += x >> 12;
+    x ^= x << 9;
+    return x;
+  }
+
+  uint hashInt( uvec2 v )
+  {
+    uint x = v.x, y = v.y;
+    x += x >> 11;
+    x ^= x << 7;
+    x += y;
+    x ^= x << 6;
+    x += x >> 15;
+    x ^= x << 5;
+    x += x >> 12;
+    x ^= x << 9;
+    return x;
+  }
+
+  uint hashInt( uvec3 v )
+  {
+    uint x = v.x, y = v.y, z = v.z;
+    x += x >> 11;
+    x ^= x << 7;
+    x += y;
+    x ^= x << 3;
+    x += z ^ ( x >> 14 );
+    x ^= x << 6;
+    x += x >> 15;
+    x ^= x << 5;
+    x += x >> 12;
+    x ^= x << 9;
+    return x;
+  }
+
+  float rand(uint h) {
+    const uint mantissaMask = 0x007FFFFFu;
+    const uint one = 0x3F800000u;
+
+    h &= mantissaMask;
+    h |= one;
+
+    float  r2 = uintBitsToFloat( h );
+    return r2 - 1.0;
+  }
+
+  float random( float f ) {
+    return rand(hashInt(floatBitsToUint(f)));
+  }
+
+  float random( vec2 f ) {
+    return rand(hashInt(floatBitsToUint(f)));
+  }
+
+  float random( vec3 f ) {
+    return rand(hashInt(floatBitsToUint(f)));
+  }
+
+  vec3 hsl2rgb( vec3 c )
+  {
+      vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
+
+      return c.z + c.y * (rgb-0.5)*(1.0-abs(2.0*c.z-1.0));
+  }
+
+  void main() {
+    if (random(vec3(pos, seed)) > chance) {
+      float dec = (pos.x + pos.y) / 4.0 + 0.5;
+      color = vec4(hsl2rgb(vec3(dec, 1.0, 0.5)), 1.0);
+      return;
+    }
+
+    float rand1 = random(vec3(pos, seed + 1.0));
+    float rand2 = random(vec3(pos, seed + 2.0));
+    float rand3 = random(vec3(pos, seed + 3.0));
+    color = vec4(vec3(rand1, rand2, rand3), 1);
+  }
+  `"
+    @ready="onReady"
+    @resize="render"
+  >
     <template #nav>
       <NavLink @click="moreRainbow">More Rainbow</NavLink>
       <NavLink @click="moreRandom">More Random</NavLink>
     </template>
-  </FullscreenCanvas>
+  </WebGL2Canvas>
 </template>
