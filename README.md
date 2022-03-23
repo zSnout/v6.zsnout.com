@@ -48,13 +48,13 @@ npm install
 ```
 
 You can then open zSnout in your code editor and start coding! To start a
-preview, run
+development server, run
 
 ```sh
 npm run dev
 ```
 
-Note that the preview will _not include the service worker_, so the "Install"
+Note that the dev server will not include the service worker, so the "Install"
 button won't appear.
 
 You can preview the complete version by running
@@ -62,3 +62,6 @@ You can preview the complete version by running
 ```sh
 npm run preview
 ```
+
+Note that the preview server will include the service worker and may not update
+properly when testing multiple previews.
