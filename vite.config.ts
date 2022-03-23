@@ -5,6 +5,7 @@ import glob from "glob";
 import MarkdownItAnchor from "markdown-it-anchor";
 import MarkdownItTOC from "markdown-it-toc-done-right";
 import { fileURLToPath, URL } from "url";
+import { promisify } from "util";
 import type { UserConfigExport } from "vite";
 import ViteMD from "vite-plugin-md";
 import { VitePWA } from "vite-plugin-pwa";
@@ -14,7 +15,7 @@ let revision = Math.random().toString().slice(2);
 
 export default new Promise<UserConfigExport>(async (resolve) =>
   resolve({
-    publicDir: publicDir,
+    publicDir,
     plugins: [
       Vue({
         include: [/\.vue$/, /\.md$/],
@@ -44,8 +45,8 @@ export default new Promise<UserConfigExport>(async (resolve) =>
           sourcemap: false,
           clientsClaim: true,
           skipWaiting: true,
-          additionalManifestEntries: await new Promise<string[]>((resolve) =>
-            glob(`${publicDir}/**/*`, (_err, matches) => resolve(matches))
+          additionalManifestEntries: await promisify(glob)(
+            `${publicDir}/**/*`
           ).then((matches) =>
             matches.map((url) => ({
               url: url.slice(publicDir.length + 1),
