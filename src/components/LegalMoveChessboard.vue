@@ -5,7 +5,9 @@
   import type { Config } from "chessground/config";
   import type { Key } from "chessground/types";
 
-  export type Intercept = (move: ShortMove | Promise<ShortMove>) => void;
+  export interface Intercept {
+    (move: ShortMove | Promise<ShortMove | undefined> | undefined): void;
+  }
 
   let { position, orientation = "white" } =
     defineProps<{ position?: string; orientation?: "white" | "black" }>();
@@ -29,18 +31,19 @@
       },
     });
 
-    let intercept: ShortMove | Promise<ShortMove> | undefined;
+    let intercept: ShortMove | Promise<ShortMove | undefined> | undefined;
     emit("move", (move) => (intercept = move), game, api);
 
-    if (!intercept) {
+    let move = await intercept;
+
+    if (move) {
+      setTimeout(() => afterMove(move!.from, move!.to));
+    } else {
       api.set({
         movable: {
           dests: getDests(),
         },
       });
-    } else {
-      let move = await intercept;
-      setTimeout(() => afterMove(move.from, move.to));
     }
   }
 
@@ -78,10 +81,13 @@
 
     emit("ready", api, game);
 
-    let intercept: ShortMove | Promise<ShortMove> | undefined;
+    let intercept: ShortMove | Promise<ShortMove | undefined> | undefined;
     emit("move", (move) => (intercept = move), game, api);
 
-    if (!intercept) {
+    let move = await intercept;
+    if (move) {
+      setTimeout(() => afterMove(move!.from, move!.to));
+    } else {
       api.set({
         turnColor: game.turn() === "w" ? "white" : "black",
         check: game.in_check(),
@@ -90,9 +96,6 @@
           dests: getDests(),
         },
       });
-    } else {
-      let move = await intercept;
-      setTimeout(() => afterMove(move.from, move.to));
     }
   }
 </script>

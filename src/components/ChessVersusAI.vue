@@ -6,11 +6,14 @@
   import type { ChessInstance, ShortMove } from "chess.js";
   import type { Api } from "chessground/api";
   import { ref } from "vue";
-  import { onBeforeRouteUpdate, useRoute } from "vue-router";
+  import { useRoute } from "vue-router";
   import NavLink from "../components/NavLink.vue";
 
   let { move } = defineProps<{
-    move: (game: ChessInstance, api: Api) => ShortMove | Promise<ShortMove>;
+    move: (
+      game: ChessInstance,
+      api: Api
+    ) => ShortMove | Promise<ShortMove | undefined> | undefined;
   }>();
 
   let key = ref(1);
