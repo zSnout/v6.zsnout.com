@@ -1,17 +1,17 @@
 let canvas = document.createElement("canvas");
 let context = canvas.getContext("2d")!;
 
-export function blobToImage(blob: Blob) {
+export function blobToImage(blob: Blob, width?: number, height?: number) {
   return new Promise<ImageData>((resolve) => {
     let url = URL.createObjectURL(blob);
     let image = document.createElement("img");
 
     image.onload = () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context.drawImage(image, 0, 0);
+      canvas.width = width || image.width;
+      canvas.height = height || image.height;
 
-      resolve(context.getImageData(0, 0, image.width, image.height));
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(context.getImageData(0, 0, canvas.width, canvas.height));
     };
 
     image.src = url;
@@ -28,12 +28,14 @@ export function streamToVideo(stream: MediaStream) {
   });
 }
 
-export function captureFrame(video: HTMLVideoElement) {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+export function captureFrame(
+  video: HTMLVideoElement,
+  width?: number,
+  height?: number
+) {
+  canvas.width = width || video.videoWidth;
+  canvas.height = height || video.videoHeight;
 
-  let context = canvas.getContext("2d")!;
-  context.drawImage(video, 0, 0);
-
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
   return context.getImageData(0, 0, canvas.width, canvas.height);
 }
