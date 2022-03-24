@@ -22,7 +22,7 @@ export default new Promise<UserConfigExport>(async (resolve) =>
         template: {
           compilerOptions: {
             // Required because Vue seems to think that an `<a>` tag from Markdown is a custom element.
-            isNativeTag: (tag) => tag.toLowerCase() == tag,
+            isNativeTag: (tag) => tag.toLowerCase()[0] == tag[0],
           },
         },
       }),
