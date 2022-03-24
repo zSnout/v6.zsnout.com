@@ -284,6 +284,12 @@ window.addEventListener("keydown", ({ key }) => {
   }
 });
 
+let path = localStorage.getItem("path");
+if (path) {
+  localStorage.removeItem("path");
+  router.replace(path);
+}
+
 declare global {
   interface ObjectConstructor {
     entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
