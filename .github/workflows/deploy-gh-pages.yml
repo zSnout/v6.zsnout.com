@@ -4,7 +4,7 @@ name: deploy
     branches:
       - main
 jobs:
-  build_and_preview:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
