@@ -12,6 +12,7 @@
     "chessground": "^8.2.1",
     "katex": "^0.15.3",
     "pinia": "^2.0.12",
+    "stockfish.js": "^10.0.2",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   },
