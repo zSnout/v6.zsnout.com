@@ -105,11 +105,8 @@ export let router = createRouter({
       component: () => import("@/views/chess/ChessVersusBadAIView.vue"),
     },
     {
-      path: "/color-remover/",
-      redirect:
-        "/color-remover/" +
-        "rgb"[Math.floor(3 * Math.random())] +
-        ("rgb"[Math.floor(6 * Math.random())] || ""),
+      path: "/color-remover",
+      component: () => import("@/views/ColorRemoverView.vue"),
     },
     {
       path: "/color-remover/:colors",
