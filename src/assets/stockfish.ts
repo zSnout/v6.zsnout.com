@@ -1,4 +1,4 @@
-import { Chess, type ChessInstance, type ShortMove } from "chess.js";
+import type { ChessInstance, ShortMove } from "chess.js";
 import Stockfish from "stockfish.js/stockfish.js?worker";
 
 let worker = new Stockfish();
@@ -60,6 +60,3 @@ export async function analyze(position: ChessInstance) {
     worker.postMessage(`go movetime 2000`);
   });
 }
-
-let d = window as any;
-d.chess = { Chess, analyze };
