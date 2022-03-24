@@ -21,7 +21,8 @@ export function blobToImage(blob: Blob) {
 export function streamToVideo(stream: MediaStream) {
   return new Promise<HTMLVideoElement>((resolve) => {
     let video = document.createElement("video");
-    video.onload = () => resolve(video);
+
+    video.onloadedmetadata = () => resolve(video);
     video.srcObject = stream;
     video.play();
   });
