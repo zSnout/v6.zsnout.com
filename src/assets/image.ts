@@ -23,6 +23,7 @@ export function streamToVideo(stream: MediaStream) {
     let video = document.createElement("video");
     video.onload = () => resolve(video);
     video.srcObject = stream;
+    video.play();
   });
 }
 
