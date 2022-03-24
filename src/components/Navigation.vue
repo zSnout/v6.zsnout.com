@@ -6,6 +6,8 @@
   import NavLink from "./NavLink.vue";
   import SafeAreaLR from "./SafeAreaLR.vue";
   import SafeAreaTB from "./SafeAreaTB.vue";
+  import LogoWithNameLight from "./LogoWithNameLight.vue";
+  import LogoWithNameDark from "./LogoWithNameDark.vue";
 
   let { breakpoint } =
     defineProps<{ breakpoint?: number; floating?: boolean }>();
@@ -41,17 +43,8 @@
     <SafeAreaLR>
       <div class="aligner">
         <RouterLink class="logo-link" to="/">
-          <img
-            class="logo logo-light"
-            alt="zSnout logo"
-            src="@/assets/logo-with-name.svg"
-          />
-
-          <img
-            class="logo logo-dark"
-            alt="zSnout logo"
-            src="@/assets/logo-with-name-dark.svg"
-          />
+          <LogoWithNameLight class="logo logo-light" alt="zSnout logo" />
+          <LogoWithNameDark class="logo logo-dark" alt="zSnout logo" />
         </RouterLink>
 
         <span class="expander" />
