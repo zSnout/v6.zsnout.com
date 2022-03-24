@@ -105,6 +105,17 @@ export let router = createRouter({
       component: () => import("@/views/chess/ChessVersusBadAIView.vue"),
     },
     {
+      path: "/color-remover/",
+      redirect:
+        "/color-remover/" +
+        "rgb"[Math.floor(3 * Math.random())] +
+        ("rgb"[Math.floor(6 * Math.random())] || ""),
+    },
+    {
+      path: "/color-remover/:colors",
+      component: () => import("@/views/ColorRemoverView.vue"),
+    },
+    {
       path: "/english-is-weird",
       component: () => import("@/views/EnglishIsWeirdView.vue"),
     },
