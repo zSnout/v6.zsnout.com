@@ -17,3 +17,21 @@ export function blobToImage(blob: Blob) {
     image.src = url;
   });
 }
+
+export function streamToVideo(stream: MediaStream) {
+  return new Promise<HTMLVideoElement>((resolve) => {
+    let video = document.createElement("video");
+    video.onload = () => resolve(video);
+    video.srcObject = stream;
+  });
+}
+
+export function captureFrame(video: HTMLVideoElement) {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  let context = canvas.getContext("2d")!;
+  context.drawImage(video, 0, 0);
+
+  return context.getImageData(0, 0, canvas.width, canvas.height);
+}
