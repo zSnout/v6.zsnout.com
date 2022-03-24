@@ -32,5 +32,9 @@
 </script>
 
 <template>
-  <FullscreenCanvas @ready="onReady" />
+  <FullscreenCanvas @ready="onReady">
+    <template #nav>
+      <slot name="nav" />
+    </template>
+  </FullscreenCanvas>
 </template>
