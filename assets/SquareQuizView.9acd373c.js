@@ -1,0 +1,1 @@
+import{Q as o}from"./Quiz.38813a00.js";import{d as a,o as n,c as s}from"./vendor.c311a53b.js";import"./index.a8507d60.js";const u=a({setup(p){function t(){let e=Math.floor(19*Math.random())+2,r=e**2;return Math.random()<.5?{prefix:`${e}\xB2 = `,answers:[r]}:{prefix:`\u221A${r} = `,answers:[e]}}return(e,r)=>(n(),s(o,{generator:t}))}});export{u as default};
