@@ -43,7 +43,13 @@
       to: "/trope-highlighter",
       name: "Hebrew Trope Highlighter",
       desc: "Color Hebrew words based on their tropes to make them stand out and aid with learning.",
-      keywords: "color",
+      keywords: "color syntax highlighting",
+    },
+    {
+      to: "/color-remover",
+      name: "Color Remover",
+      desc: "Remove red, green, or blue from the world around you with our simple application.",
+      keywords: "red green blue",
     },
     {
       to: "/practice/mult-div",
