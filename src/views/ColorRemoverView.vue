@@ -53,7 +53,7 @@
 </script>
 
 <template>
-  <CameraAdjuster :transform="transform">
+  <CameraAdjuster :breakpoint="600" :transform="transform">
     <template #nav>
       <NavLink @click="toggleRed">Toggle Red</NavLink>
       <NavLink @click="toggleGreen">Toggle Green</NavLink>
