@@ -3,7 +3,10 @@
   import { onMounted, onUnmounted } from "vue";
   import FullscreenCanvas from "./FullscreenCanvas.vue";
 
-  let { transform } = defineProps<{ transform(data: ImageData): ImageData }>();
+  let { transform } = defineProps<{
+    transform(data: ImageData): ImageData;
+    breakpoint?: number;
+  }>();
 
   let _stream = new Promise<MediaStream>((resolve) => {
     onMounted(() => {
@@ -32,7 +35,7 @@
 </script>
 
 <template>
-  <FullscreenCanvas @ready="onReady">
+  <FullscreenCanvas :breakpoint="breakpoint" @ready="onReady">
     <template #nav>
       <slot name="nav" />
     </template>
