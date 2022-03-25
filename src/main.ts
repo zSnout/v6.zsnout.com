@@ -248,24 +248,24 @@ export let router = createRouter({
       component: () => import("@/views/FrameOverlayView.vue"),
     },
     {
-      path: "/math/calculating-weekdays",
-      component: () => import("@/views/math/CalculatingWeekdays.md"),
+      path: "/blog/calculating-weekdays",
+      component: () => import("@/views/blog/CalculatingWeekdays.md"),
     },
     {
-      path: "/math/divisibility-rules",
-      component: () => import("@/views/math/DivisibilityRules.md"),
+      path: "/blog/divisibility-rules",
+      component: () => import("@/views/blog/DivisibilityRules.md"),
     },
     {
-      path: "/math/does-0-equal-1",
-      component: () => import("@/views/math/Does0Equal1.md"),
+      path: "/blog/does-0-equal-1",
+      component: () => import("@/views/blog/Does0Equal1.md"),
     },
     {
-      path: "/math/forcing-1089",
-      component: () => import("@/views/math/Forcing1089.md"),
+      path: "/blog/forcing-1089",
+      component: () => import("@/views/blog/Forcing1089.md"),
     },
     {
-      path: "/math/infinity-is-minus-one-twelfth",
-      component: () => import("@/views/math/InfinityIsMinusOneTwelfth.md"),
+      path: "/blog/infinity-is-minus-one-twelfth",
+      component: () => import("@/views/blog/InfinityIsMinusOneTwelfth.md"),
     },
     {
       path: "/metaballs",
