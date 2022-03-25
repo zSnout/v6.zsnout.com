@@ -13,6 +13,7 @@
 
   .prose :deep() {
     .table-of-contents {
+      margin-bottom: 1em;
       background-color: var(--field-background);
       border: 1px solid var(--border-color);
       border-radius: 0.25em;
