@@ -2,6 +2,9 @@
   import { alert } from "@/assets/modal";
   import FullscreenCanvas from "@/components/FullscreenCanvas.vue";
   import { createProgram } from "@/components/WebGL2Canvas.vue";
+  import { onUnmounted } from "vue";
+
+  let _stream: MediaStream | undefined;
 
   async function onReady(canvas: HTMLCanvasElement) {
     let gl = canvas.getContext("webgl2")!;
@@ -80,6 +83,7 @@
       let stream = await navigator.mediaDevices.getUserMedia({ video: true });
       let video = document.createElement("video");
       video.srcObject = stream;
+      _stream = stream;
 
       console.log("before");
       await video.play();
@@ -98,6 +102,12 @@
       );
     }
   }
+
+  onUnmounted(() => {
+    _stream?.getTracks().map((track) => {
+      if (track.readyState == "live") track.stop();
+    });
+  });
 
   let vertex = `
   #version 300 es

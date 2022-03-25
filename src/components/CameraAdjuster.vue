@@ -34,7 +34,15 @@
     }, 1000 / 30);
   }
 
-  onUnmounted(() => clearInterval(interval));
+  onUnmounted(async () => {
+    clearInterval(interval);
+    let stream = await _stream;
+    if (!stream) return;
+
+    stream.getTracks().map((track) => {
+      if (track.readyState == "live") track.stop();
+    });
+  });
 </script>
 
 <template>
