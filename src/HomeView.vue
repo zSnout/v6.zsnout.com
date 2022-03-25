@@ -125,6 +125,18 @@
       keywords: "bot",
     },
     {
+      to: "/chess/stockfish",
+      name: "Chess vs. Stockfish",
+      desc: "You've played the worst bots. Now try going up against the best in the world, Stockfish.",
+      keywords: "bot perfect",
+    },
+    {
+      to: "/chess/illegal-stockfish",
+      name: "Illegal Chess vs. Stockfish",
+      desc: "Since it's too good, let's give you a 'slight' advantage against Stockfish...",
+      keywords: "bot perfect",
+    },
+    {
       to: "/frame",
       name: "Click Only",
       desc: "Try limiting yourself to exploring zSnout using only your keyboard and left-clicks.",
