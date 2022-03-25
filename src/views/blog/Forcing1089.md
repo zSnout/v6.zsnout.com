@@ -4,18 +4,9 @@ Did you know that using math we can force people to think of certain numbers? We
 can use 9, 1089, or any other number you can think of using the simple tricks
 described below!
 
-\toc
+[toc]
 
-- [Forcing an Arbitrary Number](#forcing-an-arbitrary-number)
-  - [Preparing](#preparing)
-  - [The Trick](#the-trick)
-  - [The Explanation](#the-explanation)
-- [Forcing 9](#forcing-9)
-- [Forcing 1089](#forcing-1089)
-
-## Forcing an Arbitrary Number
-
-### Preparing
+### Preparation
 
 1. Let $a$ be an integer ranging from 2 to 6. In examples, we'll use 3.
 2. Let $b$ be an integer ranging from 3 to 5. In examples, we'll use 4.
