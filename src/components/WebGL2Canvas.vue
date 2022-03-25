@@ -18,11 +18,20 @@
 
   export function createProgram(
     gl: WebGL2RenderingContext,
-    ...shaders: WebGLShader[]
+    vertShader: string,
+    fragShader: string
   ) {
     let program = gl.createProgram();
     if (!program) return null;
-    for (let shader of shaders) gl.attachShader(program, shader);
+
+    let vert = createShader(gl, "VERTEX", vertShader);
+    if (!vert) return null;
+
+    let frag = createShader(gl, "FRAGMENT", fragShader);
+    if (!frag) return null;
+
+    gl.attachShader(program, vert);
+    gl.attachShader(program, frag);
     gl.linkProgram(program);
 
     if (gl.getProgramParameter(program, gl.LINK_STATUS)) return program;
@@ -45,12 +54,9 @@
 
   let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
 
-  let { shader, vertex } =
-    defineProps<{ shader: string; vertex?: string; breakpoint?: number }>();
+  let { shader } = defineProps<{ shader: string; breakpoint?: number }>();
 
-  let vertShader =
-    vertex?.trim() ||
-    `
+  let vertShader = `
   #version 300 es
 
   precision highp float;
@@ -68,11 +74,7 @@
     let lastProgram: WebGLProgram | null = null;
 
     function updateWebGL(shader: string) {
-      let vert = createShader(gl, "VERTEX", vertShader);
-      if (!vert) return null;
-      let frag = createShader(gl, "FRAGMENT", shader);
-      if (!frag) return null;
-      let program = createProgram(gl, vert, frag);
+      let program = createProgram(gl, vertShader, shader);
       if (!program) return null;
 
       gl.deleteProgram(lastProgram);
