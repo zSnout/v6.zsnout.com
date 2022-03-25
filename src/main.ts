@@ -52,6 +52,14 @@ export let router = createRouter({
       component: () => import("@/views/blog/WhatMakesZSnoutDifferentView.md"),
     },
     {
+      path: "/call/",
+      component: () => import("@/views/VideoCallView.vue"),
+    },
+    {
+      path: "/call/:id",
+      component: () => import("@/views/VideoCallView.vue"),
+    },
+    {
       path: "/chess/board",
       redirect:
         "/chess/board/rnbqkbnr_pppppppp_8_8_8_8_PPPPPPPP_RNBQKBNR:w:KQkq:-:0:1",
