@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { captureFrame, streamToVideo } from "@/assets/image";
+  import { alert } from "@/assets/modal";
   import { onMounted, onUnmounted } from "vue";
   import FullscreenCanvas from "./FullscreenCanvas.vue";
 
@@ -12,7 +13,9 @@
     onMounted(() => {
       resolve(navigator.mediaDevices.getUserMedia({ video: true }));
     });
-  }).catch(() => {});
+  }).catch(() => {
+    alert("Oops, we weren't able to get camera permissions. Try again later.");
+  });
 
   let interval: number;
 
