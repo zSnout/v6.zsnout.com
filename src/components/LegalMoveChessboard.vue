@@ -30,7 +30,20 @@
 
   async function afterMove(orig: Key, dest: Key) {
     if (orig == "a0" || dest == "a0" || !api) return;
-    game.move({ from: orig, to: dest, promotion: "q" });
+
+    if (destinations) {
+      // Virtually move piece
+      let piece = api.state.pieces.get(orig);
+      if (piece) {
+        api.state.pieces.delete(orig);
+        api.state.pieces.set(dest, piece);
+      }
+
+      game.load(`${api.getFen()} ${game.turn() == "w" ? "b" : "w"} - - 0 1`);
+    } else {
+      game.move({ from: orig, to: dest, promotion: "q" }, { sloppy: true });
+    }
+
     api.set({
       turnColor: game.turn() === "w" ? "white" : "black",
       fen: game.fen(),
