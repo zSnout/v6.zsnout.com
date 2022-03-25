@@ -13,7 +13,7 @@
     {
       to: "/blog",
       name: "Blog",
-      desc: "Read articles about zSnout and the development of the website you're using right now.",
+      desc: "Read articles about zSnout's development, cool math tricks, and other interesting tips.",
       keywords: "articles list",
     },
     {
