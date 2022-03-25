@@ -10,8 +10,6 @@ argument._
 
 [toc]
 
-# Proving That 0 = 1
-
 We'll start out with a series $S$ which we'll prove to be equal to both 0 and 1.
 After that's done, we can use basic mathematics to prove that 0 equals 1.
 
