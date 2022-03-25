@@ -5,13 +5,13 @@
   import type { Config } from "chessground/config";
   import type { Key } from "chessground/types";
 
-  export interface DestinationGenerator {
-    (game: ChessInstance): Map<Square, Square[]>;
-  }
+  export type DestinationGenerator = (
+    game: ChessInstance
+  ) => Map<Square, Square[]>;
 
-  export interface Intercept {
-    (move: ShortMove | Promise<ShortMove | undefined> | undefined): void;
-  }
+  export type Intercept = (
+    move: ShortMove | Promise<ShortMove | undefined> | undefined
+  ) => void;
 
   let {
     position,

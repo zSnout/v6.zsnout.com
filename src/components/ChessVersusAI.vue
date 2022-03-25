@@ -1,21 +1,19 @@
 <script lang="ts" setup>
-  import LegalMoveChessboard, {
-    type DestinationGenerator,
-    type Intercept,
-  } from "@/components/LegalMoveChessboard.vue";
   import { router } from "@/main";
   import type { ChessInstance, ShortMove } from "chess.js";
   import type { Api } from "chessground/api";
   import { ref } from "vue";
   import { useRoute } from "vue-router";
-  import NavLink from "../components/NavLink.vue";
+  import LegalMoveChessboard, {
+    type DestinationGenerator,
+    type Intercept,
+  } from "./LegalMoveChessboard.vue";
+  import NavLink from "./NavLink.vue";
 
-  export interface MoveGenerator {
-    (game: ChessInstance, api: Api):
-      | ShortMove
-      | Promise<ShortMove | undefined>
-      | undefined;
-  }
+  export type MoveGenerator = (
+    game: ChessInstance,
+    api: Api
+  ) => ShortMove | Promise<ShortMove | undefined> | undefined;
 
   let { move } = defineProps<{
     move: MoveGenerator;
