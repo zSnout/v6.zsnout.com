@@ -1,14 +1,5 @@
-<script lang="ts" setup>
-  import FullscreenCanvas from "./FullscreenCanvas.vue";
-
-  export interface WebGL2ProgramInfo {
-    canvas: HTMLCanvasElement;
-    gl: WebGL2RenderingContext;
-    program: WebGLProgram;
-    render(): void;
-  }
-
-  function createShader(
+<script lang="ts">
+  export function createShader(
     gl: WebGL2RenderingContext,
     type: "VERTEX" | "FRAGMENT",
     source: string
@@ -25,7 +16,7 @@
     return null;
   }
 
-  function createProgram(
+  export function createProgram(
     gl: WebGL2RenderingContext,
     ...shaders: WebGLShader[]
   ) {
@@ -39,6 +30,17 @@
     console.log(gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
+  }
+</script>
+
+<script lang="ts" setup>
+  import FullscreenCanvas from "./FullscreenCanvas.vue";
+
+  export interface WebGL2ProgramInfo {
+    canvas: HTMLCanvasElement;
+    gl: WebGL2RenderingContext;
+    program: WebGLProgram;
+    render(): void;
   }
 
   let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
