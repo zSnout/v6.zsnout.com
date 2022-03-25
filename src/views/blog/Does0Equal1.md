@@ -1,25 +1,19 @@
----
-title: Proving That 0 = 1!
-desc: Learn a simple proof that shows how 0 equals 1, then learn how you can apply it to any two numbers!
----
-
 _Published by Zachary Sakowitz on December 8, 2021._
 
-The "0 = 1" paradox states that the numbers 0 and 1 are equivalent. We can easily prove this. Once done, we'll show you how you can use this to prove that any two numbers are equivalent!
+The "0 = 1" paradox states that the numbers 0 and 1 are equivalent. We can
+easily prove this. Once done, we'll show you how you can use this to prove that
+any two numbers are equivalent!
 
-_DISCLAIMER: The math in this article is invalid, as we can't abuse parentheses in divergent series. It's just a fun experiment, but it doesn't count as a valid argument._
+_DISCLAIMER: The math in this article is invalid, as we can't abuse parentheses
+in a divergent series. It's a fun experiment, but it doesn't count as a valid
+argument._
 
-\toc
-
-- [Proving That 0 = 1](#proving-that-0--1)
-  - [Proving That S = 0](#proving-that-s--0)
-  - [Proving That S = 1](#proving-that-s--1)
-  - [Wait, S is 0 and 1?](#wait-s-is-0-and-1)
-- [Proving That Any Two Numbers Are Equal](#proving-that-any-two-numbers-are-equal)
+[toc]
 
 # Proving That 0 = 1
 
-We'll start out with a series $S$ which we'll prove to be equal to both 0 and 1. After that's done, we can use basic mathematics to prove that 0 equals 1.
+We'll start out with a series $S$ which we'll prove to be equal to both 0 and 1.
+After that's done, we can use basic mathematics to prove that 0 equals 1.
 
 First of all, let's define $S$ as follows:
 
@@ -35,7 +29,8 @@ Because $1 - 1 = 0$, we can simplify this.
 
 $$ S = 0 + 0 + 0 + ... $$
 
-Because we can add 0s forever and still get zero, we can simplify this even more.
+Because we can add 0s forever and still get zero, we can simplify this even
+more.
 
 $$ S = 0 $$
 
@@ -51,7 +46,8 @@ Because $1 - 1 = 0$, we can simplify this.
 
 $$ S = 1 - 0 - 0 - 0 ... $$
 
-Because we can subtract 0s forever and still get zero, we can simplify this even more.
+Because we can subtract 0s forever and still get zero, we can simplify this even
+more.
 
 $$ S = 1 $$
 
@@ -71,7 +67,9 @@ $$
 
 # Proving That Any Two Numbers Are Equal
 
-By multiplying both sides of the equation $0 = 1$ we can show that multiple numbers are equal to each other. For example, to prove that $5 = 98$, we can use the following:
+By multiplying both sides of the equation $0 = 1$ we can show that multiple
+numbers are equal to each other. For example, to prove that $5 = 98$, we can use
+the following:
 
 $$
 \begin{aligned}

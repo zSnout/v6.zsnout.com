@@ -1,21 +1,15 @@
----
-title: 1 + 2 + 3 ... = -1/12!
-desc: Did you know that the sum of all whole numbers is equal to -1/12? In this article we find out how it's possible and prove it ourselves!
----
-
 _Published by Zachary Sakowitz on December 8, 2021._
 
-Did you know that the sum of all whole numbers is equal to -1/12? In this article we find out how it's possible and prove it ourselves using simple algebra and math!
+Did you know that the sum of all whole numbers is equal to -1/12? In this
+article we find out how it's possible and prove it ourselves using simple
+algebra and math!
 
-_DISCLAIMER: The math used in this article doesn't count as real reasoning; it's just a fun thing to think about. See [this video by Mathologer](https://youtube.com/watch?v=YuIIjLr6vUA) for more information._
+_DISCLAIMER: The math used in this article doesn't count as real reasoning; it's
+just a fun thing to think about. See
+[this video by Mathologer](https://youtube.com/watch?v=YuIIjLr6vUA) for more
+information._
 
-\toc
-
-- [The Series](#the-series)
-- [Solving for G](#solving-for-g)
-- [Solving For H](#solving-for-h)
-- [Solving For S](#solving-for-s)
-- [Sources & Resources](#sources--resources)
+[toc]
 
 ## The Series
 
@@ -47,7 +41,8 @@ Now we have proved that $G = \frac{1}{2}$!
 
 ## Solving For H
 
-Now that we've solved for $G$, we can use it to solve $H$. Here's the answer for this:
+Now that we've solved for $G$, we can use it to solve $H$. Here's the answer for
+this:
 
 $$
 \begin{aligned}
@@ -65,7 +60,8 @@ Now we have proved that $H = \frac{1}{4}$!
 
 ## Solving For S
 
-Now that we've shows what $G$ and $H$ are equal to, it's time to finally solve for $S$.
+Now that we've shows what $G$ and $H$ are equal to, it's time to finally solve
+for $S$.
 
 $$
 \begin{aligned}
@@ -84,4 +80,6 @@ Now we have proved that $S = -1/12$, and we're done!
 
 ## Sources & Resources
 
-I originally found out about this phenomenon at [this YouTube video by Numberphile](https://www.youtube.com/watch?v=w-I6XTVZXww). It's a great video and you should check it out.
+I originally found out about this phenomenon at
+[this YouTube video by Numberphile](https://www.youtube.com/watch?v=w-I6XTVZXww).
+It's a great video and you should check it out.
