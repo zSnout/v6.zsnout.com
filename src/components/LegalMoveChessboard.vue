@@ -77,14 +77,14 @@
     if (destinations) return destinations(game);
 
     let dests = new Map<Square, Square[]>();
-    game.SQUARES.forEach((square) => {
+    for (let square of game.SQUARES) {
       let moves = game.moves({ square: square, verbose: true });
       if (moves.length)
         dests.set(
           square,
           moves.map(({ to }) => to)
         );
-    });
+    }
 
     return dests;
   }
