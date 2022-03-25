@@ -78,7 +78,7 @@
 
     let dests = new Map<Square, Square[]>();
     for (let square of game.SQUARES) {
-      let moves = game.moves({ square: square, verbose: true });
+      let moves = game.moves({ square, verbose: true });
       if (moves.length)
         dests.set(
           square,
