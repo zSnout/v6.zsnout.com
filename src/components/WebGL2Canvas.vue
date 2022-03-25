@@ -41,7 +41,14 @@
     return null;
   }
 
-  let vertShader = `
+  let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
+
+  let { shader, vertex } =
+    defineProps<{ shader: string; vertex?: string; breakpoint?: number }>();
+
+  let vertShader =
+    vertex?.trim() ||
+    `
   #version 300 es
 
   precision highp float;
@@ -52,9 +59,6 @@
     gl_Position = vec4(pos = _pos * vec2(1, -1), 0, 1);
   }
   `.trim();
-
-  let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
-  let { shader } = defineProps<{ shader: string; breakpoint?: number }>();
 
   function onReady(canvas: HTMLCanvasElement) {
     let gl = canvas.getContext("webgl2")!;
