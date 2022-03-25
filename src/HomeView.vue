@@ -36,7 +36,7 @@
     {
       to: "/english-is-weird",
       name: "English is Weird",
-      desc: 'Ever noticed how the "ti" in "nation" makes a "sh" sound? Find out about this and other weird quirks of English.',
+      desc: 'Learn about the quirks on English, including how the "ti" in "nation" is sounded as "sh".',
       keywords: "word",
     },
     {
