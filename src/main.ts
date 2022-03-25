@@ -97,6 +97,24 @@ export let router = createRouter({
       component: () => import("@/views/chess/ChessVersusNoCaptureAIView.vue"),
     },
     {
+      path: "/chess/stockfish",
+      redirect: () =>
+        `/chess/stockfish/${Math.random() < 0.5 ? "white" : "black"}`,
+    },
+    {
+      path: "/chess/stockfish/:mode",
+      component: () => import("@/views/chess/ChessVersusStockfish.vue"),
+    },
+    {
+      path: "/chess/illegal-stockfish",
+      redirect: () =>
+        `/chess/illegal-stockfish/${Math.random() < 0.5 ? "white" : "black"}`,
+    },
+    {
+      path: "/chess/illegal-stockfish/:mode",
+      component: () => import("@/views/chess/IllegalVersusStockfish.vue"),
+    },
+    {
       path: "/chess/vsbad",
       redirect: () => `/chess/vsbad/${Math.random() < 0.5 ? "white" : "black"}`,
     },
