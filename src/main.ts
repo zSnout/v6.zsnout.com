@@ -323,11 +323,9 @@ window.addEventListener("keydown", ({ key }) => {
   }
 });
 
-let path = localStorage.getItem("path");
-if (path) {
-  localStorage.removeItem("path");
-  router.replace(path);
-}
+let loc = new URL(location.href);
+let path = loc.searchParams.get("path");
+if (path) router.replace(path);
 
 declare global {
   interface ObjectConstructor {

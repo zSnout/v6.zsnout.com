@@ -1,5 +1,3 @@
 <script>
-  let path = location.pathname;
-  localStorage.setItem("path", path);
-  location.replace("/");
+  location.replace(`/?path=${encodeURIComponent(location.pathname)}`);
 </script>
