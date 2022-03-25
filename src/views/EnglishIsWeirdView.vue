@@ -226,6 +226,29 @@
 
 <template>
   <DocumentDisplay>
+    <p>
+      I've always thought that English spelling is weird. For example, the "gh"
+      in "tough" makes a "f" sound, the "o" in "women" makes a "ih" sound, and
+      the "chsi" in "fuchsia" makes a "sh" sound. By assembling these, we can
+      rewrite "fish" as "ghochsi"! This page is a compilation of different
+      spellings for specific sounds.
+    </p>
+
+    <p>
+      Each row has the phonetic sound (found by googling "define ..."), a way to
+      pronounce the sound, and the name associated with the sound. To use this
+      list, replace each sound in a word with a corresponding sequence from the
+      list. For example, we could replace the "ay" sound in "eight" with "a"
+      (from "amazing") and the "t" sound with "pt" (from "pterodactyl") to make
+      "aypt". Ta da!
+    </p>
+
+    <p>
+      Try finding the sounds in your name and replacing them with some sounds
+      from this list. If you don't find a particular sound, just leave it as is.
+      For example, zSnout could also be spelled as "xyeacemnought".
+    </p>
+
     <p v-for="(list, i) in words" :key="i" class="list">
       <span class="header word">
         <span class="symbol">{{ list.symbol }}</span>
