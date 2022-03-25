@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import LegalMoveChessboard, {
+    type DestinationGenerator,
     type Intercept,
   } from "@/components/LegalMoveChessboard.vue";
   import { router } from "@/main";
@@ -9,11 +10,16 @@
   import { useRoute } from "vue-router";
   import NavLink from "../components/NavLink.vue";
 
+  export interface MoveGenerator {
+    (game: ChessInstance, api: Api):
+      | ShortMove
+      | Promise<ShortMove | undefined>
+      | undefined;
+  }
+
   let { move } = defineProps<{
-    move: (
-      game: ChessInstance,
-      api: Api
-    ) => ShortMove | Promise<ShortMove | undefined> | undefined;
+    move: MoveGenerator;
+    destinations?: DestinationGenerator;
   }>();
 
   let key = ref(1);
@@ -43,7 +49,12 @@
 </script>
 
 <template>
-  <LegalMoveChessboard :key="key" :orientation="orientation" @move="onMove">
+  <LegalMoveChessboard
+    :key="key"
+    :destinations="destinations"
+    :orientation="orientation"
+    @move="onMove"
+  >
     <template #nav>
       <NavLink @click="loadAs('white')">Reload as White</NavLink>
       <NavLink @click="loadAs('black')">Reload as Black</NavLink>

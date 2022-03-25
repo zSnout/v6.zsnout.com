@@ -5,12 +5,23 @@
   import type { Config } from "chessground/config";
   import type { Key } from "chessground/types";
 
+  export interface DestinationGenerator {
+    (game: ChessInstance): Map<Square, Square[]>;
+  }
+
   export interface Intercept {
     (move: ShortMove | Promise<ShortMove | undefined> | undefined): void;
   }
 
-  let { position, orientation = "white" } =
-    defineProps<{ position?: string; orientation?: "white" | "black" }>();
+  let {
+    position,
+    orientation = "white",
+    destinations,
+  } = defineProps<{
+    position?: string;
+    orientation?: "white" | "black";
+    destinations?: DestinationGenerator;
+  }>();
 
   let emit = defineEmits<{
     (event: "ready", api: Api, game: ChessInstance): void;
@@ -63,6 +74,8 @@
   };
 
   function getDests() {
+    if (destinations) return destinations(game);
+
     let dests = new Map<Square, Square[]>();
     game.SQUARES.forEach((square) => {
       let moves = game.moves({ square: square, verbose: true });
