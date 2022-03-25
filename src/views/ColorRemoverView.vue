@@ -36,19 +36,19 @@
   function toggleRed() {
     r = !r;
     a = r && g && b;
-    router.push(makeRoute());
+    router.replace(makeRoute());
   }
 
   function toggleGreen() {
     g = !g;
     a = r && g && b;
-    router.push(makeRoute());
+    router.replace(makeRoute());
   }
 
   function toggleBlue() {
     b = !b;
     a = r && g && b;
-    router.push(makeRoute());
+    router.replace(makeRoute());
   }
 </script>
 
