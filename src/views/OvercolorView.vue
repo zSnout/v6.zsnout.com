@@ -1,63 +1,190 @@
 <script lang="ts" setup>
-  import CameraAdjuster from "@/components/CameraAdjuster.vue";
+  import { alert } from "@/assets/modal";
+  import FullscreenCanvas from "@/components/FullscreenCanvas.vue";
+  import { createProgram } from "@/components/WebGL2Canvas.vue";
 
-  function rgbToHsl(
-    red: number,
-    green: number,
-    blue: number
-  ): [hue: number, saturation: number, lightness: number] {
-    (red /= 255), (green /= 255), (blue /= 255);
+  async function onReady(canvas: HTMLCanvasElement) {
+    let gl = canvas.getContext("webgl2")!;
+    if (!gl) return;
 
-    let l = Math.max(red, green, blue);
-    let s = l - Math.min(red, green, blue);
-    let h = s
-      ? l === red
-        ? (green - blue) / s
-        : l === green
-        ? 2 + (blue - red) / s
-        : 4 + (red - green) / s
-      : 0;
+    let program = createProgram(gl, vertex, shader)!;
+    if (!program) return;
 
-    let finalHue = 60 * h < 0 ? 60 * h + 360 : 60 * h;
-    let finalSat =
-      100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0);
-    let finalLight = (100 * (2 * l - s)) / 2;
+    gl.useProgram(program);
 
-    return [finalHue, finalSat / 100, finalLight / 100];
-  }
+    function render(stream: HTMLVideoElement) {
+      gl.viewport(0, 0, canvas.width, canvas.height);
 
-  function hslToRgb(
-    hue: number,
-    saturation: number,
-    lightness: number
-  ): [red: number, green: number, blue: number] {
-    let k = (n: number) => (n + hue / 30) % 12;
-    let a = saturation * Math.min(lightness, 1 - lightness);
-    let f = (n: number) =>
-      lightness - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+      let posAttrLoc = gl.getAttribLocation(program, "a_position");
+      let texCoordAttrLoc = gl.getAttribLocation(program, "a_texCoord");
 
-    return [255 * f(0), 255 * f(8), 255 * f(4)];
-  }
+      let resUniformLoc = gl.getUniformLocation(program, "u_resolution");
+      let imgUniformLoc = gl.getUniformLocation(program, "u_image");
 
-  function transform(data: ImageData) {
-    for (let i = 0; i < data.data.length; i += 4) {
-      let [r, g, b] = data.data.slice(i, i + 3);
-      let [r2, g2, b2] = hslToRgb(rgbToHsl(r, g, b)[0], 1, 0.5);
+      let vao = gl.createVertexArray();
+      gl.bindVertexArray(vao);
 
-      if (Math.max(r, g, b) - Math.min(r, g, b) < 8) {
-        let avg = (r + g + b) / 3;
-        r2 = g2 = b2 = avg;
-      }
+      let positionBuffer = gl.createBuffer();
+      gl.enableVertexAttribArray(posAttrLoc);
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.vertexAttribPointer(posAttrLoc, 2, gl.FLOAT, false, 0, 0);
 
-      data.data[i] = r2;
-      data.data[i + 1] = g2;
-      data.data[i + 2] = b2;
+      let texCoordBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([
+          0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0,
+        ]),
+        gl.STATIC_DRAW
+      );
+
+      gl.enableVertexAttribArray(texCoordAttrLoc);
+      gl.vertexAttribPointer(texCoordAttrLoc, 2, gl.FLOAT, false, 0, 0);
+      let texture = gl.createTexture();
+      gl.activeTexture(gl.TEXTURE0 + 0);
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        stream
+      );
+
+      gl.bindVertexArray(vao);
+      gl.uniform2f(resUniformLoc, canvas.width, canvas.height);
+      gl.uniform1i(imgUniformLoc, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+      let w = stream.videoWidth;
+      let h = stream.videoHeight;
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([0, 0, w, 0, 0, h, 0, h, w, 0, w, h]),
+        gl.STATIC_DRAW
+      );
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      requestAnimationFrame(() => render(stream));
     }
 
-    return data;
+    try {
+      let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      let video = document.createElement("video");
+      video.srcObject = stream;
+
+      console.log("before");
+      await video.play();
+      console.log("after");
+
+      _onResize = () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+      };
+      _onResize();
+
+      render(video);
+    } catch {
+      alert(
+        "Oops, we weren't able to get camera permissions. Try again later."
+      );
+    }
+  }
+
+  let vertex = `
+  #version 300 es
+
+  precision highp float;
+
+  in vec2 _pos;
+  in vec2 a_position;
+  in vec2 a_texCoord;
+  out vec2 v_texCoord;
+
+  uniform vec2 u_resolution;
+
+  void main() {
+    vec2 zeroToOne = a_position / u_resolution;
+    vec2 clipSpace = zeroToOne * 2.0 - 1.0;
+    gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+    v_texCoord = a_texCoord;
+  }
+  `;
+
+  let shader = `
+  #version 300 es
+
+  precision highp float;
+  uniform sampler2D u_image;
+
+  in vec2 v_texCoord;
+  out vec4 outColor;
+
+  vec3 hsl2rgb(vec3 c) {
+    vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
+
+    return c.z + c.y * (rgb - 0.5) * (1.0 - abs(2.0 * c.z - 1.0));
+  }
+
+  vec3 rgb2hsl(vec3 c) {
+    float h = 0.0;
+    float s = 0.0;
+    float l = 0.0;
+    float r = c.r;
+    float g = c.g;
+    float b = c.b;
+    float cMin = min(r, min(g, b));
+    float cMax = max(r, max(g, b));
+
+    l = (cMax + cMin) / 2.0;
+    if(cMax > cMin) {
+      float cDelta = cMax - cMin;
+      s = l < 0.0 ? cDelta / (cMax + cMin) : cDelta / (2.0 - (cMax + cMin));
+
+      if(r == cMax) {
+        h = (g - b) / cDelta;
+      } else if(g == cMax) {
+        h = 2.0 + (b - r) / cDelta;
+      } else {
+        h = 4.0 + (r - g) / cDelta;
+      }
+
+      if(h < 0.0) {
+        h += 6.0;
+      }
+      h = h / 6.0;
+    }
+    return vec3(h, s, l);
+  }
+
+  void main() {
+    vec4 image = texture(u_image, v_texCoord);
+    vec3 hsl = rgb2hsl(image.rgb);
+    vec3 rgb = hsl2rgb(vec3(hsl.x, 1, 0.5));
+
+    if(max(image.r, max(image.g, image.b)) - min(image.r, min(image.g, image.b)) <= 0.03125) {
+      float avg = (image.r + image.g + image.b) / 3.0;
+      rgb = vec3(avg, avg, avg);
+    }
+
+    outColor = vec4(rgb, image.a);
+  }
+  `;
+
+  let _onResize: (() => void) | undefined;
+  function onResize() {
+    _onResize?.();
   }
 </script>
 
 <template>
-  <CameraAdjuster :transform="transform" />
+  <FullscreenCanvas @ready="onReady" @resize="onResize" />
 </template>
