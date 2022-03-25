@@ -272,6 +272,10 @@ export let router = createRouter({
       component: () => import("@/views/MetaballView.vue"),
     },
     {
+      path: "/overcolor",
+      component: () => import("@/views/OvercolorView.vue"),
+    },
+    {
       path: "/practice/mult-div",
       component: () => import("@/views/MultDivQuizView.vue"),
     },

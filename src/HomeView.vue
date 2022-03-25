@@ -34,6 +34,12 @@
       keywords: "screensaver animation",
     },
     {
+      to: "/overcolor",
+      name: "Overcolorifier",
+      desc: "Remove any shading from the world around you and see the world as a set of pure color.",
+      keywords: "shading lightness darkness",
+    },
+    {
       to: "/english-is-weird",
       name: "English is Weird",
       desc: 'Learn about the quirks on English, including how the "ti" in "nation" is sounded as "sh".',
