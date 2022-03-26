@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+  import FullscreenDisplay from "@/components/FullscreenDisplay.vue";
+  import NavLink from "@/components/NavLink.vue";
   import { onMounted, ref } from "vue";
-  import FullscreenDisplay from "../components/FullscreenDisplay.vue";
-  import NavLink from "../components/NavLink.vue";
 
   let muted = ref(false);
   let camera = ref(true);
