@@ -11,7 +11,15 @@
 
   let _stream = new Promise<MediaStream>((resolve) => {
     onMounted(() => {
-      resolve(navigator.mediaDevices.getUserMedia({ video: true }));
+      resolve(
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            aspectRatio: {
+              ideal: innerWidth / innerHeight,
+            },
+          },
+        })
+      );
     });
   }).catch(() => {
     alert("Oops, we weren't able to get camera permissions. Try again later.");
