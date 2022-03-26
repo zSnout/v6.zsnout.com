@@ -22,7 +22,14 @@
 
   onMounted(() => {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({
+        video: {
+          aspectRatio: {
+            ideal: innerWidth / innerHeight,
+          },
+        },
+        audio: true,
+      })
       .then((stream) => {
         stream = stream;
 
