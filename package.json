@@ -14,7 +14,8 @@
     "pinia": "^2.0.12",
     "stockfish.js": "^10.0.2",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-ace-editor": "^2.2.2"
   },
   "devDependencies": {
     "@traptitech/markdown-it-katex": "^3.5.0",
