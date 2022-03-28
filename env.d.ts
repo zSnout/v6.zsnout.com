@@ -27,3 +27,11 @@ declare global {
     export default file;
   }
 }
+
+declare module "ace-builds" {
+  export function define(
+    name: string,
+    deps: string[],
+    factory: (...args: any[]) => void
+  ): void;
+}
