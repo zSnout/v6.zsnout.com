@@ -61,11 +61,18 @@
     margin-top: 1.75em;
   }
 
+  .form:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   .field {
     box-sizing: border-box;
     width: 100%;
     padding: 0.5em;
+    color: inherit;
     font-size: 1em;
+    background-color: var(--field-background);
     border: none;
     border-radius: 0.5em;
 
