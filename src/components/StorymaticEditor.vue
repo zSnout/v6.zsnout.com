@@ -7,7 +7,6 @@
     modelValue?: string;
     options?: Partial<ace.Ace.EditorOptions>;
     readonly?: boolean;
-    placeholder?: string;
   }>();
 
   let emit = defineEmits<{
@@ -124,7 +123,7 @@
   <AceEditor
     v-model:value="model"
     :options="{ mode: 'ace/mode/storymatic', ...options }"
-    :placeholder="placeholder"
     :readonly="readonly"
+    placeholder="Write a story..."
   />
 </template>
