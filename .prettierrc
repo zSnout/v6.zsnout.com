@@ -13,6 +13,7 @@
     "^:?ref$",
     "^:?key$",
     "^v-model$",
+    "^v-model:",
     "^:?class$",
     "^:",
     "$DEFAULT",
