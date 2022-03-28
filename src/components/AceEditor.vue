@@ -9,8 +9,10 @@
     options?: Partial<ace.Ace.EditorOptions>;
   }>();
 
-  let emit =
-    defineEmits<{ (event: "update:modelValue", value: string): void }>();
+  let emit = defineEmits<{
+    (event: "update:modelValue", value: string): void;
+    (event: "init", editor: ace.Ace.Editor): void;
+  }>();
 
   let model = computed<string>({
     get() {
@@ -22,6 +24,22 @@
   });
 
   ace.config.set("basePath", new URL("./", `file:${aceLoc}`).pathname);
+
+  function onInit(editor: ace.Ace.Editor) {
+    editor.commands.addCommand({
+      name: "save",
+      bindKey: { win: "Ctrl-S", mac: "Command-S" },
+      exec: () => {},
+    });
+
+    editor.commands.addCommand({
+      name: "options",
+      bindKey: { win: "Ctrl-,", mac: "Command-," },
+      exec: () => {},
+    });
+
+    emit("init", editor);
+  }
 </script>
 
 <template>
@@ -33,6 +51,7 @@
       :wrap="true"
       theme="cobalt"
       v-model:value="model"
+      @init="onInit"
     />
   </div>
 </template>
