@@ -7,6 +7,8 @@
   let props = defineProps<{
     modelValue?: string;
     options?: Partial<ace.Ace.EditorOptions>;
+    readonly?: boolean;
+    placeholder?: string;
   }>();
 
   let emit = defineEmits<{
@@ -45,12 +47,14 @@
 <template>
   <div class="ace-outer">
     <VAceEditor
+      v-model:value="model"
       class="ace-editor"
       :options="{ showGutter: false, tabSize: 2, ...options }"
+      :placeholder="placeholder"
       :print-margin="false"
+      :readonly="readonly"
       :wrap="true"
       theme="cobalt"
-      v-model:value="model"
       @init="onInit"
     />
   </div>
