@@ -1,7 +1,7 @@
 import App from "@/App.vue";
 import HomeView from "@/HomeView.vue";
 import { registerSW } from "virtual:pwa-register";
-import { createApp, defineAsyncComponent, type Component } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 Object.entries = Object.entries || entries;
