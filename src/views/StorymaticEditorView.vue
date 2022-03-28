@@ -1,22 +1,14 @@
 <script lang="ts" setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import StorymaticEditor from "@/components/StorymaticEditor.vue";
-  import TextConsole, { type Message } from "@/components/TextConsole.vue";
-  import { reactive } from "vue";
-
-  let messages: Message[] = reactive([]);
+  import StorymaticViewer from "@/components/StorymaticViewer.vue";
 </script>
 
 <template>
   <DocumentDisplay explicit-height>
     <div class="container">
       <StorymaticEditor class="editor" />
-
-      <TextConsole
-        class="console"
-        :messages="messages"
-        placeholder="Send messages to program..."
-      />
+      <StorymaticViewer class="viewer" />
     </div>
   </DocumentDisplay>
 </template>
@@ -36,7 +28,7 @@
     border-radius: 0.5em;
   }
 
-  .console {
+  .viewer {
     width: min(50%, 300px);
     overflow: scroll;
   }
