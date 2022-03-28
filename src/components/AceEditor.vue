@@ -25,9 +25,9 @@
 </script>
 
 <template>
-  <div class="editor-outer">
+  <div class="ace-outer">
     <VAceEditor
-      class="editor"
+      class="ace-editor"
       :options="{ showGutter: false, ...options }"
       :print-margin="false"
       :wrap="true"
@@ -40,7 +40,7 @@
 <style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
-  .editor-outer {
+  .ace-outer {
     box-sizing: border-box;
     padding: 0.5em 0.5em 0.5em 0.25em;
     background-color: #fff;
@@ -50,7 +50,7 @@
     }
   }
 
-  .editor :deep() {
+  .ace-editor :deep() {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
