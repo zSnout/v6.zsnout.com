@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import ace from "ace-builds";
-  import aceLoc from "ace-builds/src-noconflict/ace.js?url";
   import { computed } from "vue";
   import AceEditor from "./AceEditor.vue";
 
@@ -16,8 +14,6 @@
       emit("update:modelValue", value);
     },
   });
-
-  ace.config.set("basePath", new URL("./", `file:${aceLoc}`).pathname);
 </script>
 
 <template>
