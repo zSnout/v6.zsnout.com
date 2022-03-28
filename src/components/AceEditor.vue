@@ -46,7 +46,7 @@
   <div class="ace-outer">
     <VAceEditor
       class="ace-editor"
-      :options="{ showGutter: false, ...options }"
+      :options="{ showGutter: false, tabSize: 2, ...options }"
       :print-margin="false"
       :wrap="true"
       theme="cobalt"
