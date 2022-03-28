@@ -9,8 +9,10 @@
     readonly?: boolean;
     placeholder?: string;
   }>();
-  let emit =
-    defineEmits<{ (event: "update:modelValue", value: string): void }>();
+
+  let emit = defineEmits<{
+    (event: "update:modelValue", value: string): void;
+  }>();
 
   let model = computed<string>({
     get() {
@@ -121,16 +123,8 @@
 <template>
   <AceEditor
     v-model:value="model"
-    class="editor"
     :options="{ mode: 'ace/mode/storymatic', ...options }"
     :placeholder="placeholder"
     :readonly="readonly"
   />
 </template>
-
-<style scoped>
-  .editor {
-    width: 100%;
-    height: 100%;
-  }
-</style>
