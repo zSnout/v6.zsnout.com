@@ -11,7 +11,12 @@
   <DocumentDisplay explicit-height>
     <div class="container">
       <StorymaticEditor class="editor" />
-      <TextConsole class="console" :messages="messages" />
+
+      <TextConsole
+        class="console"
+        :messages="messages"
+        placeholder="Send messages to program..."
+      />
     </div>
   </DocumentDisplay>
 </template>
