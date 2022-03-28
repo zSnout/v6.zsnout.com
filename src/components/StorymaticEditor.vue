@@ -3,7 +3,12 @@
   import { computed } from "vue";
   import AceEditor from "./AceEditor.vue";
 
-  let props = defineProps<{ modelValue?: string }>();
+  let props = defineProps<{
+    modelValue?: string;
+    options?: Partial<ace.Ace.EditorOptions>;
+    readonly?: boolean;
+    placeholder?: string;
+  }>();
   let emit =
     defineEmits<{ (event: "update:modelValue", value: string): void }>();
 
@@ -115,9 +120,11 @@
 
 <template>
   <AceEditor
-    class="editor"
-    :options="{ mode: 'ace/mode/storymatic' }"
     v-model:value="model"
+    class="editor"
+    :options="{ mode: 'ace/mode/storymatic', ...options }"
+    :placeholder="placeholder"
+    :readonly="readonly"
   />
 </template>
 
