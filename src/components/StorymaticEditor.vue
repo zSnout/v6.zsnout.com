@@ -121,7 +121,7 @@
 
 <template>
   <AceEditor
-    v-model:value="model"
+    v-model="model"
     :options="{ mode: 'ace/mode/storymatic', ...options }"
     :readonly="readonly"
     placeholder="Write a story..."
