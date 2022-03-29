@@ -80,7 +80,14 @@
     }
 
     try {
-      let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      let stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          aspectRatio: {
+            ideal: canvas.width / canvas.height,
+          },
+        },
+      });
+
       let video = document.createElement("video");
       video.srcObject = stream;
       _stream = stream;
@@ -93,6 +100,7 @@
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
       };
+
       _onResize();
 
       render(video);
