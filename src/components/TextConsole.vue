@@ -84,6 +84,32 @@
 <style lang="scss" scoped>
   @use "@/assets/util.scss" as *;
 
+  .user,
+  .error {
+    font-style: italic;
+  }
+
+  .select {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .option {
+    flex-grow: 1;
+    padding: 0.25em 0.5em;
+    text-align: center;
+    background-color: var(--field-background);
+    border-radius: 0.25em;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .message {
+    margin-bottom: 0.25em;
+  }
+
   .form {
     position: sticky;
     bottom: 0;
