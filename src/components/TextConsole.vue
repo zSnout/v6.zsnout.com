@@ -26,7 +26,10 @@
     { messages: () => reactive([]) }
   );
 
-  let emit = defineEmits<{ (event: "field", value: string): void }>();
+  let emit = defineEmits<{
+    (event: "field", value: string): void;
+    (event: "select", name: string, key: string): void;
+  }>();
 
   let field = ref("");
   function onSubmit(event: Event) {
@@ -58,6 +61,7 @@
 
   function onOption(message: SelectMessage, key: string) {
     message.selected = key;
+    emit("select", message.name, key);
   }
 
   watch(messages, () => {
@@ -73,6 +77,7 @@
           <button
             v-for="(option, key) in message.options"
             :key="key"
+            :class="{ selected: message.selected == key }"
             class="option"
             :disabled="!!message.selected"
             @click="onOption(message, '' + key)"
@@ -129,6 +134,11 @@
       @include focus {
         border-color: var(--border-color);
       }
+    }
+
+    &.selected {
+      background-color: var(--field-strong-background);
+      border-color: var(--field-strong-background);
     }
   }
 
