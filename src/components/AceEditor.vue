@@ -48,6 +48,7 @@
   <div class="ace-outer">
     <VAceEditor
       v-model:value="model"
+      :class="{ readonly }"
       class="ace-editor"
       :options="{ showGutter: false, tabSize: 2, ...options }"
       :placeholder="placeholder"
@@ -71,6 +72,10 @@
     @include dark {
       background-color: #193549;
     }
+  }
+
+  .readonly.ace-editor :deep() .ace_cursor-layer {
+    display: none;
   }
 
   .ace-editor :deep() {
