@@ -31,6 +31,7 @@
     event.preventDefault();
 
     if (field.value.trim()) {
+      messages.push({ content: field.value.trim(), type: "user" });
       emit("field", field.value.trim());
       field.value = "";
     }
