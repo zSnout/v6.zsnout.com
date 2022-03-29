@@ -51,6 +51,7 @@
         v-model="javascript"
         class="javascript"
         :options="{ mode: 'ace/mode/javascript' }"
+        readonly
       />
     </div>
   </DocumentDisplay>
