@@ -42,6 +42,11 @@
     }
   }
 
+  ::placeholder {
+    color: inherit;
+    opacity: 0.5;
+  }
+
   [id] {
     scroll-margin-top: calc(3em + 13px + max(12px, env(safe-area-inset-top)));
   }
