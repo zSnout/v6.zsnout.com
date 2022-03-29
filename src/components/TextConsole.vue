@@ -1,23 +1,27 @@
 <script lang="ts" setup>
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
 
   export interface TextMessage {
     content: string;
+    hidden?: boolean;
     type: "info" | "error" | "user";
   }
 
   export interface DropdownMessage {
     content: string[];
+    hidden?: boolean;
     type: "dropdown";
   }
 
   export type Message = TextMessage | DropdownMessage;
 
-  let { messages } = defineProps<{
+  let props = defineProps<{
     messages?: Message[];
     placeholder?: string;
     root?: boolean;
   }>();
+
+  let { root } = props;
 
   let emit = defineEmits<{ (event: "field", value: string): void }>();
 
@@ -30,13 +34,36 @@
       field.value = "";
     }
   }
+
+  let consoleEl = ref<HTMLElement | null>(null);
+
+  function atBottom() {
+    let scroller = root ? document.documentElement : consoleEl.value;
+    if (!scroller) return false;
+
+    return (
+      scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 4
+    );
+  }
+
+  function scrollDown() {
+    let scroller = root ? document.documentElement : consoleEl.value;
+    if (!scroller) return;
+    scroller.scrollTop = scroller.scrollHeight;
+  }
+
+  watch(props, (value) => {
+    if (atBottom()) setTimeout(scrollDown);
+  });
 </script>
 
 <template>
-  <div :class="{ root }" class="console">
-    <div v-for="message in messages">
-      {{ message }}
-    </div>
+  <div ref="consoleEl" :class="{ root }" class="console">
+    <template v-for="(message, i) in messages" :key="i">
+      <div v-if="!message.hidden">
+        {{ message }}
+      </div>
+    </template>
 
     <form class="form" @submit="onSubmit">
       <input v-model="field" class="field" :placeholder="placeholder" />
