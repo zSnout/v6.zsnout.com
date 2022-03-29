@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { reactive, ref, watch } from "vue";
+  import { onMounted, reactive, ref, watch } from "vue";
 
   export interface TextMessage {
     content: string;
@@ -67,6 +67,8 @@
   watch(messages, () => {
     if (atBottom()) setTimeout(scrollDown);
   });
+
+  onMounted(scrollDown);
 </script>
 
 <template>
