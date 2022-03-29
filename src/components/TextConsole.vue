@@ -62,9 +62,17 @@
 <template>
   <div ref="consoleEl" :class="{ root }" class="console">
     <template v-for="(message, i) in messages" :key="i">
-      <div v-if="!message.hidden">
-        {{ message }}
-      </div>
+      <template v-if="!message.hidden">
+        <div v-if="message.type == 'select'" class="message select">
+          <span v-for="option in message.content" class="option">
+            {{ option }}
+          </span>
+        </div>
+
+        <div v-else :class="message.type" class="message">
+          {{ message.content }}
+        </div>
+      </template>
     </template>
 
     <form class="form" @submit="onSubmit">
