@@ -11,7 +11,7 @@
       return btoa(text.replace(/[^\x00-\xff]+/g, ""))
         .replace(/\+/g, "_")
         .replace(/\//g, "-")
-        .replace(/=/g, ".");
+        .replace(/=/g, "$");
     } catch {
       return "";
     }
@@ -20,7 +20,7 @@
   function decode(text: string) {
     try {
       return atob(
-        text.replace(/_/g, "+").replace(/-/g, "/").replace(/\./g, "=")
+        text.replace(/_/g, "+").replace(/-/g, "/").replace(/\$/g, "=")
       );
     } catch {
       return "";
@@ -30,8 +30,9 @@
   let story = ref(decode("" + (useRoute().params.code || "")));
 
   let interval = setInterval(() => {
-    router.replace(`/storymatic/editor/${encode(story.value)}`);
+    router.replace(`/storymatic/${encode(story.value)}`);
   }, 5000);
+
   onUnmounted(() => clearInterval(interval));
 </script>
 
