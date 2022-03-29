@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { reactive, ref, toRef, watch } from "vue";
+  import { reactive, ref, watch } from "vue";
 
   export interface TextMessage {
     content: string;
@@ -8,8 +8,10 @@
   }
 
   export interface SelectMessage {
-    content: string[];
+    options: { [key: string]: string };
+    name: string;
     hidden?: boolean;
+    selected?: string;
     type: "select";
   }
 
@@ -54,6 +56,10 @@
     scroller.scrollTop = scroller.scrollHeight;
   }
 
+  function onOption(message: SelectMessage, key: string) {
+    message.selected = key;
+  }
+
   watch(messages, () => {
     if (atBottom()) setTimeout(scrollDown);
   });
@@ -64,9 +70,15 @@
     <template v-for="(message, i) in messages" :key="i">
       <template v-if="!message.hidden">
         <div v-if="message.type == 'select'" class="message select">
-          <span v-for="option in message.content" class="option">
+          <button
+            v-for="(option, key) in message.options"
+            :key="key"
+            class="option"
+            :disabled="!!message.selected"
+            @click="onOption(message, '' + key)"
+          >
             {{ option }}
-          </span>
+          </button>
         </div>
 
         <div v-else :class="message.type" class="message">
@@ -89,25 +101,35 @@
     font-style: italic;
   }
 
+  .message {
+    margin-bottom: 0.25em;
+  }
+
   .select {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   .option {
     flex-grow: 1;
-    padding: 0.25em 0.5em;
+    padding: 0.375em 0.5em;
+    color: inherit;
+    font-size: inherit;
     text-align: center;
     background-color: var(--field-background);
+    border: 1px solid var(--field-background);
     border-radius: 0.25em;
     cursor: pointer;
     user-select: none;
-  }
 
-  .message {
-    margin-bottom: 0.25em;
+    &:not(:disabled) {
+      @include focus {
+        border-color: var(--border-color);
+      }
+    }
   }
 
   .form {
