@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ref, watch } from "vue";
+  import { reactive, ref, toRef, watch } from "vue";
 
   export interface TextMessage {
     content: string;
@@ -15,13 +15,14 @@
 
   export type Message = TextMessage | SelectMessage;
 
-  let props = defineProps<{
-    messages?: Message[];
-    placeholder?: string;
-    root?: boolean;
-  }>();
-
-  let { root } = props;
+  let { messages, root } = withDefaults(
+    defineProps<{
+      messages?: Message[];
+      placeholder?: string;
+      root?: boolean;
+    }>(),
+    { messages: () => reactive([]) }
+  );
 
   let emit = defineEmits<{ (event: "field", value: string): void }>();
 
@@ -52,7 +53,7 @@
     scroller.scrollTop = scroller.scrollHeight;
   }
 
-  watch(props, (value) => {
+  watch(messages, () => {
     if (atBottom()) setTimeout(scrollDown);
   });
 </script>
