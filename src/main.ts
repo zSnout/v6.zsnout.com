@@ -44,8 +44,28 @@ export let router = createRouter({
       component: () => import("@/views/blog/BlogArticleListView.vue"),
     },
     {
+      path: "/blog/calculating-weekdays",
+      component: () => import("@/views/blog/CalculatingWeekdays.md"),
+    },
+    {
+      path: "/blog/divisibility-rules",
+      component: () => import("@/views/blog/DivisibilityRules.md"),
+    },
+    {
+      path: "/blog/does-0-equal-1",
+      component: () => import("@/views/blog/Does0Equal1.md"),
+    },
+    {
+      path: "/blog/forcing-1089",
+      component: () => import("@/views/blog/Forcing1089.md"),
+    },
+    {
       path: "/blog/github-copilot-is-amazing",
       component: () => import("@/views/blog/GithubCopilotIsAmazingView.md"),
+    },
+    {
+      path: "/blog/infinity-is-minus-one-twelfth",
+      component: () => import("@/views/blog/InfinityIsMinusOneTwelfth.md"),
     },
     {
       path: "/blog/what-makes-zsnout-different",
@@ -256,26 +276,6 @@ export let router = createRouter({
       component: () => import("@/views/FrameOverlayView.vue"),
     },
     {
-      path: "/blog/calculating-weekdays",
-      component: () => import("@/views/blog/CalculatingWeekdays.md"),
-    },
-    {
-      path: "/blog/divisibility-rules",
-      component: () => import("@/views/blog/DivisibilityRules.md"),
-    },
-    {
-      path: "/blog/does-0-equal-1",
-      component: () => import("@/views/blog/Does0Equal1.md"),
-    },
-    {
-      path: "/blog/forcing-1089",
-      component: () => import("@/views/blog/Forcing1089.md"),
-    },
-    {
-      path: "/blog/infinity-is-minus-one-twelfth",
-      component: () => import("@/views/blog/InfinityIsMinusOneTwelfth.md"),
-    },
-    {
       path: "/metaballs",
       component: () => import("@/views/MetaballView.vue"),
     },
@@ -298,6 +298,22 @@ export let router = createRouter({
     {
       path: "/rainbow-noise/:chance",
       component: () => import("@/views/RainbowNoiseView.vue"),
+    },
+    {
+      path: "/storymatic",
+      component: () => import("@/views/StorymaticEditorView.vue"),
+    },
+    {
+      path: "/storymatic/:code",
+      component: () => import("@/views/StorymaticEditorView.vue"),
+    },
+    {
+      path: "/storymatic-to-javascript",
+      component: () => import("@/views/StorymaticJavaScriptView.vue"),
+    },
+    {
+      path: "/storymatic-to-javascript/:code",
+      component: () => import("@/views/StorymaticJavaScriptView.vue"),
     },
     {
       path: "/trope-highlighter",
