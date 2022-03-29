@@ -7,13 +7,13 @@
     type: "info" | "error" | "user";
   }
 
-  export interface DropdownMessage {
+  export interface SelectMessage {
     content: string[];
     hidden?: boolean;
-    type: "dropdown";
+    type: "select";
   }
 
-  export type Message = TextMessage | DropdownMessage;
+  export type Message = TextMessage | SelectMessage;
 
   let props = defineProps<{
     messages?: Message[];
