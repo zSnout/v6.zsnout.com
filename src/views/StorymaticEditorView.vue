@@ -2,12 +2,43 @@
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import StorymaticEditor from "@/components/StorymaticEditor.vue";
   import StorymaticViewer from "@/components/StorymaticViewer.vue";
+  import { router } from "@/main";
+  import { onUnmounted, ref } from "vue";
+  import { useRoute } from "vue-router";
+
+  function encode(text: string) {
+    try {
+      return btoa(text.replace(/[^\x00-\xff]+/g, ""))
+        .replace(/\+/g, "_")
+        .replace(/\//g, "-")
+        .replace(/=/g, ".");
+    } catch {
+      return "";
+    }
+  }
+
+  function decode(text: string) {
+    try {
+      return atob(
+        text.replace(/_/g, "+").replace(/-/g, "/").replace(/\./g, "=")
+      );
+    } catch {
+      return "";
+    }
+  }
+
+  let story = ref(decode("" + (useRoute().params.code || "")));
+
+  let interval = setInterval(() => {
+    router.replace(`/storymatic/editor/${encode(story.value)}`);
+  }, 5000);
+  onUnmounted(() => clearInterval(interval));
 </script>
 
 <template>
   <DocumentDisplay explicit-height>
     <div class="container">
-      <StorymaticEditor class="editor" />
+      <StorymaticEditor v-model="story" class="editor" />
       <StorymaticViewer class="viewer" />
     </div>
   </DocumentDisplay>
