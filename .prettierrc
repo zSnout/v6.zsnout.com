@@ -17,7 +17,7 @@
     "^:?class$",
     "^:",
     "$DEFAULT",
-    "^data-",
+    "^:?data-",
     "^@",
     "^v-html$",
     "^v-text$"
