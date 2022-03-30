@@ -120,16 +120,18 @@ async function $menu(
   messages = [""],
   /** @type {() => Promise<void> | void } */ cb = () => {}
 ) {
-  runAsync(async () => {
-    _print(...messages);
+  if (isAsyncRunning) return;
+  isAsyncRunning = true;
 
-    menu = Object.create(null);
-    options = Object.create(null);
-    await cb();
+  _print(...messages);
 
-    post({ type: "menu", options });
-    await menu[await onNextMessage()]?.();
-  });
+  menu = Object.create(null);
+  options = Object.create(null);
+  await cb();
+
+  post({ type: "menu", options });
+  isAsyncRunning = false;
+  await menu[await onNextMessage()]?.();
 }
 
 function $option(/** @type {any[]} */ [key, value = key] = [], cb = () => {}) {
