@@ -20,7 +20,8 @@
     "^:?data-",
     "^@",
     "^v-html$",
-    "^v-text$"
+    "^v-text$",
+    "^v-bind$"
   ],
   "attributeSort": "ASC",
   "bracketSameLine": false,
