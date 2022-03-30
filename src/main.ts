@@ -2,6 +2,7 @@ import App from "@/App.vue";
 import HomeView from "@/HomeView.vue";
 import { registerSW } from "virtual:pwa-register";
 import { createApp, defineAsyncComponent } from "vue";
+import { GlobalEvents } from "vue-global-events";
 import { createRouter, createWebHistory } from "vue-router";
 
 Object.entries = Object.entries || entries;
@@ -330,6 +331,7 @@ let Article = defineAsyncComponent(() => import("@/components/Article.vue"));
 
 export let app = createApp(App);
 app.component("Article", Article);
+app.component("GlobalEvents", GlobalEvents);
 app.use(router).mount("#app");
 
 registerSW({
@@ -356,5 +358,12 @@ declare global {
     entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
     entries<K extends string, V>(obj: { [X in K]?: V }): [K, V][];
     fromEntries<K extends string, V>(entries: [K, V][]): { [X in K]: V };
+  }
+}
+
+declare module "@vue/runtime-core" {
+  export interface GlobalComponents {
+    Article: typeof Article;
+    GlobalEvents: typeof GlobalEvents;
   }
 }
