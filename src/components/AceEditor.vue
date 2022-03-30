@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import ace from "ace-builds";
-  import aceLoc from "ace-builds/src-noconflict/ace.js?url";
+  import type ace from "ace-builds";
+  import "ace-builds/src-noconflict/theme-cobalt";
   import { computed } from "vue";
   import { VAceEditor } from "vue3-ace-editor";
 
@@ -25,8 +25,6 @@
     },
   });
 
-  ace.config.set("basePath", new URL("./", `file:${aceLoc}`).pathname);
-
   function onInit(editor: ace.Ace.Editor) {
     editor.commands.addCommand({
       name: "save",
@@ -50,7 +48,7 @@
       v-model:value="model"
       :class="{ readonly }"
       class="ace-editor"
-      :options="{ showGutter: false, tabSize: 2, ...options }"
+      :options="{ showGutter: false, tabSize: 2, ...options } as ace.Ace.EditorOptions"
       :placeholder="placeholder"
       :print-margin="false"
       :readonly="readonly"
