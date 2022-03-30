@@ -40,10 +40,37 @@
   }
 
   function run() {
-    code.value = _editor.getValue();
+    code.value = `#${Math.random()}\n${_editor.getValue()}`;
   }
 
-  let story = ref(decode("" + (useRoute().params.code || "")));
+  let story = ref(
+    decode("" + (useRoute().params.code || "")) ||
+      `# After working on a project, bookmark your page to save your code.
+
+# Surround text with quotation marks to print it.
+"Welcome to my program!"
+
+
+
+# Use @menu to create a menu the user can select from.
+# Add @option blocks to create menu items.
+
+@menu "What is your favorite ice cream flavor?"
+
+  @option "Chocolate"
+    "Well, I think that's an amazing flavor!"
+
+  @option "Vanilla"
+    "I like vanilla too!"
+
+  @option "Brussel sprout"
+    "You've got to be joking..."
+
+  @option "Other"
+    $flavor = @input "What flavor do you like?"
+    "Well, I guess |$flavor| is good too.
+`
+  );
   let code = ref(
     '"Press Ctrl-Enter or Cmd-Enter while in the editor to run your program."'
   );
