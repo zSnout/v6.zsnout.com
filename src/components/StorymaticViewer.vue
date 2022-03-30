@@ -4,8 +4,13 @@
   import { reactive, ref, toRef, watch } from "vue";
   import preload from "@/assets/sm-worker-preload?raw";
 
-  let props = defineProps<{ code: string }>();
   let placeholder = ref("Send messages to program...");
+  let props = defineProps<{
+    code: string;
+    autofocus?: boolean;
+  }>();
+
+  let { autofocus } = props;
 
   let _onField: ((value: string) => void) | undefined;
   function onField(value: string) {
@@ -68,6 +73,7 @@
         messages.push({ type: "info", content: line });
     } else if (data.type == "input") {
       let _worker = worker;
+      if (autofocus) messages.push({ type: "focus", where: "field" });
 
       _onField = (value) => {
         if (_worker != worker) return;
@@ -79,6 +85,7 @@
     } else if (data.type == "menu") {
       let name = "" + Math.random();
       messages.push({ name, type: "select", options: data.options || {} });
+      if (autofocus) messages.push({ type: "focus", where: "select" });
 
       let _worker = worker;
       _onSelect = (_name, key) => {
@@ -91,6 +98,7 @@
     } else if (data.type == "pause") {
       let _worker = worker;
       placeholder.value = "Press enter to continue...";
+      if (autofocus) messages.push({ type: "focus", where: "field" });
 
       let cb = () => {
         if (worker != _worker) return;
