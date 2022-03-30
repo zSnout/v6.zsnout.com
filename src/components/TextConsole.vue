@@ -89,6 +89,8 @@
           >
             {{ option }}
           </button>
+
+          <span class="option-cap" />
         </div>
 
         <div v-else :class="message.type" class="message">
@@ -125,7 +127,7 @@
 
   .option {
     flex-grow: 1;
-    padding: 0.375em 0.5em;
+    padding: 0.375em 1em;
     color: inherit;
     font-size: inherit;
     text-align: center;
@@ -145,6 +147,10 @@
       background-color: var(--field-strong-background);
       border-color: var(--field-strong-background);
     }
+  }
+
+  .option-cap {
+    flex-grow: 1000000000000;
   }
 
   .form {
