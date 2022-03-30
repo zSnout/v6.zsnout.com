@@ -2,20 +2,26 @@
   import { onMounted, reactive, ref, watch } from "vue";
 
   export interface TextMessage {
+    type: "info" | "error" | "user";
     content: string;
     hidden?: boolean;
-    type: "info" | "error" | "user";
   }
 
   export interface SelectMessage {
-    options: { [key: string]: string };
-    name: string;
-    hidden?: boolean;
-    selected?: string;
     type: "select";
+    name: string;
+    options: { [key: string]: string };
+    selected?: string;
+    hidden?: boolean;
   }
 
-  export type Message = TextMessage | SelectMessage;
+  export interface FocusMessage {
+    type: "focus";
+    where: "field" | "select";
+    hidden?: boolean;
+  }
+
+  export type Message = TextMessage | SelectMessage | FocusMessage;
 
   let { messages, root } = withDefaults(
     defineProps<{
@@ -67,7 +73,22 @@
     emit("select", message.name, key);
   }
 
+  let fieldEl = ref<HTMLInputElement | null>(null);
   watch(messages, () => {
+    let last = messages[messages.length - 1];
+    if (last && last.type == "focus" && !last.hidden) {
+      if (last.where == "field") fieldEl.value?.focus();
+
+      if (last.where == "select") {
+        if (!consoleEl.value) return;
+        let selects = consoleEl.value.getElementsByClassName("select");
+        let last = selects[selects.length - 1].children[0] as HTMLElement;
+        last?.focus();
+      }
+
+      return;
+    }
+
     if (atBottom()) setTimeout(scrollDown);
   });
 
@@ -77,7 +98,7 @@
 <template>
   <div ref="consoleEl" :class="{ root }" class="console">
     <template v-for="(message, i) in messages" :key="i">
-      <template v-if="!message.hidden">
+      <template v-if="message.type != 'focus' && !message.hidden">
         <div v-if="message.type == 'select'" class="message select">
           <button
             v-for="(option, key) in message.options"
@@ -100,7 +121,12 @@
     </template>
 
     <form class="form" @submit="onSubmit">
-      <input v-model="field" class="field" :placeholder="placeholder" />
+      <input
+        ref="fieldEl"
+        v-model="field"
+        class="field"
+        :placeholder="placeholder"
+      />
     </form>
   </div>
 </template>
