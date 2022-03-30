@@ -92,7 +92,7 @@
 
     <div class="container">
       <StorymaticEditor v-model="story" class="editor" @init="onInit" />
-      <StorymaticViewer class="viewer" :code="code" />
+      <StorymaticViewer class="viewer" :code="code" autofocus />
     </div>
   </DocumentDisplay>
 </template>
