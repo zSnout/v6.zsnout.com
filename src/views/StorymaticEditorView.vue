@@ -1,8 +1,10 @@
 <script lang="ts" setup>
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import NavLink from "@/components/NavLink.vue";
   import StorymaticEditor from "@/components/StorymaticEditor.vue";
   import StorymaticViewer from "@/components/StorymaticViewer.vue";
   import { router } from "@/main";
+  import type { Ace } from "ace-builds";
   import { onUnmounted, ref } from "vue";
   import { useRoute } from "vue-router";
 
@@ -27,7 +29,24 @@
     }
   }
 
+  let _editor: Ace.Editor;
+  function onInit(editor: Ace.Editor) {
+    _editor = editor;
+    editor.commands.addCommand({
+      name: "run",
+      bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
+      exec: run,
+    });
+  }
+
+  function run() {
+    code.value = _editor.getValue();
+  }
+
   let story = ref(decode("" + (useRoute().params.code || "")));
+  let code = ref(
+    '"Press Ctrl-Enter or Cmd-Enter while in the editor to run your program."'
+  );
 
   let interval = setInterval(() => {
     router.replace(`/storymatic/${encode(story.value)}`);
@@ -38,9 +57,13 @@
 
 <template>
   <DocumentDisplay explicit-height>
+    <template #nav>
+      <NavLink @click="run">Run Program</NavLink>
+    </template>
+
     <div class="container">
-      <StorymaticEditor v-model="story" class="editor" />
-      <StorymaticViewer class="viewer" />
+      <StorymaticEditor v-model="story" class="editor" @init="onInit" />
+      <StorymaticViewer class="viewer" :code="code" />
     </div>
   </DocumentDisplay>
 </template>
