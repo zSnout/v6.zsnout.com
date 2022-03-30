@@ -1,10 +1,10 @@
 <script lang="ts" setup>
   import { storyToJS } from "@/assets/storymatic";
   import TextConsole, { type Message } from "@/components/TextConsole.vue";
-  import { reactive, ref } from "vue";
+  import { reactive, ref, toRef, watch } from "vue";
   import preload from "@/assets/sm-worker-preload?raw";
 
-  let { code } = defineProps<{ code: string }>();
+  let props = defineProps<{ code: string }>();
   let placeholder = ref("Send messages to program...");
 
   let _onField: ((value: string) => void) | undefined;
@@ -23,7 +23,9 @@
   }
 
   let messages: Message[] = reactive([]);
-  let worker = createWorker(code, false);
+  let worker = createWorker(props.code, false);
+
+  watch(toRef(props, "code"), (code) => (worker = createWorker(code, true)));
 
   function isStringable(
     value: unknown
