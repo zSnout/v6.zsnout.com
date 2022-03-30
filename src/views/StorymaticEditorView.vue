@@ -83,6 +83,8 @@
 </script>
 
 <template>
+  <GlobalEvents @keydown.ctrl.enter="run" @keydown.meta.enter="run" />
+
   <DocumentDisplay explicit-height>
     <template #nav>
       <NavLink @click="run">Run Program</NavLink>
