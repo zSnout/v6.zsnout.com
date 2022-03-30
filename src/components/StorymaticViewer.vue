@@ -1,14 +1,20 @@
 <script lang="ts" setup>
   import { storyToJS } from "@/assets/storymatic";
   import TextConsole, { type Message } from "@/components/TextConsole.vue";
-  import { reactive } from "vue";
+  import { reactive, ref } from "vue";
   import preload from "@/assets/sm-worker-preload?raw";
 
   let { code } = defineProps<{ code: string }>();
+  let placeholder = ref("Send messages to program...");
 
   let _onField: ((value: string) => void) | undefined;
   function onField(value: string) {
     if (_onField) _onField(value);
+  }
+
+  let _onEnter: (() => void) | undefined;
+  function onEnter() {
+    if (_onEnter) _onEnter();
   }
 
   let _onSelect: ((name: string, key: string) => void) | undefined;
@@ -34,7 +40,13 @@
     if (value === null || value === undefined) return "";
     if (isStringable(value)) return "" + value;
     if (typeof value == "function") return `function ${value.name}()`;
-    if (Array.isArray(value)) return value.map(toString).join("\n");
+
+    if (Array.isArray(value))
+      return value
+        .map(toString)
+        .filter((e) => e)
+        .join("\n");
+
     if (typeof value == "object")
       return Object.keys(value)
         .map((key) => `${key}: ${(value as any)[key]}`)
@@ -53,21 +65,48 @@
       for (let line of printed.split("\n"))
         messages.push({ type: "info", content: line });
     } else if (data.type == "input") {
-      // Store worker variable in case worker changes
-
       let _worker = worker;
-      _onField = (value) => _worker?.postMessage(value);
+
+      _onField = (value) => {
+        if (_worker != worker) return;
+        _onField = undefined;
+
+        _worker?.postMessage(value);
+      };
     } else if (data.type == "menu") {
       let name = "" + Math.random();
       messages.push({ name, type: "select", options: data.options || {} });
 
       let _worker = worker;
-      _onSelect = (_name, key) => name == _name && _worker?.postMessage(key);
+      _onSelect = (_name, key) => {
+        if (worker != _worker) return;
+        _onSelect = undefined;
+
+        if (name == _name) _worker?.postMessage(key);
+      };
+    } else if (data.type == "pause") {
+      let _worker = worker;
+      placeholder.value = "Press enter to continue...";
+
+      let cb = () => {
+        if (worker != _worker) return;
+        _onEnter = undefined;
+        _onField = undefined;
+
+        _worker?.postMessage(undefined);
+        placeholder.value = "Send messages to program...";
+      };
+
+      _onEnter = cb;
+      _onField = cb;
+    } else if (data.type == "kill") {
+      worker?.terminate();
     }
   }
 
   function createWorker(code: string, checkOldWorker?: boolean) {
     if (checkOldWorker) worker?.terminate();
+    placeholder.value = "Send messages to program...";
     messages.map((value) => (value.hidden = true));
 
     try {
@@ -103,7 +142,8 @@
   <TextConsole
     class="console"
     :messages="messages"
-    placeholder="Send messages to program..."
+    :placeholder="placeholder"
+    @enter="onEnter"
     @field="onField"
     @select="onSelect"
   />
