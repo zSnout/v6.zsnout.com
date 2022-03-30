@@ -11,6 +11,7 @@
 
   let emit = defineEmits<{
     (event: "update:modelValue", value: string): void;
+    (event: "init", editor: ace.Ace.Editor): void;
   }>();
 
   let model = computed<string>({
@@ -125,5 +126,6 @@
     :options="{ mode: 'ace/mode/storymatic', ...options }"
     :readonly="readonly"
     placeholder="Write a story..."
+    @init="$emit('init', $event)"
   />
 </template>
