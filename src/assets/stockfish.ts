@@ -1,6 +1,8 @@
 import type { ChessInstance, ShortMove } from "chess.js";
 import Stockfish from "stockfish.js/stockfish.js?worker";
+import bookRaw from "./stockfish-book.txt?raw";
 
+let book = bookRaw.split("\n");
 let worker = new Stockfish();
 let onUciOk = waitUntilUciOk();
 
@@ -24,7 +26,26 @@ function waitUntilUciOk() {
   });
 }
 
+export function nextGMMove(game: ChessInstance) {
+  let pgn = game.pgn().replace(/\d+\. /g, "");
+  let moves = [
+    ...new Set(
+      book
+        .filter((e) => e.startsWith(pgn))
+        .map((e) => e.slice(pgn.length))
+        .map((e) => e.split(" ")[0] || e.split(" ")[1])
+        .filter((e) => e != "0-1" && e != "1-0" && e != "1/2-1/2" && e)
+    ),
+  ];
+
+  if (!moves.length) return null;
+  let move = moves[Math.floor(Math.random() * moves.length)];
+
+  return game.move(move) ? game.undo() : null;
+}
+
 export async function analyze(position: ChessInstance) {
+  let gmMove = nextGMMove(position);
   await onUciOk;
 
   return new Promise<ChessAnalysis>((resolve) => {
@@ -47,6 +68,8 @@ export async function analyze(position: ChessInstance) {
             to: match[2] as any,
             promotion: (match[3] || undefined) as any,
           };
+
+        if (gmMove) info.bestMove = gmMove;
 
         worker.removeEventListener("message", onMessage);
         resolve(info);
