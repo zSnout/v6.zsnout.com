@@ -33,13 +33,81 @@ function _print(/** @type {any[]} */ ...content) {
   post({ type: "print", content });
 }
 
-async function $input(/** @type {any[]} */ messages = []) {
+async function _simplePost(
+  type = "",
+  /** @type {any} */ defaultValue,
+  messages = [""]
+) {
   return runAsync(async () => {
     _print(...messages);
-    post({ type: "input" });
+    post({ type });
 
     return await onNextMessage();
-  }, "");
+  }, defaultValue);
+}
+
+async function $pause() {
+  return runAsync(async () => {
+    post({ type: "pause" });
+    await onNextMessage();
+  });
+}
+
+async function $input(messages = [""]) {
+  return _simplePost("input", "", messages);
+}
+
+async function $inputint(messages = [""]) {
+  return _simplePost("inputint", 0, messages);
+}
+
+async function $inputfloat(messages = [""]) {
+  return _simplePost("inputfloat", 0, messages);
+}
+
+async function $confirm(messages = [""]) {
+  return _simplePost("confirm", false, messages);
+}
+
+function $kill(messages = [""]) {
+  _print(messages);
+  post({ type: "kill" });
+}
+
+async function $wait([time] = [1]) {
+  return runAsync(async () => {
+    time = +time;
+    if (!isFinite(time) || time < 0) time = 0;
+    await new Promise((resolve) => setTimeout(resolve, 1000 * time));
+  });
+}
+
+function $random([min, max] = [0, 1]) {
+  min = +min;
+  max = +max;
+
+  if (!isFinite(min) || !isFinite(max)) return 0;
+  return Math.random() * (max - min) + min;
+}
+
+function $randint([min, max] = [0, 9]) {
+  min = +min;
+  max = +max;
+
+  if (!isFinite(min) || !isFinite(max)) return 0;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function* $range([min, max] = [1, NaN]) {
+  min = +min;
+  max = +max;
+
+  if (!isFinite(min)) return;
+  if (!isFinite(max)) [max, min] = [min, 0];
+
+  for (let i = min; i <= max; i++) {
+    yield i;
+  }
 }
 
 /** @type {{ [x: string]: string }} */
@@ -49,7 +117,7 @@ let options = {};
 let menu = {};
 
 async function $menu(
-  /** @type {any[]} */ messages = [],
+  messages = [""],
   /** @type {() => Promise<void> | void } */ cb = () => {}
 ) {
   runAsync(async () => {
