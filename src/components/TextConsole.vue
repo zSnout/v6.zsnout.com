@@ -76,18 +76,19 @@
   let fieldEl = ref<HTMLInputElement | null>(null);
   watch(messages, () => {
     let last = messages[messages.length - 1];
-    if (last && last.type == "focus" && !last.hidden) {
-      if (last.where == "field") fieldEl.value?.focus();
+    if (last && last.type == "focus" && !last.hidden)
+      return setTimeout(() => {
+        if (last.type != "focus") return;
 
-      if (last.where == "select") {
-        if (!consoleEl.value) return;
-        let selects = consoleEl.value.getElementsByClassName("select");
-        let last = selects[selects.length - 1].children[0] as HTMLElement;
-        last?.focus();
-      }
+        if (last.where == "field") fieldEl.value?.focus();
 
-      return;
-    }
+        if (last.where == "select") {
+          if (!consoleEl.value) return;
+          let selects = consoleEl.value.getElementsByClassName("select");
+          let last = selects[selects.length - 1].children[0] as HTMLElement;
+          last?.focus();
+        }
+      });
 
     if (atBottom()) setTimeout(scrollDown);
   });
