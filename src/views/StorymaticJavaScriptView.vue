@@ -1,12 +1,12 @@
 <script lang="ts" setup>
   import { storyToJS } from "@/assets/storymatic";
+  import AceEditor from "@/components/AceEditor.vue";
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import StorymaticEditor from "@/components/StorymaticEditor.vue";
-  import StorymaticViewer from "@/components/StorymaticViewer.vue";
   import { router } from "@/main";
+  import "ace-builds/src-noconflict/mode-javascript";
   import { onUnmounted, ref, watch } from "vue";
   import { useRoute } from "vue-router";
-  import AceEditor from "../components/AceEditor.vue";
 
   function encode(text: string) {
     try {
