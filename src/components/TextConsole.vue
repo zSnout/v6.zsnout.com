@@ -27,6 +27,7 @@
   );
 
   let emit = defineEmits<{
+    (event: "enter"): void;
     (event: "field", value: string): void;
     (event: "select", name: string, key: string): void;
   }>();
@@ -39,6 +40,8 @@
       messages.push({ content: field.value.trim(), type: "user" });
       emit("field", field.value.trim());
       field.value = "";
+    } else {
+      emit("enter");
     }
   }
 
