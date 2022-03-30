@@ -28,6 +28,11 @@
       desc: "Explore intricate images created using preset configurations of the Explorer.",
     },
     {
+      to: "/storymatic",
+      name: "Storymatic",
+      desc: "Try creating your own story in our simple programming language, Storymatic.",
+    },
+    {
       to: "/metaballs",
       name: "Metaballs",
       desc: "Watch this real-time animation of bouncing and merging circles. It's great as a screen saver.",
@@ -141,6 +146,11 @@
       name: "Illegal Chess vs. Stockfish",
       desc: "Since it's too good, let's give you a 'slight' advantage against Stockfish...",
       keywords: "bot perfect",
+    },
+    {
+      to: "/storymatic-to-javascript",
+      name: "Storymatic to JavaScript",
+      desc: "See how the Storymatic compiler translates your code into JavaScript.",
     },
     {
       to: "/frame",
