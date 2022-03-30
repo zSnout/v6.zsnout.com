@@ -74,6 +74,7 @@
         _onField = undefined;
 
         _worker?.postMessage(value);
+        _worker = undefined;
       };
     } else if (data.type == "menu") {
       let name = "" + Math.random();
@@ -85,6 +86,7 @@
         _onSelect = undefined;
 
         if (name == _name) _worker?.postMessage(key);
+        _worker = undefined;
       };
     } else if (data.type == "pause") {
       let _worker = worker;
@@ -96,6 +98,7 @@
         _onField = undefined;
 
         _worker?.postMessage(undefined);
+        _worker = undefined;
         placeholder.value = "Send messages to program...";
       };
 
