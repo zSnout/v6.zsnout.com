@@ -26,8 +26,9 @@
     offset: [xOffset: number, yOffset: number];
   }
 
-  let emit =
-    defineEmits<{ (event: "ready", info: CoordinateCanvasInfo): void }>();
+  let emit = defineEmits<{
+    (event: "ready", info: CoordinateCanvasInfo): void;
+  }>();
   let props = defineProps<{
     shader: string;
     showResetButton?: boolean;

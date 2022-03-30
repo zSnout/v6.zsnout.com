@@ -9,8 +9,10 @@
   import LogoWithNameLight from "./LogoWithNameLight.vue";
   import LogoWithNameDark from "./LogoWithNameDark.vue";
 
-  let { breakpoint } =
-    defineProps<{ breakpoint?: number; floating?: boolean }>();
+  let { breakpoint } = defineProps<{
+    breakpoint?: number;
+    floating?: boolean;
+  }>();
   let bp = mediaRef(`(max-width: ${breakpoint || 415}px)`);
 
   watch(bp, (val) => {

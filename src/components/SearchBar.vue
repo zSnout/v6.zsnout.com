@@ -10,8 +10,10 @@
     keywords?: string;
   }
 
-  let { links, autofocus } =
-    defineProps<{ links: Link[]; autofocus?: boolean }>();
+  let { links, autofocus } = defineProps<{
+    links: Link[];
+    autofocus?: boolean;
+  }>();
 
   for (let link of links) {
     let keywords = link.keywords?.split(/\s+/) || [];
