@@ -1,0 +1,17 @@
+name: combine
+"on":
+  pull_request:
+jobs:
+  combine-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3
+      - name: Combine Dependabot PRs
+        uses: mAAdhaTTah/combine-dependabot-prs@v1.0.5
+        with:
+          branchPrefix: "dependabot"
+          mustBeGreen: true
+          combineBranchName: "combined-prs"
+          baseBranch: "main"
+          openPR: true
+          allowSkipped: false
