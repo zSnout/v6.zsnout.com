@@ -140,6 +140,7 @@
     &:not(:disabled) {
       @include focus {
         border-color: var(--border-color);
+        outline: none;
       }
     }
 
@@ -175,14 +176,15 @@
   .field {
     box-sizing: border-box;
     width: 100%;
-    padding: 0.5em;
+    padding: 0.5em 1em;
     color: inherit;
     font-size: 1em;
     background-color: var(--field-background);
-    border: none;
+    border: 1px solid var(--field-background);
     border-radius: 0.5em;
 
     @include focus {
+      border-color: var(--border-color);
       outline: none;
     }
   }
