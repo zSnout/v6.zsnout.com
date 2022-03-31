@@ -26,9 +26,10 @@
   if (!isFinite(iterations) || iterations < 5) iterations = 50;
   iterations = Math.floor(iterations);
 
+  let themeCount = 15;
   let theme = +params.theme;
-  if (!isFinite(theme) || theme < 0 || theme >= 14) theme = 0;
-  theme = Math.floor(theme) % 14;
+  if (!isFinite(theme) || theme < 0 || theme >= themeCount) theme = 0;
+  theme = Math.floor(theme) % themeCount;
 
   let _changeTheme: (() => void) | undefined;
   let _changeEquation: (() => void) | undefined;
@@ -63,7 +64,7 @@
     loadCode("" + coords);
 
     _changeTheme = () => {
-      theme = (theme + 1) % 14;
+      theme = (theme + 1) % themeCount;
 
       gl.uniform1i(colorModeLoc, theme);
       render();
@@ -123,6 +124,16 @@
 
   function changeTheme() {
     if (_changeTheme) _changeTheme();
+  }
+
+  function prevTheme(event: Event) {
+    event.preventDefault();
+
+    if (_changeTheme) {
+      theme += themeCount - 2;
+      theme = theme % themeCount;
+      _changeTheme();
+    }
   }
 
   function changeEquation() {
@@ -208,7 +219,7 @@
       vec2 z, pz, ppz, nz;
       vec3 sz;
 
-      if(colorMode == 7 || colorMode == 8) {
+      if(colorMode == 8 || colorMode == 9) {
         z = c;
         for(int i = 0; i < maxIterations; i++) {
           ppz = pz;
@@ -216,7 +227,7 @@
           z = ieq;
         }
 
-        if(colorMode == 8 && z.y <= 0.0)
+        if(colorMode == 9 && z.y <= 0.0)
           return vec4(sz, (atan(z.y, z.x) / 3.14159265) + 0.25);
         else
           return vec4(sz, atan(z.y, z.x) / 3.14159265);
@@ -235,7 +246,7 @@
         sz.y += dot(z - pz, z - pz);
         sz.z += dot(z - ppz, z - ppz);
 
-        if (colorMode == 13) {
+        if (colorMode == 14) {
           if(pos.x >= 0.0 && pos.y < 0.0) {
             sz -= sign(vec3(float(z), float(pz), float(ppz)));
           } else if(pos.x < 0.0 && pos.y >= 0.0) {
@@ -243,11 +254,11 @@
           } else if(pos.x < 0.0 && pos.y < 0.0) {
             sz += z.yxx;
           }
-        } else if(colorMode == 2 || colorMode == 5) {
-          sz -= sign(vec3(float(z), float(pz), float(ppz)));
         } else if(colorMode == 3 || colorMode == 6) {
+          sz -= sign(vec3(float(z), float(pz), float(ppz)));
+        } else if(colorMode == 4 || colorMode == 7) {
           sz += sign(vec3(float(z), float(pz), float(ppz)));
-        } else if(colorMode == 4) {
+        } else if(colorMode == 5) {
           sz += z.yxx;
         }
       }
@@ -260,13 +271,13 @@
       vec2 sz = vec2(0, 0);
       for(int i = 0; i < maxIterations; i++) {
         z = ieq;
-        if(colorMode == 9)
+        if(colorMode == 10)
           sz = sin(mult(z, sz)) + cos(sz) + cos(z);
-        else if(colorMode == 10)
-          sz = sin(sz + z) + cos(sz) + z;
         else if(colorMode == 11)
-          sz = cos(mult(sz, z)) + cos(sz) + z;
+          sz = sin(sz + z) + cos(sz) + z;
         else if(colorMode == 12)
+          sz = cos(mult(sz, z)) + cos(sz) + z;
+        else if(colorMode == 13)
           sz = sin(mult(sz, z)) + cos(z);
       }
 
@@ -276,7 +287,7 @@
     void main() {
       vec2 c = convert(pos);
 
-      if (colorMode >= 9 && colorMode <= 12) {
+      if (colorMode >= 10 && colorMode <= 13) {
         vec2 sz = runNewton2(c);
         color = vec4(newtonPalette(atan(sz.y / sz.x)), 1);
         return;
@@ -288,13 +299,17 @@
       float iterations = res.w;
 
       float frac = float(iterations) / float(maxIterations);
-      if(colorMode == 7 || colorMode == 8) {
+      if(colorMode == 8 || colorMode == 9) {
         color = vec4(hsl2rgb(vec3(iterations, 1, 0.5)), 1);
-      } else if(frac < 1.0 && (colorMode == 0)) {
-        color = vec4(palette(frac), 1);
-      } else if(colorMode == 0) {
+      } else if(frac < 1.0 && colorMode == 0) {
+        color = vec4(palette(iterations * 0.01), 1);
+      } else if(frac < 1.0 && colorMode == 1) {
+        float n1 = sin(iterations * 0.1) * 0.5 + 0.5;
+        float n2 = cos(iterations * 0.1) * 0.5 + 0.5;
+        color = vec4(n1, n2, 1, 1);
+      } else if(colorMode == 0 || colorMode == 1) {
         color = vec4(0, 0, 0, 1);
-      } else if(colorMode == 5 || colorMode == 6) {
+      } else if(colorMode == 6 || colorMode == 7) {
         color = vec4(palette(atan(sz.x, sz.y) / 3.14159265359), 1);
       } else {
         sz = abs(sz) / float(iterations);
@@ -346,6 +361,7 @@
       <NavLink
         title="Changes the theme between standard mode, four rainbow mode, two exterior hue modes, and two interior hue modes."
         @click="changeTheme"
+        @contextmenu="prevTheme"
         >Theme</NavLink
       >
     </template>
