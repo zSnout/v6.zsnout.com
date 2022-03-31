@@ -6,6 +6,7 @@
     "In the Fractal Generator, you can right-click to save a picture on desktop.",
     "Copy the URL of a chess page (standard or auto flip) to save your game.",
     "You're looking at the sixth major version of zSnout.",
+    'Right-click the giant "zSnout" icon to choose a new theme.',
   ];
 
   let today = new Date();

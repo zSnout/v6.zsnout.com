@@ -8,6 +8,7 @@
   import SafeAreaTB from "./SafeAreaTB.vue";
   import LogoWithNameLight from "./LogoWithNameLight.vue";
   import LogoWithNameDark from "./LogoWithNameDark.vue";
+  import { createModal } from "@/assets/modal";
 
   let { breakpoint } = defineProps<{
     breakpoint?: number;
@@ -38,13 +39,30 @@
       setTimeout(() => (isNavDrawerVisible.value = true));
     }
   }
+
+  async function changeTheme(event: MouseEvent) {
+    event.preventDefault();
+
+    let modal = await createModal("What theme do you want to use?", [
+      { content: "Light", value: "light" },
+      { content: "Dark", value: "dark" },
+      { content: "Match System", value: "system" },
+    ]);
+
+    if (typeof modal == "string") {
+      try {
+        localStorage.theme = modal;
+        window.dispatchEvent(new StorageEvent("storage"));
+      } catch {}
+    }
+  }
 </script>
 
 <template>
   <nav :class="{ navigation: true, floating }">
     <SafeAreaLR>
       <div class="aligner">
-        <RouterLink class="logo-link" to="/">
+        <RouterLink class="logo-link" to="/" @contextmenu="changeTheme">
           <LogoWithNameLight class="logo logo-light" alt="zSnout logo" />
           <LogoWithNameDark class="logo logo-dark" alt="zSnout logo" />
         </RouterLink>

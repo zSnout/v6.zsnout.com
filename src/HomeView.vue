@@ -3,6 +3,7 @@
   import DocumentDisplay from "@/components/DocumentDisplay.vue";
   import SearchBar, { type Link } from "@/components/SearchBar.vue";
   import Title from "@/components/Title.vue";
+  import { createModal } from "./assets/modal";
 
   let links: Link[] = [
     {
@@ -156,6 +157,24 @@
       to: "/frame",
       name: "Click Only",
       desc: "Try limiting yourself to exploring zSnout using only your keyboard and left-clicks.",
+    },
+    {
+      to: async () => {
+        let modal = await createModal("What theme do you want to use?", [
+          { content: "Light", value: "light" },
+          { content: "Dark", value: "dark" },
+          { content: "Match System", value: "system" },
+        ]);
+
+        if (typeof modal == "string") {
+          try {
+            localStorage.theme = modal;
+            window.dispatchEvent(new StorageEvent("storage"));
+          } catch {}
+        }
+      },
+      name: "Change Theme",
+      desc: "Change zSnout's theme to light, dark, or match your system's theme.",
     },
     {
       to: "https://github.com/zSnout",
