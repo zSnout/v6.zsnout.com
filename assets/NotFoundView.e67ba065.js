@@ -1,0 +1,1 @@
+import{o as a,c as t,w as e,D as o,j as s,N as c,b as n,a as l}from"./index.0af3fccd.js";const r=n("Home"),_=l("h1",null,"Well, you've found a broken link...",-1),f={setup(u){return(d,i)=>(a(),t(o,null,{nav:e(()=>[s(c,{to:"/"},{default:e(()=>[r]),_:1})]),default:e(()=>[_]),_:1}))}};export{f as default};
