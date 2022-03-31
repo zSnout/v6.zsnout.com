@@ -120,19 +120,13 @@
     border: none;
     border-radius: 4px;
     box-shadow: 0 0 6px 1px var(--shadow-color);
-    transition: box-shadow 0.3s;
 
     &::-webkit-search-cancel-button {
       display: none;
     }
 
     @include focus {
-      outline: 0;
-      box-shadow: var(--accent-color-light) 0 0 6px 1px;
-
-      @include dark {
-        box-shadow: #fff8 0 0 6px 1px;
-      }
+      outline: 1px solid var(--border-color);
     }
   }
 

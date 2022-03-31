@@ -34,10 +34,9 @@
     border-radius: 4px;
     box-shadow: 0 3px 6px 1px var(--shadow-color);
     cursor: pointer;
-    transition: box-shadow 0.3s;
 
     @include focus {
-      box-shadow: 0 0 6px 2px var(--accent-color-light);
+      outline: 1px solid var(--border-color);
     }
   }
 
