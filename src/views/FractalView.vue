@@ -1,3 +1,8 @@
+<!--
+  Inspired by CodeParade's https://github.com/HackerPoet/FractalSoundExplorer.
+  Some code was used from https://github.com/NSGolova/FractalSoundWeb.
+-->
+
 <script lang="ts" setup>
   import { getCookie, setCookie } from "@/assets/cookie";
   import { rpnToGLSL, toReversePolish } from "@/assets/glsl-math";
