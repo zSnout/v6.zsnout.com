@@ -205,7 +205,7 @@ export let router = createRouter({
         },
         {
           path: "flower",
-          redirect: "/fractal/z^2+z+c/2/1",
+          redirect: "/fractal/z^2+z+c/2/4",
         },
         {
           path: "raindrop",
@@ -213,11 +213,11 @@ export let router = createRouter({
         },
         {
           path: "telescope",
-          redirect: "/fractal/z^2+z+1%2Fc/2/1",
+          redirect: "/fractal/z^2+z+1%2Fc/2/5",
         },
         {
           path: "sunlight",
-          redirect: "/fractal/z^2-z+1%2Fc/2/2/50/-4,4,-4,4",
+          redirect: "/fractal/z^2-z+1%2Fc/2/6/50/-4,4,-4,4",
         },
         {
           path: "snowflake",
@@ -225,7 +225,7 @@ export let router = createRouter({
         },
         {
           path: "puddles",
-          redirect: "/fractal/(z^3+1)%2F(cz^2+1)/2/2/50/-8,8,-8,8",
+          redirect: "/fractal/(z^3+1)%2F(cz^2+1)/2/4/50/-8,8,-8,8",
         },
         {
           path: "mandelball",
