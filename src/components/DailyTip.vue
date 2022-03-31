@@ -7,6 +7,7 @@
     "Copy the URL of a chess page (standard or auto flip) to save your game.",
     "You're looking at the sixth major version of zSnout.",
     'Right-click the giant "zSnout" icon to choose a new theme.',
+    'Right-click the "Theme" button in the Fractal Explorer to go to the previous theme.',
   ];
 
   let today = new Date();
