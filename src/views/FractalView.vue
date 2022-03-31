@@ -376,7 +376,7 @@
       >
 
       <NavLink
-        title="Changes the theme between standard mode, four rainbow mode, two exterior hue modes, and two interior hue modes."
+        :title="`Toggle between ${themeCount} different themes available for our amazing fractals.`"
         @click="changeTheme"
         @contextmenu="prevTheme"
         >Theme</NavLink
