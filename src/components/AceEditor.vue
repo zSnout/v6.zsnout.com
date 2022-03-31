@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-  import type ace from "ace-builds";
+  import "ace-builds";
+  import type { Ace } from "ace-builds";
   import "ace-builds/src-noconflict/theme-cobalt";
   import { computed } from "vue";
   import { VAceEditor } from "vue3-ace-editor";
 
   let props = defineProps<{
     modelValue?: string;
-    options?: Partial<ace.Ace.EditorOptions>;
+    options?: Partial<Ace.EditorOptions>;
     readonly?: boolean;
     placeholder?: string;
   }>();
 
   let emit = defineEmits<{
     (event: "update:modelValue", value: string): void;
-    (event: "init", editor: ace.Ace.Editor): void;
+    (event: "init", editor: Ace.Editor): void;
   }>();
 
   let model = computed<string>({
@@ -25,7 +26,7 @@
     },
   });
 
-  function onInit(editor: ace.Ace.Editor) {
+  function onInit(editor: Ace.Editor) {
     editor.commands.addCommand({
       name: "save",
       bindKey: { win: "Ctrl-S", mac: "Command-S" },
@@ -48,7 +49,7 @@
       v-model:value="model"
       :class="{ readonly }"
       class="ace-editor"
-      :options="{ showGutter: false, tabSize: 2, ...options } as ace.Ace.EditorOptions"
+      :options="{ showGutter: false, tabSize: 2, ...options }"
       :placeholder="placeholder"
       :print-margin="false"
       :readonly="readonly"
