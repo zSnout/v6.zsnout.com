@@ -172,13 +172,9 @@
 
     .floating & {
       padding: 0.5em;
-      background-color: #fff4;
+      background-color: #fff8;
       border-radius: 0.5em;
       backdrop-filter: blur(0.5em);
-
-      @supports not (backdrop-filter: blur(0.5em)) {
-        background-color: #fff8;
-      }
 
       @include dark {
         background-color: #0004;
