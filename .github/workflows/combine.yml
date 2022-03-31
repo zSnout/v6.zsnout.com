@@ -1,6 +1,6 @@
 name: combine
 "on":
-  pull_request:
+  workflow_dispatch:
 jobs:
   combine-prs:
     runs-on: ubuntu-latest
