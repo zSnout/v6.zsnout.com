@@ -367,3 +367,16 @@ declare module "@vue/runtime-core" {
     GlobalEvents: typeof GlobalEvents;
   }
 }
+
+let { classList } = document.documentElement;
+function applyTheme() {
+  try {
+    let { theme } = localStorage;
+
+    classList.remove("theme-light", "theme-dark");
+    if (theme == "light" || theme == "dark") classList.add(`theme-${theme}`);
+  } catch {}
+}
+
+applyTheme();
+window.addEventListener("storage", applyTheme);
