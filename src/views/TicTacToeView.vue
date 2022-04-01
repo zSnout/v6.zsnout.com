@@ -150,6 +150,7 @@
 
   <DocumentDisplay explicit-height flexbox>
     <template #nav>
+      <NavLink @click="playAIAsHuman">Best Move</NavLink>
       <NavLink @click="reset">Reset</NavLink>
     </template>
 
