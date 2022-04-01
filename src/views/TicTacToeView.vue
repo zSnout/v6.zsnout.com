@@ -11,7 +11,7 @@
     [0, 0, 0],
   ];
 
-  let output = reactive([
+  let output: Square[][] = reactive([
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
@@ -37,13 +37,13 @@
     return board.every((row) => row.every((cell) => cell));
   }
 
-  function score(player: Player): [score: Square, move?: Move] {
+  function score(player: Player): [score: Square, moves?: Move[]] {
     if (hasPlayerWon(player)) return [1];
     if (hasPlayerWon(-player as Player)) return [-1];
     if (isBoardFull()) return [0];
 
     let best = -1;
-    let move: Move = [-2, -2];
+    let moves: Move[] = [];
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -52,13 +52,14 @@
           let next = -score(-player as Player)[0];
           board[i][j] = 0;
 
+          if (next > best) moves = [];
           best = Math.max(best, next);
-          if (next == best) move = [i, j];
+          if (next == best) moves.push([i, j]);
         }
       }
     }
 
-    return [best as Square, move];
+    return [best as Square, moves];
   }
 
   function updateOutput() {
@@ -69,28 +70,64 @@
     }
   }
 
-  function playAIMove() {
-    let [, move] = score(1);
-    if (!move) return;
-    board[move[0]][move[1]] = 1;
+  function playAIMove(player: Player = 1) {
+    let [, moves] = score(player);
+    if (!moves || !moves.length) return;
+    let move = moves[Math.floor(Math.random() * moves.length)];
+    board[move[0]][move[1]] = player;
     isHumanTurn = true;
     updateOutput();
+  }
+
+  function playAIAsHuman() {
+    if (hasPlayerWon(1) || hasPlayerWon(-1) || isBoardFull()) return;
+    if (!isHumanTurn) return;
+    playAIMove(-1);
+    isHumanTurn = false;
+    setTimeout(playAIMove, 500);
   }
 
   function playMove(col: number, row: number) {
     if (hasPlayerWon(1) || hasPlayerWon(-1) || isBoardFull()) return;
     if (board[col][row] !== 0) return;
+    if (!isHumanTurn) return;
     isHumanTurn = false;
     board[col][row] = -1;
     updateOutput();
     setTimeout(playAIMove, 500);
   }
+
+  function charFor(cellValue: Square, col: number, row: number) {
+    if (cellValue === -1) return "X";
+    if (cellValue === 1) return "O";
+
+    return String.fromCharCode(65 + 3 * col + row);
+  }
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key.length != 1) return;
+
+    let char = event.key.charCodeAt(0);
+    if (65 <= char && char <= 74) char -= 65;
+    else if (97 <= char && char <= 106) char -= 97;
+    else return;
+
+    event.preventDefault();
+    if (char == 9) return playAIAsHuman();
+
+    let row = char % 3;
+    let col = Math.floor(char / 3);
+    playMove(col, row);
+  }
 </script>
 
 <template>
+  <GlobalEvents @keydown="onKeyDown" />
+
   <DocumentDisplay explicit-height flexbox>
     <div class="board">
-      <div v-for="(row, i) in output" :key="i" class="row">
+      <template v-for="(row, i) in output" :key="i">
         <span
           v-for="(cell, j) in row"
           :key="j"
@@ -98,16 +135,20 @@
           @click="playMove(i, j)"
         >
           <span :class="cell == -1 ? 'x' : cell == 1 ? 'o' : 'n'" class="cell">
-            {{ cell == -1 ? "X" : cell == 1 ? "O" : "N" }}
+            {{ charFor(cell, i, j) }}
           </span>
         </span>
-      </div>
+      </template>
     </div>
   </DocumentDisplay>
 </template>
 
 <style lang="scss" scoped>
   .board {
+    display: grid;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    gap: 4px;
     font-weight: bold;
     font-size: 4em;
     background-color: var(--border-color);
@@ -117,10 +158,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
-    margin-right: 4px;
-    margin-bottom: 4px;
+    box-sizing: border-box;
     background-color: var(--background);
     cursor: pointer;
     -webkit-user-select: none;
@@ -136,6 +174,8 @@
   }
 
   .n {
-    color: transparent;
+    margin: auto;
+    font-size: 0.5em;
+    opacity: 0.25;
   }
 </style>
