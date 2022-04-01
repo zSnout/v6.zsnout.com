@@ -160,6 +160,10 @@ export let router = createRouter({
       component: () => import("@/views/ColorRemoverView.vue"),
     },
     {
+      path: "/connect-four",
+      component: () => import("@/views/ConnectFourView.vue"),
+    },
+    {
       path: "/english-is-weird",
       component: () => import("@/views/EnglishIsWeirdView.vue"),
     },
