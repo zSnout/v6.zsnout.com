@@ -317,6 +317,10 @@ export let router = createRouter({
       component: () => import("@/views/StorymaticJavaScriptView.vue"),
     },
     {
+      path: "/tictactoe",
+      component: () => import("@/views/TicTacToeView.vue"),
+    },
+    {
       path: "/trope-highlighter",
       component: () => import("@/views/TropeHighlighterView.vue"),
     },
