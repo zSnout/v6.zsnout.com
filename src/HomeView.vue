@@ -58,6 +58,12 @@
       keywords: "color syntax highlighting",
     },
     {
+      to: "/tictactoe",
+      name: "TicTacToe",
+      desc: "Play TicTacToe against our unbeatable computer. See if there's a way in...",
+      keywords: "game ai computer",
+    },
+    {
       to: "/color-remover",
       name: "Color Remover",
       desc: "Remove red, green, or blue from the world around you with our simple application.",
