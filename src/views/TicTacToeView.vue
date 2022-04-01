@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+  import DocumentDisplay from "@/components/DocumentDisplay.vue";
+  import NavLink from "@/components/NavLink.vue";
   import { reactive } from "vue";
-  import DocumentDisplay from "../components/DocumentDisplay.vue";
-  import NavLink from "../components/NavLink.vue";
   type Player = 1 | -1;
   type Square = 0 | Player;
   type Move = [col: number, row: number];
