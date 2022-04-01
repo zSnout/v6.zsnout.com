@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import { reactive } from "vue";
   import DocumentDisplay from "../components/DocumentDisplay.vue";
+  import NavLink from "../components/NavLink.vue";
   type Player = 1 | -1;
   type Square = 0 | Player;
   type Move = [col: number, row: number];
@@ -71,6 +72,7 @@
   }
 
   function playAIMove(player: Player = 1) {
+    if (isHumanTurn) return;
     let [, moves] = score(player);
     if (!moves || !moves.length) return;
     let move = moves[Math.floor(Math.random() * moves.length)];
@@ -108,17 +110,37 @@
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key.length != 1) return;
 
+    if (event.key == "R" || event.key == "r") {
+      event.preventDefault();
+      return reset();
+    }
+
+    if (event.key == "J" || event.key == "j") {
+      event.preventDefault();
+      return playAIAsHuman();
+    }
+
     let char = event.key.charCodeAt(0);
     if (65 <= char && char <= 74) char -= 65;
     else if (97 <= char && char <= 106) char -= 97;
     else return;
 
     event.preventDefault();
-    if (char == 9) return playAIAsHuman();
 
     let row = char % 3;
     let col = Math.floor(char / 3);
     playMove(col, row);
+  }
+
+  function reset() {
+    board = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
+
+    isHumanTurn = true;
+    updateOutput();
   }
 </script>
 
@@ -126,6 +148,10 @@
   <GlobalEvents @keydown="onKeyDown" />
 
   <DocumentDisplay explicit-height flexbox>
+    <template #nav>
+      <NavLink @click="reset">Reset</NavLink>
+    </template>
+
     <div class="board">
       <template v-for="(row, i) in output" :key="i">
         <span
