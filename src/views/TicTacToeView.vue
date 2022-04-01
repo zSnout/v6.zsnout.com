@@ -84,6 +84,7 @@
   function playAIAsHuman() {
     if (hasPlayerWon(1) || hasPlayerWon(-1) || isBoardFull()) return;
     if (!isHumanTurn) return;
+    isHumanTurn = false;
     playAIMove(-1);
     isHumanTurn = false;
     setTimeout(playAIMove, 500);
