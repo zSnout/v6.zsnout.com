@@ -82,6 +82,11 @@
       keywords: "quiz squares numbers",
     },
     {
+      to: "/connect-four",
+      name: "Connect Four vs. AI",
+      desc: "Play Connect 4 against a computer. See if there's a way you can beat it...",
+    },
+    {
       to: "/fake-gradient",
       name: "Fake Gradient",
       desc: "Ever wondered if you could make a gradient from a barcode? Try it out here.",
