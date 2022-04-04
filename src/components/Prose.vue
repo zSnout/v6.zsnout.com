@@ -86,6 +86,38 @@
       margin-bottom: 0.5em;
     }
 
+    details {
+      margin-bottom: 0.5em;
+
+      > summary:first-child {
+        list-style-type: none;
+        cursor: pointer;
+        user-select: none;
+
+        &::-webkit-details-marker,
+        &::marker {
+          display: none;
+        }
+
+        &::before {
+          margin-right: 0.25em;
+          content: "\25BA";
+        }
+      }
+
+      > *:not(summary) {
+        padding-left: 1.25em;
+      }
+    }
+
+    details[open] > summary:first-child {
+      margin-bottom: 0.5em;
+
+      &::before {
+        content: "\25BC";
+      }
+    }
+
     ol,
     ul {
       margin-top: 0;
