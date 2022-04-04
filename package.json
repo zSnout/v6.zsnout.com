@@ -8,7 +8,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "chess.js": "^0.12.1",
+    "chess.js": "^0.13.0",
     "chessground": "^8.2.1",
     "katex": "^0.15.3",
     "pinia": "^2.0.13",
