@@ -5,6 +5,12 @@
 
   let links: Link[] = [
     {
+      name: "Mathemagical Tricks",
+      desc: "Have you ever wanted to convince your friend that you have psychic powers? Learn how to use mathematical tricks to convince your friend that you can read their mind.",
+      to: "/blog/mathemagical-tricks",
+      keywords: "modulus modular arithmetic",
+    },
+    {
       name: "Github Copilot is Amazing",
       desc: "Zachary Sakowitz talks about his experience using the coding assistant GitHub Copilot. He shares some of the benefits of using GitHub Copilot as well as the downsides.",
       to: "/blog/github-copilot-is-amazing",
