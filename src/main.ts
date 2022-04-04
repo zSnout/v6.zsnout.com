@@ -69,6 +69,10 @@ export let router = createRouter({
       component: () => import("@/views/blog/InfinityIsMinusOneTwelfth.md"),
     },
     {
+      path: "/blog/mathemagical-tricks",
+      component: () => import("@/views/blog/MathemagicalTricks.md"),
+    },
+    {
       path: "/blog/what-makes-zsnout-different",
       component: () => import("@/views/blog/WhatMakesZSnoutDifferentView.md"),
     },
