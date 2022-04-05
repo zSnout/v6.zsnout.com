@@ -28,6 +28,8 @@
     (event: "move", intercept: Intercept, game: ChessInstance, api: Api): void;
   }>();
 
+  console.log(Chess().SQUARES);
+
   async function afterMove(orig: Key, dest: Key) {
     if (orig == "a0" || dest == "a0" || !api) return;
 
