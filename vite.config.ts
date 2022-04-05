@@ -20,6 +20,7 @@ async function getPublicEntries() {
 
   for (let file of files) {
     let relativePath = file.replace(publicDir + "/", "");
+    if (relativePath == "404.html") return;
     entries.push({ url: relativePath, revision });
   }
 
