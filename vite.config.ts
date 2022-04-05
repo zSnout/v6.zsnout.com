@@ -12,6 +12,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import type { ManifestEntry } from "workbox-build";
 
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
+if (publicDir.endsWith("/")) publicDir = publicDir.slice(0, -1);
 let revision = Math.random().toString().slice(2);
 
 async function getPublicEntries() {
@@ -19,7 +20,7 @@ async function getPublicEntries() {
   let files = await promisify(glob)(`${publicDir}/**/*`);
 
   for (let file of files) {
-    let relativePath = file.replace(publicDir + "/", "");
+    let relativePath = file.slice(publicDir.length);
     if (relativePath == "404.html") return;
     entries.push({ url: relativePath, revision });
   }
