@@ -1,6 +1,5 @@
 <template>
   <svg
-    alt="The zSnout logo"
     fill="none"
     stroke="none"
     stroke-linecap="square"
@@ -10,6 +9,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <title>The zSnout logo. Click to go home.</title>
     <clipPath id="g117b65f3f4b_1_0.0">
       <path
         clip-rule="nonzero"
