@@ -14,7 +14,7 @@ import type { ManifestEntry } from "workbox-build";
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
 
-async function getPublicEntries(): Promise<ManifestEntry[]> {
+async function getPublicEntries() {
   let entries: ManifestEntry[] = [];
   let files = await promisify(glob)(`${publicDir}/**/*`);
 
@@ -42,7 +42,6 @@ export default new Promise<UserConfigExport>(async (resolve) =>
         },
       }),
       VitePWA({
-        manifest: false,
         workbox: {
           navigateFallback: "/index.html",
           cleanupOutdatedCaches: true,
