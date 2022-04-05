@@ -17,15 +17,7 @@ export default new Promise<UserConfigExport>(async (resolve) =>
   resolve({
     publicDir,
     plugins: [
-      Vue({
-        include: [/\.vue$/, /\.md$/],
-        template: {
-          compilerOptions: {
-            // Required because Vue seems to think that an `<a>` tag from Markdown is a custom element.
-            isNativeTag: (tag) => tag.toLowerCase()[0] == tag[0],
-          },
-        },
-      }),
+      Vue({ include: [/\.vue$/, /\.md$/] }),
       VueJSX(),
       ViteMD({
         wrapperComponent: "Article",
