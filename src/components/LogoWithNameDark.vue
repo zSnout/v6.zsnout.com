@@ -1,5 +1,6 @@
 <template>
   <svg
+    alt="The zSnout logo"
     fill="none"
     stroke="none"
     stroke-linecap="square"
