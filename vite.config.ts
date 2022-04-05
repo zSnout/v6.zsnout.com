@@ -21,7 +21,7 @@ async function getPublicEntries() {
 
   for (let file of files) {
     let relativePath = file.slice(publicDir.length);
-    if (relativePath == "404.html") return;
+    if (relativePath.includes("404.html")) continue;
     entries.push({ url: relativePath, revision });
   }
 
