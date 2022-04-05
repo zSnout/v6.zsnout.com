@@ -9,9 +9,22 @@ import { promisify } from "util";
 import type { UserConfigExport } from "vite";
 import ViteMD from "vite-plugin-md";
 import { VitePWA } from "vite-plugin-pwa";
+import type { ManifestEntry } from "workbox-build";
 
 let publicDir = fileURLToPath(new URL("./public", import.meta.url));
 let revision = Math.random().toString().slice(2);
+
+async function getPublicEntries(): Promise<ManifestEntry[]> {
+  let entries: ManifestEntry[] = [];
+  let files = await promisify(glob)(`${publicDir}/**/*`);
+
+  for (let file of files) {
+    let relativePath = file.replace(publicDir + "/", "");
+    entries.push({ url: relativePath, revision });
+  }
+
+  return entries;
+}
 
 export default new Promise<UserConfigExport>(async (resolve) =>
   resolve({
@@ -29,7 +42,6 @@ export default new Promise<UserConfigExport>(async (resolve) =>
         },
       }),
       VitePWA({
-        devOptions: { enabled: false },
         manifest: false,
         workbox: {
           navigateFallback: "/index.html",
@@ -37,14 +49,7 @@ export default new Promise<UserConfigExport>(async (resolve) =>
           sourcemap: false,
           clientsClaim: true,
           skipWaiting: true,
-          additionalManifestEntries: await promisify(glob)(
-            `${publicDir}/**/*`
-          ).then((matches) =>
-            matches.map((url) => ({
-              url: url.slice(publicDir.length + 1),
-              revision,
-            }))
-          ),
+          additionalManifestEntries: await getPublicEntries(),
         },
       }),
     ],
