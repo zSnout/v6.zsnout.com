@@ -9,6 +9,7 @@ import { Chess } from "chess.js";
 let chess = Chess();
 console.log(chess);
 console.log(chess.SQUARES);
+(window as any).abc = chess;
 
 Object.entries = Object.entries || entries;
 function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
