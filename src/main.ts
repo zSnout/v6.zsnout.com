@@ -4,12 +4,6 @@ import { registerSW } from "virtual:pwa-register";
 import { createApp, defineAsyncComponent } from "vue";
 import { GlobalEvents } from "vue-global-events";
 import { createRouter, createWebHistory } from "vue-router";
-import { Chess } from "chess.js";
-
-let chess = Chess();
-console.log(chess);
-console.log(chess.SQUARES);
-(window as any).abc = chess;
 
 Object.entries = Object.entries || entries;
 function entries<K extends string, V>(obj: { [X in K]: V }): [K, V][];
