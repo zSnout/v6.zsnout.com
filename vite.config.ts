@@ -51,6 +51,7 @@ export default new Promise<UserConfigExport>(async (resolve) =>
           clientsClaim: true,
           skipWaiting: true,
           additionalManifestEntries: await getPublicEntries(),
+          maximumFileSizeToCacheInBytes: 1024 ** 5,
         },
       }),
     ],
