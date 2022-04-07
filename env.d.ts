@@ -2,6 +2,7 @@
 /// <reference types="vite-plugin-pwa/client" />
 
 import { CSSProperties, Ref, Component } from "vue";
+import { ChessInstance } from "chess.js";
 
 declare global {
   type StyleValueRefs = {
@@ -34,4 +35,47 @@ declare module "ace-builds" {
     deps: string[],
     factory: (...args: any[]) => void
   ): void;
+}
+
+// This is a temporary fix because @types/chess.js hasn't updated to support v0.13 yet.
+declare module "chess.js" {
+  export interface Chess13Instance
+    extends Omit<
+      ChessInstance,
+      | "WHITE"
+      | "BLACK"
+      | "PAWN"
+      | "KNIGHT"
+      | "BISHOP"
+      | "ROOK"
+      | "QUEEN"
+      | "KING"
+      | "SQUARES"
+      | "FLAGS"
+    > {}
+
+  export const Chess: {
+    new (fen?: string): Chess13Instance;
+    (fen?: string): Chess13Instance;
+  };
+
+  export const WHITE: "w";
+  export const BLACK: "b";
+
+  export const PAWN: "p";
+  export const KNIGHT: "n";
+  export const BISHOP: "b";
+  export const ROOK: "r";
+  export const QUEEN: "q";
+  export const KING: "k";
+
+  export const FlAGS: {
+    BIG_PAWN: "b";
+    CAPTURE: "c";
+    EP_CAPTURE: "e";
+    KSIDE_CASTLE: "k";
+    NORMAL: "n";
+    PROMOTION: "p";
+    QSIDE_CASTLE: "q";
+  };
 }
