@@ -1,4 +1,4 @@
-import type { ChessInstance, ShortMove } from "chess.js";
+import type { Chess13Instance, ShortMove } from "chess.js";
 import Stockfish from "stockfish.js/stockfish.js?worker";
 import bookRaw from "./stockfish-book.txt?raw";
 
@@ -26,7 +26,7 @@ function waitUntilUciOk() {
   });
 }
 
-export function nextGMMove(game: ChessInstance) {
+export function nextGMMove(game: Chess13Instance) {
   let pgn = game.pgn().replace(/\d+\. /g, "");
   let moves = [
     ...new Set(
@@ -34,7 +34,7 @@ export function nextGMMove(game: ChessInstance) {
         .filter((e) => e.startsWith(pgn))
         .map((e) => e.slice(pgn.length))
         .map((e) => e.split(" ")[0] || e.split(" ")[1])
-        .filter((e) => e != "0-1" && e != "1-0" && e != "1/2-1/2" && e)
+        .filter((e) => e)
     ),
   ];
 
@@ -44,7 +44,7 @@ export function nextGMMove(game: ChessInstance) {
   return game.move(move) ? game.undo() : null;
 }
 
-export async function analyze(position: ChessInstance) {
+export async function analyze(position: Chess13Instance) {
   let gmMove = nextGMMove(position);
   await onUciOk;
 
