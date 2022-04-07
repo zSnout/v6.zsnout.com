@@ -4,7 +4,7 @@
   } from "@/components/LegalMoveChessboard.vue";
   import NavLink from "@/components/NavLink.vue";
   import { router } from "@/main";
-  import type { ChessInstance } from "chess.js";
+  import type { Chess13Instance } from "chess.js";
   import type { Api } from "chessground/api";
   import { useRoute } from "vue-router";
 
@@ -19,12 +19,12 @@
     return fen.replace(/_/g, "/").replace(/:/g, " ");
   }
 
-  function onReady(api: Api, game: ChessInstance) {
+  function onReady(api: Api, game: Chess13Instance) {
     _flip = () => api.toggleOrientation();
     router.replace(`/chess/board/${encode(game.fen())}`);
   }
 
-  function onMove(_: Intercept, game: ChessInstance) {
+  function onMove(_: Intercept, game: Chess13Instance) {
     router.replace(`/chess/board/${encode(game.fen())}`);
   }
 

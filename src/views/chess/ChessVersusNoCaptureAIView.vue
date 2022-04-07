@@ -1,10 +1,10 @@
 <script lang="ts" setup>
   import ChessVersusAI from "@/components/ChessVersusAI.vue";
-  import type { ChessInstance } from "chess.js";
+  import type { Chess13Instance } from "chess.js";
 
   let pieces = ["k", "q", "r", "b", "n", "p", undefined];
 
-  function onMove(game: ChessInstance) {
+  function onMove(game: Chess13Instance) {
     let moves = game.moves({ verbose: true });
     moves
       .sort(() => (Math.random() < 0.5 ? -1 : 1))

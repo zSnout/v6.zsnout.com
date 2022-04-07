@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { router } from "@/main";
-  import type { ChessInstance, ShortMove } from "chess.js";
+  import type { Chess13Instance, ShortMove } from "chess.js";
   import type { Api } from "chessground/api";
   import { ref } from "vue";
   import { useRoute } from "vue-router";
@@ -11,7 +11,7 @@
   import NavLink from "./NavLink.vue";
 
   export type MoveGenerator = (
-    game: ChessInstance,
+    game: Chess13Instance,
     api: Api
   ) => ShortMove | Promise<ShortMove | undefined> | undefined;
 
@@ -32,7 +32,7 @@
       : "b";
   let orientation = ref<"white" | "black">(mode == "w" ? "white" : "black");
 
-  async function onMove(intercept: Intercept, game: ChessInstance, api: Api) {
+  async function onMove(intercept: Intercept, game: Chess13Instance, api: Api) {
     if (game.turn() != mode) intercept(move(game, api));
   }
 

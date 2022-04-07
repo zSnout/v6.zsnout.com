@@ -1,22 +1,22 @@
 <script lang="ts" setup>
   import { analyze } from "@/assets/stockfish";
   import ChessVersusAI from "@/components/ChessVersusAI.vue";
-  import type { ChessInstance, Square } from "chess.js";
+  import { SQUARES, type Chess13Instance, type Square } from "chess.js";
 
-  async function onMove(game: ChessInstance) {
+  async function onMove(game: Chess13Instance) {
     let { bestMove } = await analyze(game);
     return bestMove;
   }
 
-  function getAllMoves(game: ChessInstance) {
+  function getAllMoves(game: Chess13Instance) {
     let map = new Map<Square, Square[]>();
 
-    for (let square of game.SQUARES) {
+    for (let square of SQUARES) {
       let dests: Square[] = [];
       let piece = game.get(square);
       if (piece?.color != game.turn()) continue;
 
-      for (let dest of game.SQUARES) {
+      for (let dest of SQUARES) {
         let piece = game.get(dest);
         if (piece?.color == game.turn()) continue;
 

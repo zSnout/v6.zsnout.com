@@ -1,12 +1,18 @@
 <script lang="ts" setup>
   import Chessboard from "@/components/Chessboard.vue";
-  import { Chess, type Square, type ChessInstance, type ShortMove } from "chess.js"; // prettier-ignore
+  import {
+    Chess,
+    SQUARES,
+    type Chess13Instance,
+    type ShortMove,
+    type Square,
+  } from "chess.js";
   import type { Api } from "chessground/api";
   import type { Config } from "chessground/config";
   import type { Key } from "chessground/types";
 
   export type DestinationGenerator = (
-    game: ChessInstance
+    game: Chess13Instance
   ) => Map<Square, Square[]>;
 
   export type Intercept = (
@@ -24,8 +30,13 @@
   }>();
 
   let emit = defineEmits<{
-    (event: "ready", api: Api, game: ChessInstance): void;
-    (event: "move", intercept: Intercept, game: ChessInstance, api: Api): void;
+    (event: "ready", api: Api, game: Chess13Instance): void;
+    (
+      event: "move",
+      intercept: Intercept,
+      game: Chess13Instance,
+      api: Api
+    ): void;
   }>();
 
   async function afterMove(orig: Key, dest: Key) {
@@ -72,7 +83,7 @@
   }
 
   let api: Api | undefined;
-  let game = Chess(position);
+  let game: Chess13Instance = Chess(position);
   let config: Config = {
     fen: game.fen().split(" ")[0],
     orientation,
@@ -90,7 +101,7 @@
     if (destinations) return destinations(game);
 
     let dests = new Map<Square, Square[]>();
-    for (let square of game.SQUARES) {
+    for (let square of SQUARES) {
       let moves = game.moves({ square, verbose: true });
       if (moves.length)
         dests.set(
