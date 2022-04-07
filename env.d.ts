@@ -78,4 +78,6 @@ declare module "chess.js" {
     PROMOTION: "p";
     QSIDE_CASTLE: "q";
   };
+
+  export const SQUARES: readonly Square[];
 }
