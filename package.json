@@ -11,7 +11,7 @@
     "chess.js": "^0.13.0",
     "chessground": "^8.2.1",
     "stockfish.js": "^10.0.2",
-    "vue": "^3.2.31",
+    "vue": "^3.2.32",
     "vue-global-events": "^2.1.1",
     "vue-router": "^4.0.14",
     "vue3-ace-editor": "^2.2.2"
