@@ -353,6 +353,7 @@
   <CoordinateCanvas
     :breakpoint="650"
     :shader="glShader"
+    preserve-drawing-buffer
     show-reset-button
     @ready="onReady"
   >

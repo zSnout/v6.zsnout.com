@@ -29,10 +29,12 @@
   let emit = defineEmits<{
     (event: "ready", info: CoordinateCanvasInfo): void;
   }>();
+
   let props = defineProps<{
     shader: string;
     showResetButton?: boolean;
     breakpoint?: number;
+    preserveDrawingBuffer?: boolean;
   }>();
 
   let { showResetButton, breakpoint } = props;
@@ -265,6 +267,7 @@
 <template>
   <WebGL2Canvas
     :breakpoint="breakpoint"
+    :preserve-drawing-buffer="preserveDrawingBuffer"
     :shader="coordConvertShader + shader"
     @ready="onReady"
   >

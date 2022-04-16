@@ -54,7 +54,11 @@
 
   let emit = defineEmits<{ (event: "ready", info: WebGL2ProgramInfo): void }>();
 
-  let { shader } = defineProps<{ shader: string; breakpoint?: number }>();
+  let { shader, preserveDrawingBuffer } = defineProps<{
+    shader: string;
+    breakpoint?: number;
+    preserveDrawingBuffer?: boolean;
+  }>();
 
   let vertShader = `
   #version 300 es
@@ -69,7 +73,7 @@
   `.trim();
 
   function onReady(canvas: HTMLCanvasElement) {
-    let gl = canvas.getContext("webgl2")!;
+    let gl = canvas.getContext("webgl2", { preserveDrawingBuffer })!;
     if (!gl) return;
     let lastProgram: WebGLProgram | null = null;
 
