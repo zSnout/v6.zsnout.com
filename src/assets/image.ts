@@ -112,12 +112,22 @@ export function isNearBorder(image: ImageData, x: number, y: number) {
   let d3 = px(x, y - 1);
   let d4 = px(x, y + 1);
 
-  console.log([r, g, b], d1, d2, d3, d4);
-
   for (let [r1, g1, b1] of [d1, d2, d3, d4]) {
     if (Math.abs(r - r1) > 16 || Math.abs(g - g1) > 16 || Math.abs(b - b1) > 16)
       return true;
   }
 
   return false;
+}
+
+export function findBorderSpot(
+  image: ImageData
+): [x: number, y: number] | null {
+  for (let i = 0; i < 100; i++) {
+    let x = ~~(Math.random() * image.width);
+    let y = ~~(Math.random() * image.height);
+    if (isNearBorder(image, x, y)) return [x, y];
+  }
+
+  return null;
 }
