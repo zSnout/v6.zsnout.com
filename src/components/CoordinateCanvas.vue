@@ -12,6 +12,8 @@
     updateCoords(coords: CoordinateList): void;
     getCode(): string;
     loadCode(code: string): void;
+
+    zoom(x: number, y: number, strength: number): void;
   }
 
   export interface CoordinateList {
@@ -126,6 +128,11 @@
       loadCode,
       getCoords: computeEndpoints,
       render: renderCanvas,
+      zoom: (x, y, strength) => {
+        let xp = (x - xStart) / (xEnd - xStart);
+        let yp = (y - yStart) / (yEnd - yStart);
+        executeZoom(xp, yp, strength);
+      },
     });
 
     let isMouseDown = false;
