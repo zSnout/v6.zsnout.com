@@ -90,3 +90,34 @@ export async function greenBlueSwap() {
 
   downloadImage(await dataToImage(image));
 }
+
+export function glImageData(gl: WebGL2RenderingContext) {
+  let { width, height } = gl.canvas;
+
+  let data = new Uint8ClampedArray(4 * width * height);
+  gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  return new ImageData(data, width, height);
+}
+
+export function isNearBorder(image: ImageData, x: number, y: number) {
+  let px = (x: number, y: number) => {
+    let loc = 4 * (y * image.width + x);
+    return [image.data[loc], image.data[loc + 1], image.data[loc + 2]];
+  };
+
+  let [r, g, b] = px(x, y);
+  let d1 = px(x - 1, y);
+  let d2 = px(x + 1, y);
+  let d3 = px(x, y - 1);
+  let d4 = px(x, y + 1);
+
+  console.log([r, g, b], d1, d2, d3, d4);
+
+  for (let [r1, g1, b1] of [d1, d2, d3, d4]) {
+    if (Math.abs(r - r1) > 16 || Math.abs(g - g1) > 16 || Math.abs(b - b1) > 16)
+      return true;
+  }
+
+  return false;
+}
