@@ -8,7 +8,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "chess.js": "^0.13.0",
+    "chess.js": "^0.13.1",
     "chessground": "^8.2.1",
     "stockfish.js": "^10.0.2",
     "vue": "^3.2.33",
