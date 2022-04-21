@@ -1,1 +1,0 @@
-import{a}from"./stockfish.3ac7f8d4.js";import{_ as r}from"./ChessVersusAI.cdf00d07.js";import{d as n,o as s,c}from"./index.a223af98.js";import"./LegalMoveChessboard.7f4f5698.js";const u=n({setup(m){async function t(o){let{bestMove:e}=await a(o);return e}return(o,e)=>(s(),c(r,{move:t}))}});export{u as default};
