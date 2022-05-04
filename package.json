@@ -14,7 +14,7 @@
     "stockfish.js": "^10.0.2",
     "vue": "^3.2.33",
     "vue-global-events": "^2.1.1",
-    "vue-router": "^4.0.14",
+    "vue-router": "^4.0.15",
     "vue3-ace-editor": "^2.2.2"
   },
   "devDependencies": {
