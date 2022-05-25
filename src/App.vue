@@ -17,7 +17,6 @@
   @import "@/assets/theme.scss";
 
   * {
-    box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
