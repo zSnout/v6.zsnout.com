@@ -73,7 +73,10 @@
   let linksEl = ref<HTMLElement | null>(null);
 
   onMounted(() => {
-    if (autofocus && !scrollY) fieldEl.value?.focus();
+    if (autofocus && !scrollY && !matchMedia("(pointer: coarse)".matches) {
+      fieldEl.value?.focus();
+    }
+
     window.addEventListener("keydown", onKeyDown);
   });
 
