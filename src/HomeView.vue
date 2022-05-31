@@ -52,6 +52,12 @@
       keywords: "word",
     },
     {
+      to: "/same-number-generator",
+      name: "Same Number Generator",
+      desc: "It's like a random number generator, but it generates the same number every time.",
+      keywords: "randoms numbers",
+    },
+    {
       to: "/trope-highlighter",
       name: "Hebrew Trope Highlighter",
       desc: "Color Hebrew words based on their tropes to make them stand out and aid with learning.",

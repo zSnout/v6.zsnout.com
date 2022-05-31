@@ -309,6 +309,10 @@ export let router = createRouter({
       component: () => import("@/views/RainbowNoiseView.vue"),
     },
     {
+      path: "/same-number-generator",
+      component: () => import("@/views/SameNumberGenerator.vue"),
+    },
+    {
       path: "/storymatic",
       component: () => import("@/views/StorymaticEditorView.vue"),
     },
