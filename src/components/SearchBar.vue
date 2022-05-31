@@ -73,7 +73,7 @@
   let linksEl = ref<HTMLElement | null>(null);
 
   onMounted(() => {
-    if (autofocus && !scrollY && !matchMedia("(pointer: coarse)".matches) {
+    if (autofocus && !scrollY && !matchMedia("(pointer: coarse)").matches) {
       fieldEl.value?.focus();
     }
 
