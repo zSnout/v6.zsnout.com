@@ -5,11 +5,17 @@
 
   let min = ref(1);
   let max = ref(10);
+  let inst = ref(0);
 
-  let number = computed(() => {
+  let gen = computed(() => {
     let minSeed = create("" + min.value).intBetween(0, 0xffffff);
     let maxSeed = create("" + max.value).intBetween(0, 0xffffff);
-    return create("" + minSeed * maxSeed).intBetween(min.value, max.value);
+    return create("" + minSeed * maxSeed);
+  });
+
+  let number = computed(() => {
+    inst.value;
+    return gen.value.intBetween(min.value, max.value);
   });
 </script>
 
@@ -19,6 +25,8 @@
       <input v-model="min" placeholder="Minimum" type="number" />
       <input v-model="max" placeholder="Maximum" type="number" />
     </div>
+
+    <button class="generate" @click="inst++">Generate another number...</button>
 
     <p class="result">Here's a number: {{ number }}</p>
   </DocumentDisplay>
