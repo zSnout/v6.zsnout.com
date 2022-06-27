@@ -1,1 +1,0 @@
-import{Q as t}from"./Quiz.ae0b859a.js";import{d as o,o as n,e as s}from"./index.075875a4.js";const p=o({__name:"SquareQuizView",setup(u){function a(){let e=Math.floor(19*Math.random())+2,r=e**2;return Math.random()<.5?{prefix:`${e}\xB2 = `,answers:[r]}:{prefix:`\u221A${r} = `,answers:[e]}}return(e,r)=>(n(),s(t,{generator:a}))}});export{p as default};
