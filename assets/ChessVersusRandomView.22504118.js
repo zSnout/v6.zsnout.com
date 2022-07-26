@@ -1,0 +1,1 @@
+import{_ as r}from"./ChessVersusAI.d65c3fa5.js";import{d as n,o as s,e as m}from"./index.9f30c162.js";import"./LegalMoveChessboard.8ad7d1a5.js";const i=n({__name:"ChessVersusRandomView",setup(a){function t(o){let e=o.moves({verbose:!0});return e[Math.floor(Math.random()*e.length)]}return(o,e)=>(s(),m(r,{move:t}))}});export{i as default};
