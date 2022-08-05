@@ -1,7 +1,15 @@
+<script lang="ts" setup>
+  import DocumentDisplay from "./DocumentDisplay.vue";
+
+  defineProps<{ frontmatter?: any }>();
+</script>
+
 <template>
-  <div class="prose">
-    <slot />
-  </div>
+  <DocumentDisplay>
+    <div class="prose">
+      <slot />
+    </div>
+  </DocumentDisplay>
 </template>
 
 <style>

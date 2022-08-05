@@ -343,10 +343,10 @@ export let router = createRouter({
   ],
 });
 
-let ZArticle = defineAsyncComponent(() => import("@/components/ZArticle.vue"));
+let Prose = defineAsyncComponent(() => import("@/components/Prose.vue"));
 
 export let app = createApp(App);
-app.component("ZArticle", ZArticle);
+app.component("Prose", Prose);
 app.component("GlobalEvents", GlobalEvents);
 app.use(router).mount("#app");
 
@@ -379,7 +379,7 @@ declare global {
 
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
-    ZArticle: typeof ZArticle;
+    Prose: typeof Prose;
     GlobalEvents: typeof GlobalEvents;
   }
 }
