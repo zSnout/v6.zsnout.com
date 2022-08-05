@@ -343,10 +343,10 @@ export let router = createRouter({
   ],
 });
 
-let Article = defineAsyncComponent(() => import("@/components/Article.vue"));
+let ZArticle = defineAsyncComponent(() => import("@/components/ZArticle.vue"));
 
 export let app = createApp(App);
-app.component("Article", Article);
+app.component("ZArticle", ZArticle);
 app.component("GlobalEvents", GlobalEvents);
 app.use(router).mount("#app");
 
