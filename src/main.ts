@@ -379,7 +379,7 @@ declare global {
 
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
-    Article: typeof Article;
+    ZArticle: typeof ZArticle;
     GlobalEvents: typeof GlobalEvents;
   }
 }
