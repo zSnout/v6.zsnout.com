@@ -35,7 +35,7 @@ export default new Promise<UserConfigExport>(async (resolve) =>
       Vue({ include: [/\.vue$/, /\.md$/] }),
       VueJSX(),
       ViteMD({
-        wrapperComponent: "Article",
+        wrapperComponent: "ZArticle",
         markdownItSetup(markdown) {
           markdown
             .use(MarkdownItKatex, { throwOnError: false })
