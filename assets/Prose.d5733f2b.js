@@ -1,0 +1,1 @@
+import{_ as s,d as _,o as a,c as t,w as o,a as r,h as n,D as d}from"./index.6ca718b5.js";const l={class:"prose"},c=_({__name:"Prose",props:{frontmatter:null},setup(p){return(e,u)=>(a(),t(d,null,{default:o(()=>[r("div",l,[n(e.$slots,"default",{},void 0,!0)])]),_:3}))}});var v=s(c,[["__scopeId","data-v-3f5adc6d"]]);export{v as default};

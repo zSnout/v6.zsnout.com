@@ -1,0 +1,1 @@
+import{o as a,c as o,w as e,D as t,j as s,b as n,N as c,a as l}from"./index.6ca718b5.js";const r=l("h1",null,"Well, you've found a broken link...",-1),p={__name:"NotFoundView",setup(u){return(_,d)=>(a(),o(t,null,{nav:e(()=>[s(c,{to:"/"},{default:e(()=>[n("Home")]),_:1})]),default:e(()=>[r]),_:1}))}};export{p as default};

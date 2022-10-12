@@ -1,1 +1,0 @@
-import{o as a,c as o,w as e,D as t,j as s,N as n,b as c,a as _}from"./index.440dd458.js";const l=c("Home"),r=_("h1",null,"Well, you've found a broken link...",-1),f={__name:"NotFoundView",setup(u){return(d,i)=>(a(),o(t,null,{nav:e(()=>[s(n,{to:"/"},{default:e(()=>[l]),_:1})]),default:e(()=>[r]),_:1}))}};export{f as default};
