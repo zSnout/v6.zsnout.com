@@ -21,7 +21,7 @@
   "devDependencies": {
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@types/chess.js": "^0.13.4",
-    "@types/glob": "^8.0.0",
+    "@types/glob": "^8.0.1",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.11.18",
     "@types/random-seed": "^0.3.3",
