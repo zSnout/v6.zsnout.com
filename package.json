@@ -10,7 +10,7 @@
   "dependencies": {
     "async": "^3.2.4",
     "chess.js": "^0.13.4",
-    "chessground": "^8.3.6",
+    "chessground": "^8.3.7",
     "random-seed": "^0.3.0",
     "stockfish.js": "^10.0.2",
     "vue": "^3.2.45",
