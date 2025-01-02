@@ -1,4 +1,4 @@
-_Published by Zachary Sakowitz on December 7, 2021._
+_Published by sakawi on December 7, 2021._
 
 Ever wondered what day your friend's birthday occurred, or whether the next July
 4th will be a Thursday? You can calculate it using simple math, which you'll

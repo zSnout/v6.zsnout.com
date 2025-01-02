@@ -12,7 +12,7 @@
     },
     {
       name: "Github Copilot is Amazing",
-      desc: "Zachary Sakowitz talks about his experience using the coding assistant GitHub Copilot. He shares some of the benefits of using GitHub Copilot as well as the downsides.",
+      desc: "sakawi talks about his experience using the coding assistant GitHub Copilot. He shares some of the benefits of using GitHub Copilot as well as the downsides.",
       to: "/blog/github-copilot-is-amazing",
       keywords: "autocomplete assistants",
     },

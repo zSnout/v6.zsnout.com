@@ -1,4 +1,4 @@
-_Published by Zachary Sakowitz on December 7, 2021._
+_Published by sakawi on December 7, 2021._
 
 You probably know how to find out if a number is divisible by 2, 5, or 10. But
 did you know that there's simple divisibility rules for other numbers? Let's

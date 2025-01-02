@@ -1,4 +1,4 @@
-_Published by Zachary Sakowitz on December 8, 2021._
+_Published by sakawi on December 8, 2021._
 
 The "0 = 1" paradox states that the numbers 0 and 1 are equivalent. We can
 easily prove this. Once done, we'll show you how you can use this to prove that

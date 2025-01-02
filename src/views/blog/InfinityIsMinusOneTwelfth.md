@@ -1,4 +1,4 @@
-_Published by Zachary Sakowitz on December 8, 2021._
+_Published by sakawi on December 8, 2021._
 
 Did you know that the sum of all whole numbers is equal to -1/12? In this
 article we find out how it's possible and prove it ourselves using simple

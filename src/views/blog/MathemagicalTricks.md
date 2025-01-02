@@ -1,4 +1,4 @@
-_Published by [Zachary Sakowitz][1] on April 3, 2022._
+_Published by [sakawi][1] on April 3, 2022._
 
 Have you ever wanted to convince your friend that you have psychic powers? In
 this article you'll learn how to use amazing mathematical principles to help you
